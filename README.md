@@ -76,8 +76,9 @@ strategy.
 
 - [Getting started](docs/getting-started.md) — install, the three-line
   API, and a walkthrough of what gets stored on the first few turns.
-- [Architecture](docs/architecture.md) — the layers, files, per-turn
-  flow, data model, LLM call points, persistence, extensibility.
+- [Architecture](docs/architecture.md) — visual tour of a memory dump,
+  every algorithm with concrete numbers, the layers, per-turn flow,
+  data model, LLM call points, persistence, extensibility.
 - [Concepts](docs/concepts.md) — nodes, edges, salience, episodes,
   enrichment metadata, and the JSON file shape on disk.
 - [How learning works](docs/learning.md) — recall modes, the update
