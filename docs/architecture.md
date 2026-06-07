@@ -3,6 +3,7 @@
 A bird's-eye view of how the pieces fit together and what happens on
 each turn.
 
+- [The whole framework at a glance](#the-whole-framework-at-a-glance)
 - [Visual tour](#visual-tour) — concrete diagrams of the memory dump
   and every algorithm
 - [The three layers](#the-three-layers)
@@ -13,6 +14,185 @@ each turn.
 - [Persistence](#persistence)
 - [Extensibility points](#extensibility-points)
 - [What's not in the framework](#whats-not-in-the-framework)
+
+## The whole framework at a glance
+
+```
++=====================================================================================================+
+|                          c o h e r e n c e   —   e v e r y   f e a t u r e                           |
++=====================================================================================================+
+
+   HOSTS — anything that can call a Python function or a tool
+
+   +-------------------+   +-------------------+   +-------------------+   +-------------------+
+   |  your Python loop |   |  Claude Code or   |   |  OpenAI/Anthropic |   |  custom harness   |
+   |  AutoMemory       |   |  Cursor via MCP   |   |  SDK loop         |   |  via dispatch()   |
+   +---------+---------+   +---------+---------+   +---------+---------+   +---------+---------+
+             |                       |                       |                       |
+             |        +--------------+----------+------------+-----------+-----------+
+             |        |                         |                        |
+             v        v                         v                        v
+   +-------------------------------------------------------------------------------------------+
+   |  coherence.integrations  -  one source of truth, four wire formats                        |
+   |  openai_tool_specs  |  anthropic_tool_specs  |  mcp_tool_descriptors  |  dispatch  |  ... |
+   +---------------------------+---------------------------------------------------------------+
+                               |
+                               v
+   ###########################################################################################
+   #                  A U T O M E M O R Y . c o m p l e t e ( user_message )                  #
+   ###########################################################################################
+   #                                                                                          #
+   #   +--- 1. CLOSE OUT PRIOR TURN ---------------------------------------------------+      #
+   #   |  stage previous turn into buffer with next_user = this user_message            |     #
+   #   |  if strategy in {self_assess, follow_up, custom}:  flush_outcomes()           |      #
+   #   +--------------------------------------------------------------------------------+     #
+   #                                       |                                                  #
+   #                                       v                                                  #
+   #   +--- 2. RECALL ------------------------------------------------------------------+     #
+   #   |                                                                                |     #
+   #   |   recall_mode == "auto" ?                                                       |    #
+   #   |     dump fits recall_threshold_chars  ->  LLM recall  (1 LLM call)              |    #
+   #   |                                            "ask the LLM to pick top-k IDs"      |    #
+   #   |     otherwise                         ->  BM25 forward pass (0 LLM calls)       |    #
+   #   |                                            base = match + tanh(weight)          |    #
+   #   |                                            spread = sum_j (W_ij * base_j)       |    #
+   #   |                                            a = tanh(base + gamma * spread)      |    #
+   #   |                                            top-k by activation                  |    #
+   #   |                                                                                |     #
+   #   |   + intrinsic_retrieval_bump (+0.02) added to each retrieved node's weight      |    #
+   #   |   + pack to context_budget_tokens (auto from context_length if you pass it)     |    #
+   #   +--------------------------------------------------------------------------------+     #
+   #                                       |                                                  #
+   #                                       v                                                  #
+   #   +--- 3. GENERATE ----------------------------------------------------------------+     #
+   #   |   chat_fn(system + history + retrieved_memories + user,                        |     #
+   #   |           tools=[memory_recall, memory_ingest,                                  |    #
+   #   |                  memory_reinforce, memory_maintenance])                         |    #
+   #   |                                                                                |     #
+   #   |   tool-call loop (max_tool_hops):                                              |     #
+   #   |     memory_recall      ->  forward pass, return memories                       |     #
+   #   |     memory_ingest      ->  Memory.ingest                                       |     #
+   #   |                            +- ENRICHMENT (1 LLM call: aliases, entities, kind) |     #
+   #   |     memory_reinforce   ->  delta-rule + Hebbian update                         |     #
+   #   |     memory_maintenance ->  decay + prune + optional consolidate                |     #
+   #   +--------------------------------------------------------------------------------+     #
+   #                                       |                                                  #
+   #                                       v                                                  #
+   #   +--- 4. STAGE -------------------------------------------------------------------+     #
+   #   |   pending = {user, reply, active_ids, active_texts, next_user=None}            |     #
+   #   |   append (user, reply) to canonical chat history                               |     #
+   #   +--------------------------------------------------------------------------------+     #
+   #                                       |                                                  #
+   #                                       v                                                  #
+   #   +--- 5. PERSIST -----------------------------------------------------------------+     #
+   #   |   if save_every_turn:  Memory.save("memory.json")                              |     #
+   #   +--------------------------------------------------------------------------------+     #
+   #                                       |                                                  #
+   ###########################################################################################
+                                           |
+                                           v
+                                      reply returned
+
+
+   OUTCOMES — the framework never guesses outcomes from how the user phrases their next message
+
+   +----------------+    +-----------------+    +-----------------+    +-------------------+
+   |    MANUAL      |    |   SELF_ASSESS   |    |   FOLLOW_UP     |    |     CUSTOM        |
+   |   (default)    |    |   batched LLM   |    |   regex only    |    |     callable      |
+   +----------------+    +-----------------+    +-----------------+    +-------------------+
+   |  0 LLM calls   |    | 1 LLM call per  |    |  0 LLM calls    |    |  per-turn user fn |
+   |                |    | judge_batch_    |    |                 |    |                   |
+   |  mem.report(   |    | size turns.     |    |  Fires ONLY on  |    |  (prev_user,      |
+   |    +1 or -1)   |    |                 |    |  UNAMBIGUOUS    |    |   prev_reply,     |
+   |  when you have |    | Judges the      |    |  corrections    |    |   next_user)      |
+   |  a verifier:   |    | agent's OWN     |    |  ("not what I   |    |   -> float [-1,1] |
+   |    test passed |    | action, NOT     |    |   meant",       |    |                   |
+   |    user clicked|    | the user's      |    |   "that's       |    |  Use for sentiment|
+   |    thumbs-up   |    | reaction.       |    |   wrong"...).   |    |  classifiers, UI  |
+   |    schema OK   |    |                 |    |  Silence and    |    |  events, etc.     |
+   +----------------+    | next_user is    |    |  thanks -> 0.   |    +-------------------+
+                         | NEVER in the    |    +-----------------+
+                         | judge's prompt. |
+                         +-----------------+
+
+   + LONG-HORIZON SIGNAL
+        mem.complete_goal(goal_id, outcome=+1.0)
+            walks experience log -> finds episodes whose active set included goal_id
+            -> retroactively reinforces those active sets with geometric recency weighting
+            -> memories that supported the goal earn their credit
+
+   + ALWAYS-ON DYNAMIC
+        intrinsic_retrieval_bump  (default +0.02 per recall, 0 LLM cost)
+        + decay in mem.forget()
+        => "memories that earn retrieval slowly grow, unused ones fade and get pruned"
+        runs in every strategy, including manual.
+
+
+   T H E   M E M O R Y   D U M P   —   o n e   h u m a n - r e a d a b l e   J S O N   f i l e
+
+   +------------------------------------- memory.json -------------------------------------+
+   |                                                                                       |
+   |   CONFIG                                                                              |
+   |   ------                                                                              |
+   |     eta=0.15  eta_edge=0.05  decay_node=0.01  decay_edge=0.02                         |
+   |     prune_floor=0.02  edge_floor=0.01  gamma=0.5  initial_weight=0.10                 |
+   |     eligibility_kind="proportional"   experience_log_cap=5000                         |
+   |                                                                                       |
+   |   NODES   (paragraph-sized, not single sentences)                                     |
+   |   -----                                                                               |
+   |      +------------------------------+    edge +0.27   +------------------------------+|
+   |      | id: a1f3                     | <-------------> | id: 7c92                     ||
+   |      | text: "Maren works on cold-  |  (positive      | text: "Stay off moss when    ||
+   |      |  resistant photosynthesis... |   association)  |  answering Maren's research."||
+   |      | weight:    +0.85             |                 | weight:    +0.42             ||
+   |      | activation (transient)       |                 | reinforced: 3                ||
+   |      | reinforced: 6                |                 | failed:     0                ||
+   |      | failed:     0                |                 | tags: ["constraint"]         ||
+   |      | tags: ["research"]           |                 | aliases: "avoid moss", ...   ||
+   |      | aliases: "what I study", ... |                 | entities: moss, Maren        ||
+   |      | entities: Chlamydomonas, ... |                 | kind: "constraint"           ||
+   |      | kind: "fact"                 |                 +------------------------------+|
+   |      +------------------------------+                                                 |
+   |               |                                                                       |
+   |               |  edge -0.14   (negative = "do not pair these")                        |
+   |               v                                                                       |
+   |      +------------------------------+                                                 |
+   |      | id: 9bd0                     |                                                 |
+   |      | text: "Sphagnum moss is a    |                                                 |
+   |      |  common arctic model org..." |                                                 |
+   |      | weight:    -0.31  (trap)     |  <- negative weights kept until decay erodes    |
+   |      | failed:     2                |     them; the "do-not-go-back" signal           |
+   |      | kind: "context"              |                                                 |
+   |      +------------------------------+                                                 |
+   |                                                                                       |
+   |   EDGES  (sparse dict, signed; sorted-id keys)                                        |
+   |   -----                                                                               |
+   |     (a1f3, 7c92): +0.27    (a1f3, 9bd0): -0.14    (7c92, 9bd0): +0.18                 |
+   |     (a1f3, 5d11): +0.12    (7c92, 5d11): +0.05                                        |
+   |                                                                                       |
+   |   LEXICAL INDEX  (BM25 over text + aliases tokens, rebuilt as nodes change)           |
+   |   -------------                                                                       |
+   |     token  ->  [node_ids]                                                             |
+   |                                                                                       |
+   |   EXPERIENCE LOG  (audit trail; last experience_log_cap episodes)                     |
+   |   --------------                                                                      |
+   |     ep 41 | "lipid remodelling at -5C"  | active=[a1f3,5d11]      | o=+1.0           |
+   |     ep 40 | "moss as a model system"    | active=[7c92,9bd0]      | o=-1.0           |
+   |     ep 39 | ...                                                                       |
+   |                                                                                       |
+   +---------------------------------------------------------------------------------------+
+                  |                                |                                |
+                  v                                v                                v
+       +------------------+            +------------------+              +-------------------+
+       | Memory.save(p)   |            | Memory.load(p)   |              | Memory.export(    |
+       | full snapshot,   |            | reads the JSON,  |              |   p, format=      |
+       | atomic write     |            | restores graph,  |              |   markdown / text |
+       |                  |            | rebuilds index   |              |   / json)         |
+       +------------------+            +------------------+              +-------------------+
+```
+
+Everything else in this document zooms into the boxes above with
+concrete numbers, the exact code paths, and the tunable knobs.
 
 ## Visual tour
 
