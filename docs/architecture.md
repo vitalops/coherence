@@ -50,85 +50,168 @@ flowchart LR
     classDef disk fill:#e5e7eb,stroke:#4b5563,color:#1f2937,stroke-width:2px
 ```
 
-### 2. The entire algorithmic flow — forward pass, backward pass, updates, in one picture
+### 2. The entire turn as a layered network — forward pass, backward pass, updates
 
-A layered view of the computation that runs on a single turn. Each layer
-is annotated with its operation, its output shape (`|N|` = total nodes,
-`k` = retrieved active set size), and a concrete sample so you can
-trace one turn end-to-end. State boxes (green) are read by the forward
-pass and written by the backward pass.
+Each circle is one memory node. Each column is a layer. Each edge between
+columns is one operation. The thick straight arrows are identity flow
+(the node's own contribution); the labeled arrows between L2 and L3 are
+the signed association weights (`W_ij`) — those are the values the
+backward pass also moves.
+
+**Forward pass — query enters at the left, top-k active set exits at the right.**
 
 ```mermaid
-flowchart TD
-    %% ============== Inputs and persistent state ==============
-    Q(["<b>INPUT · query</b><br/>'tell me about my research'"]):::input
-    NODES["<b>STATE · nodes</b> · shape: |N|<br/>w₁ = +0.85   w₂ = +0.42<br/>w₃ = −0.31   w₄ = +0.30"]:::state
-    EDGES["<b>STATE · edges</b> · sparse symmetric<br/>W(1,2)=+0.27  W(1,3)=−0.14<br/>W(2,3)=+0.18  W(1,4)=+0.12"]:::state
+flowchart LR
+    Q(("query")):::input
 
-    %% ============== Forward pass — layered stack ==============
-    F1["<b>L1 · Lexical match</b><br/>match_i = BM25( query , text_i ∪ aliases_i )<br/>output: |N| × 1 · range [0, 1]"]:::fwd
-    F2["<b>L2 · Salience bias</b><br/>base_i = match_i + tanh(weight_boost · w_i)<br/>output: |N| × 1 · bounded contribution"]:::fwd
-    F3["<b>L3 · Spreading activation (1-hop)</b><br/>spread_i = Σⱼ W_ij · base_j<br/>output: |N| × 1 · signed edges push & pull"]:::fwd
-    F4["<b>L4 · Squash</b><br/>a_i = tanh( base_i + γ · spread_i ),  γ = 0.5<br/>output: |N| × 1 · range [−1, +1]"]:::fwd
-    F5["<b>L5 · Top-k select + intrinsic bump</b><br/>active = argTopK_i(a_i),  k = recall_k<br/>w_i += intrinsic_retrieval_bump  ∀ i ∈ active<br/>output: k × 1"]:::active
+    subgraph L1["L1 · match"]
+        direction TB
+        m1(("n₁<br/>0.95")):::match
+        m2(("n₂<br/>0.40")):::match
+        m3(("n₃<br/>0.00")):::match
+        m4(("n₄<br/>0.00")):::match
+    end
 
-    SAMPLE["<b>worked example, this turn</b><br/>match  =  [0.95, 0.40, 0.00, 0.00]<br/>base    =  [+1.64, +0.80, −0.30, +0.29]<br/>spread  =  [+0.29, +0.39, −0.09, +0.24]<br/>a         =  [<b>+0.95</b>, <b>+0.76</b>, −0.32, <b>+0.39</b>]<br/>active = { n₁, n₂, n₄ }"]:::sample
+    subgraph L2["L2 · base = match + tanh(w)"]
+        direction TB
+        b1(("+1.64")):::base
+        b2(("+0.80")):::base
+        b3(("−0.30")):::base
+        b4(("+0.29")):::base
+    end
 
-    %% ============== Outcome ==============
-    OUT(["<b>INPUT · outcome ∈ [−1, +1]</b><br/>arrives from manual / self_assess /<br/>follow_up / custom / complete_goal"]):::input
+    subgraph L3["L3 · activation = tanh(base + γ · spread)"]
+        direction TB
+        a1(("<b>+0.95</b>")):::act
+        a2(("<b>+0.76</b>")):::act
+        a3(("−0.32")):::deact
+        a4(("<b>+0.39</b>")):::act
+    end
 
-    %% ============== Backward pass — layered stack ==============
-    B1["<b>B1 · Eligibility share</b><br/>elig_i = a_i / Σⱼ a_j   (proportional)<br/>output: k × 1<br/>example: [0.45, 0.36, 0.19]"]:::bwd
-    B2["<b>B2 · Delta-rule node update</b><br/>Δw_i = η · outcome · elig_i,  η = 0.15<br/>output: k × 1"]:::bwd
-    B3["<b>B3 · Hebbian edge update</b><br/>ΔW_ij = η_edge · outcome · elig_i · elig_j,  η_edge = 0.05<br/>output: C(k,2) × 1"]:::bwd
-    B4["<b>B4 · Append episode</b><br/>experiences.append( query, active_ids,<br/>outcome, timestamp )"]:::bwd
+    subgraph L4["L4 · top-k active set"]
+        direction TB
+        t1((("★ n₁"))):::top
+        t2((("★ n₂"))):::top
+        t4((("★ n₄"))):::top
+    end
 
-    UPDATE["<b>weights after this turn (outcome = +1.0)</b><br/>w₁ : +0.85 → <b>+0.92</b>     w₂ : +0.42 → +0.47     w₄ : +0.30 → +0.33<br/>W(1,2) : +0.27 → +0.28     W(1,4) : +0.12 → +0.12     W(2,4) : +0.05 → +0.05"]:::update
+    Q --> m1
+    Q --> m2
+    Q --> m3
+    Q --> m4
 
-    %% ============== Periodic maintenance ==============
-    MAINT["<b>maintenance · mem.forget()</b><br/>w_i  ⨯= (1 − decay_node)<br/>W_ij ⨯= (1 − decay_edge)<br/>delete node if |w_i| < prune_floor<br/>delete edge if |W_ij| < edge_floor"]:::maint
+    m1 --> b1
+    m2 --> b2
+    m3 --> b3
+    m4 --> b4
 
-    %% ============== Wiring ==============
-    Q --> F1
-    F1 --> F2
-    NODES -.->|"read w_i"| F2
-    F2 --> F3
-    EDGES -.->|"read W_ij"| F3
-    F3 --> F4 --> F5
-    F4 -.- SAMPLE
+    %% Identity contribution (base_i flows into a_i directly through the formula)
+    b1 ==> a1
+    b2 ==> a2
+    b3 ==> a3
+    b4 ==> a4
 
-    F5 -->|"active set + activations"| B1
-    OUT --> B1
-    B1 --> B2 --> B3 --> B4
-    B2 -->|"Δw"| UPDATE
-    B3 -->|"ΔW"| UPDATE
+    %% Spreading activation through signed edges W_ij
+    b1 -.->|"+0.27"| a2
+    b1 -.->|"−0.14"| a3
+    b1 -.->|"+0.12"| a4
+    b2 -.->|"+0.27"| a1
+    b2 -.->|"+0.18"| a3
+    b2 -.->|"+0.05"| a4
+    b3 -.->|"−0.14"| a1
+    b3 -.->|"+0.18"| a2
+    b4 -.->|"+0.12"| a1
+    b4 -.->|"+0.05"| a2
 
-    UPDATE -.->|"write w_i"| NODES
-    UPDATE -.->|"write W_ij"| EDGES
+    a1 --> t1
+    a2 --> t2
+    a4 --> t4
 
-    NODES -.- MAINT
-    EDGES -.- MAINT
-
-    %% ============== Styles ==============
     classDef input fill:#fef3c7,stroke:#d97706,color:#78350f,stroke-width:2px
-    classDef state fill:#dcfce7,stroke:#15803d,color:#14532d,stroke-width:2px
-    classDef fwd fill:#dbeafe,stroke:#1d4ed8,color:#1e3a8a,stroke-width:2px
-    classDef active fill:#f3e8ff,stroke:#7e22ce,color:#581c87,stroke-width:2px
-    classDef sample fill:#ffedd5,stroke:#c2410c,color:#7c2d12,stroke-width:1px,stroke-dasharray: 4 3
-    classDef bwd fill:#fce7f3,stroke:#be185d,color:#831843,stroke-width:2px
-    classDef update fill:#fee2e2,stroke:#b91c1c,color:#7f1d1d,stroke-width:2px
-    classDef maint fill:#e5e7eb,stroke:#4b5563,color:#1f2937,stroke-width:2px
+    classDef match fill:#e0e7ff,stroke:#4338ca,color:#312e81,stroke-width:2px
+    classDef base fill:#dbeafe,stroke:#1d4ed8,color:#1e3a8a,stroke-width:2px
+    classDef act fill:#dcfce7,stroke:#15803d,color:#14532d,stroke-width:3px
+    classDef deact fill:#fee2e2,stroke:#b91c1c,color:#7f1d1d,stroke-width:2px
+    classDef top fill:#f3e8ff,stroke:#7e22ce,color:#581c87,stroke-width:3px
 ```
 
-> **How to read it.** Yellow boxes are inputs to the turn. Green boxes
-> are persistent state read by the forward pass and written by the
-> backward pass. Blue boxes are the forward-pass layers (one operation
-> each, with its output shape). Purple is the layer that selects the
-> active set. Pink boxes are the backward-pass layers. Red is the
-> resulting weight update. The dashed orange callout next to L4 shows
-> the same forward pass run with concrete sample numbers so you can
-> trace the math end-to-end. Gray is the periodic maintenance pass
-> (decay + prune).
+**Backward pass — outcome enters at the left, weight updates flow into the trained weights at the right.**
+
+```mermaid
+flowchart LR
+    OUT(("outcome<br/>+1.0")):::input
+
+    subgraph EL["B1 · eligibility = a / Σa"]
+        direction TB
+        e1(("n₁<br/>0.45")):::elig
+        e2(("n₂<br/>0.36")):::elig
+        e4(("n₄<br/>0.19")):::elig
+    end
+
+    subgraph DW["B2 · Δw = η · outcome · elig"]
+        direction TB
+        dw1(("+0.068")):::delta
+        dw2(("+0.054")):::delta
+        dw4(("+0.028")):::delta
+    end
+
+    subgraph WN["B2 · w_new = w + Δw"]
+        direction TB
+        w1(("n₁<br/>+0.92")):::weight
+        w2(("n₂<br/>+0.47")):::weight
+        w4(("n₄<br/>+0.33")):::weight
+    end
+
+    subgraph HE["B3 · ΔW_ij = η_edge · outcome · elig_i · elig_j"]
+        direction TB
+        h12(("W(1,2)<br/>+0.28")):::edge
+        h14(("W(1,4)<br/>+0.12")):::edge
+        h24(("W(2,4)<br/>+0.05")):::edge
+    end
+
+    OUT --> e1
+    OUT --> e2
+    OUT --> e4
+
+    e1 --> dw1 --> w1
+    e2 --> dw2 --> w2
+    e4 --> dw4 --> w4
+
+    e1 -.- h12
+    e2 -.- h12
+    e1 -.- h14
+    e4 -.- h14
+    e2 -.- h24
+    e4 -.- h24
+
+    classDef input fill:#fef3c7,stroke:#d97706,color:#78350f,stroke-width:2px
+    classDef elig fill:#e9d5ff,stroke:#7e22ce,color:#581c87,stroke-width:2px
+    classDef delta fill:#fce7f3,stroke:#be185d,color:#831843,stroke-width:2px
+    classDef weight fill:#dcfce7,stroke:#15803d,color:#14532d,stroke-width:3px
+    classDef edge fill:#dbeafe,stroke:#1d4ed8,color:#1e3a8a,stroke-width:2px
+```
+
+> **How to read it.**
+>
+> * **L1 match** — one circle per memory node, value = BM25 score against
+>   the query.
+> * **L2 base** — adds the node's learned salience, bounded:
+>   `base_i = match_i + tanh(weight_boost · w_i)`.
+> * **L2 → L3 connections** — thick straight arrows are the node's own
+>   identity contribution; dashed labeled arrows are the signed
+>   association weights `W_ij`. These are what the backward pass updates.
+> * **L3 activation** — `a_i = tanh(base_i + γ · spread_i)`. Green
+>   circles fire above zero; the red circle (`n₃`) gets pushed down by
+>   the negative edge to `n₁` plus its own negative weight.
+> * **L4 top-k** — the active set selected for this turn. The intrinsic
+>   retrieval bump (+0.02) also applies here.
+> * **B1 eligibility** — each node's share of the total firing
+>   (`elig_i = a_i / Σa_j`). Outcome is multiplied through this share.
+> * **B2 Δw → w_new** — the delta-rule update lands back on the node
+>   weights. The green `w_new` circles are the trained values.
+> * **B3 ΔW** — pairs of active nodes (dashed connections) update their
+>   shared edge weight. These are the same `W_ij` that the forward pass
+>   used in L2 → L3 — the loop is closed.
 
 ### 3. Recall — `auto` mode picks between LLM and BM25
 
