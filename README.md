@@ -13,8 +13,12 @@ to extract aliases, entities, and a kind tag so the memory carries
 its own searchable surface. At recall time, the LLM reads the memory
 dump and picks the relevant chunks; once the dump grows past a
 context-sized threshold, BM25 word search takes over so recall stays
-affordable. Outcome judging is batched across turns. The whole memory
-is one human-readable JSON file you can also export to markdown.
+affordable. The framework never *guesses* outcomes from the user's
+next message — it reinforces when you tell it to (`mem.report()`),
+when an opt-in LLM judge grades the assistant's own action
+(`"self_assess"`), or retroactively when a goal is achieved
+(`mem.complete_goal()`). The whole memory is one human-readable JSON
+file you can also export to markdown.
 
 ## Use it
 
@@ -34,13 +38,22 @@ That is the full integration. Per turn, `AutoMemory`:
    `memory_reinforce`, `memory_maintenance`) the model may call,
 3. enriches any new ingest with one LLM call (aliases, entities, kind)
    so future recall catches semantic matches,
-4. buffers the turn for batched outcome judging — one LLM grading
-   call per `judge_batch_size` turns,
+4. gives every retrieved memory a small intrinsic bump (memories that
+   keep getting surfaced quietly build salience),
 5. saves the updated graph to disk.
 
 Pass `context_length=N` (the model's total context window in tokens)
-and the framework auto-tunes recall threshold and injection budget. Or
-set `recall_mode="bm25"` to drop the per-turn LLM recall call entirely.
+and the framework auto-tunes recall threshold and injection budget.
+Set `recall_mode="bm25"` to drop the per-turn LLM recall call entirely.
+
+**Outcomes are explicit, not inferred.** When you have a signal —
+verifier passed, user clicked thumbs-up, downstream task succeeded —
+call `mem.report(+1)` or `mem.report(-1)`. Or set
+`outcome_strategy="self_assess"` to have the LLM grade the agent's
+own action in batches (not the user's reaction). Or set
+`outcome_strategy="follow_up"` to demote memories only when the next
+user message contains an unambiguous correction ("no, that's wrong").
+The framework will not invent signal it doesn't have.
 
 If you have a verifier (a test runner, a ground-truth answer, an
 external classifier), switch `outcome_strategy="manual"` and call

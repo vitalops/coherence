@@ -314,13 +314,13 @@ def test_mcp_tool_descriptors_handler_executes():
 # --- AutoMemory --------------------------------------------------------------
 
 
-def _fake_chat_factory(replies=None, *, batched_score=0.0, recall_pick_first=0):
+def _fake_chat_factory(replies=None, *, self_assess_score=0.0, recall_pick_first=0):
     """A fake chat_fn that routes by system prompt:
 
-    - 'memory analyzer'         → return enrichment JSON (empty aliases)
-    - 'outcome judge'           → return ``batched_score`` for every turn
-    - 'memory retrieval engine' → return first ``recall_pick_first`` IDs
-    - anything else             → cycle through ``replies``
+    - 'memory analyzer'           → return enrichment JSON (empty aliases)
+    - 'evaluate an assistant'     → return ``self_assess_score`` per turn
+    - 'memory retrieval engine'   → return first ``recall_pick_first`` IDs
+    - anything else               → cycle through ``replies``
     """
     import re as _re
     seq = list(replies or [])
@@ -330,10 +330,10 @@ def _fake_chat_factory(replies=None, *, batched_score=0.0, recall_pick_first=0):
         sys = (messages[0].get("content", "") if messages else "") or ""
         if "memory analyzer" in sys:
             return {"choices": [{"message": {"content": '{"aliases":[],"entities":[],"kind":"fact"}'}}]}
-        if "outcome judge" in sys:
+        if "evaluate an assistant" in sys:
             user = (messages[1].get("content", "") if len(messages) > 1 else "") or ""
             n_turns = user.count("=== Turn")
-            lines = "\n".join(f"{i + 1}: {batched_score}" for i in range(n_turns))
+            lines = "\n".join(f"{i + 1}: {self_assess_score}" for i in range(n_turns))
             return {"choices": [{"message": {"content": lines}}]}
         if "memory retrieval engine" in sys:
             user = (messages[1].get("content", "") if len(messages) > 1 else "") or ""
@@ -355,28 +355,30 @@ def test_automemory_complete_returns_reply():
     assert reply == "hello back"
 
 
-def test_automemory_llm_batched_demotes_when_judge_negative():
+def test_automemory_self_assess_demotes_when_judge_negative():
     from coherence import AutoMemory
 
     mem = AutoMemory(
-        chat_fn=_fake_chat_factory(["answer 1", "answer 2"], batched_score=-1.0),
-        outcome_strategy="llm",
-        judge_batch_size=1,    # flush after every buffered turn for the test
+        chat_fn=_fake_chat_factory(["answer 1", "answer 2"], self_assess_score=-1.0),
+        outcome_strategy="self_assess",
+        judge_batch_size=1,
+        intrinsic_retrieval_bump=0.0,
     )
     nid = mem.remember("relevant fact")
     mem.complete("tell me the relevant fact")
     w_before = mem.memory.nodes[nid].weight
-    mem.complete("any follow-up")   # flushes the batched judgment of turn 1
+    mem.complete("any follow-up")
     assert mem.memory.nodes[nid].weight < w_before
 
 
-def test_automemory_llm_batched_reinforces_when_judge_positive():
+def test_automemory_self_assess_reinforces_when_judge_positive():
     from coherence import AutoMemory
 
     mem = AutoMemory(
-        chat_fn=_fake_chat_factory(["a", "b"], batched_score=+1.0),
-        outcome_strategy="llm",
+        chat_fn=_fake_chat_factory(["a", "b"], self_assess_score=+1.0),
+        outcome_strategy="self_assess",
         judge_batch_size=1,
+        intrinsic_retrieval_bump=0.0,
     )
     nid = mem.remember("relevant fact")
     mem.complete("tell me the relevant fact")
@@ -385,13 +387,14 @@ def test_automemory_llm_batched_reinforces_when_judge_positive():
     assert mem.memory.nodes[nid].weight > w_before
 
 
-def test_automemory_llm_batched_buffers_until_size():
+def test_automemory_self_assess_buffers_until_size():
     from coherence import AutoMemory
 
     mem = AutoMemory(
-        chat_fn=_fake_chat_factory(["r1", "r2", "r3", "r4"], batched_score=+1.0),
-        outcome_strategy="llm",
+        chat_fn=_fake_chat_factory(["r1", "r2", "r3", "r4"], self_assess_score=+1.0),
+        outcome_strategy="self_assess",
         judge_batch_size=3,
+        intrinsic_retrieval_bump=0.0,
     )
     mem.remember("fact")
     mem.complete("q1")
@@ -399,11 +402,8 @@ def test_automemory_llm_batched_buffers_until_size():
     mem.complete("q2")
     assert len(mem.memory.experiences) == 0
     mem.complete("q3")
-    # Now buffer has 2 (turns 1 and 2 — turn 3 just staged). Still not flushed
-    # because the threshold is 3.
     assert len(mem.memory.experiences) == 0
     mem.complete("q4")
-    # Buffer reached 3 → flushed. Should have 3 experiences applied.
     assert len(mem.memory.experiences) == 3
 
 
@@ -411,17 +411,161 @@ def test_automemory_close_flushes_remaining_buffer():
     from coherence import AutoMemory
 
     mem = AutoMemory(
-        chat_fn=_fake_chat_factory(["x", "y"], batched_score=+1.0),
-        outcome_strategy="llm",
+        chat_fn=_fake_chat_factory(["x", "y"], self_assess_score=+1.0),
+        outcome_strategy="self_assess",
         judge_batch_size=10,
+        intrinsic_retrieval_bump=0.0,
     )
     mem.remember("fact")
     mem.complete("q1")
     mem.complete("q2")
-    assert len(mem.memory.experiences) == 0  # not flushed yet
+    assert len(mem.memory.experiences) == 0
     mem.close()
-    # Close pushes the staged turn into the buffer and flushes everything.
     assert len(mem.memory.experiences) == 2
+
+
+def test_self_assess_does_not_see_next_user_message():
+    """The self-assess judge must NOT receive the next user message as evidence."""
+    from coherence import AutoMemory
+
+    captured_prompts: list[str] = []
+
+    def chat(messages, **kw):
+        sys = (messages[0].get("content", "") if messages else "") or ""
+        if "evaluate an assistant" in sys:
+            captured_prompts.append(messages[1]["content"])
+            return {"choices": [{"message": {"content": "1: 0"}}]}
+        if "memory analyzer" in sys:
+            return {"choices": [{"message": {"content": '{"aliases":[],"entities":[],"kind":"fact"}'}}]}
+        if "memory retrieval engine" in sys:
+            return {"choices": [{"message": {"content": "[]"}}]}
+        return {"choices": [{"message": {"content": "reply"}}]}
+
+    mem = AutoMemory(chat_fn=chat, outcome_strategy="self_assess", judge_batch_size=1)
+    mem.remember("a fact")
+    mem.complete("first user message")
+    mem.complete("SECOND USER MESSAGE that the judge should never see")
+    assert captured_prompts, "self-assess judge was not called"
+    # The next user message must not appear in the prompt the judge sees.
+    assert "SECOND USER MESSAGE" not in captured_prompts[0]
+
+
+def test_follow_up_fires_only_on_explicit_correction():
+    from coherence.judging import follow_up_outcome
+
+    # Explicit corrections → -1
+    assert follow_up_outcome("q", "r", "that's not what I meant") == -1.0
+    assert follow_up_outcome("q", "r", "no, that's wrong") == -1.0
+    assert follow_up_outcome("q", "r", "let me clarify what I asked") == -1.0
+    assert follow_up_outcome("q", "r", "I told you to stay off moss") == -1.0
+
+    # Silence / politeness / smooth follow-ups → 0 (NO false positive)
+    assert follow_up_outcome("q", "r", "thanks") == 0.0
+    assert follow_up_outcome("q", "r", "perfect") == 0.0
+    assert follow_up_outcome("q", "r", "What about the second part?") == 0.0
+    assert follow_up_outcome("q", "r", "") == 0.0
+
+
+def test_intrinsic_retrieval_bump_applies_each_turn():
+    from coherence import AutoMemory
+
+    mem = AutoMemory(
+        chat_fn=_fake_chat_factory(["ok"]),
+        outcome_strategy="manual",
+        intrinsic_retrieval_bump=0.05,
+    )
+    nid = mem.remember("a relevant fact about cats")
+    w0 = mem.memory.nodes[nid].weight
+    mem.complete("cats?")
+    w1 = mem.memory.nodes[nid].weight
+    # The recalled node got +0.05 just for being retrieved.
+    assert abs((w1 - w0) - 0.05) < 1e-6
+
+
+def test_intrinsic_retrieval_bump_can_be_disabled():
+    from coherence import AutoMemory
+
+    mem = AutoMemory(
+        chat_fn=_fake_chat_factory(["ok"]),
+        outcome_strategy="manual",
+        intrinsic_retrieval_bump=0.0,
+    )
+    nid = mem.remember("fact")
+    w0 = mem.memory.nodes[nid].weight
+    mem.complete("query")
+    assert mem.memory.nodes[nid].weight == w0
+
+
+def test_manual_default_does_not_auto_infer():
+    """With the new default strategy=manual, no LLM judging happens unless
+    you ask for it. Disable intrinsic bump to isolate the outcome path."""
+    from coherence import AutoMemory
+
+    mem = AutoMemory(
+        chat_fn=_fake_chat_factory(["a", "b"]),
+        # No outcome_strategy specified → default "manual"
+        intrinsic_retrieval_bump=0.0,
+    )
+    nid = mem.remember("a fact")
+    mem.complete("first")
+    w_before = mem.memory.nodes[nid].weight
+    mem.complete("no, that's wrong — would have demoted under follow_up mode")
+    # Default is manual; no auto-reinforcement.
+    assert mem.memory.nodes[nid].weight == w_before
+
+
+def test_follow_up_strategy_demotes_on_explicit_correction():
+    from coherence import AutoMemory
+
+    mem = AutoMemory(
+        chat_fn=_fake_chat_factory(["a", "b"]),
+        outcome_strategy="follow_up",
+        intrinsic_retrieval_bump=0.0,
+    )
+    nid = mem.remember("a fact")
+    mem.complete("tell me the fact")
+    w_before = mem.memory.nodes[nid].weight
+    mem.complete("no, that's wrong")  # explicit correction
+    assert mem.memory.nodes[nid].weight < w_before
+
+
+def test_follow_up_strategy_silent_on_thanks():
+    from coherence import AutoMemory
+
+    mem = AutoMemory(
+        chat_fn=_fake_chat_factory(["a", "b"]),
+        outcome_strategy="follow_up",
+        intrinsic_retrieval_bump=0.0,
+    )
+    nid = mem.remember("a fact")
+    mem.complete("tell me the fact")
+    w_before = mem.memory.nodes[nid].weight
+    mem.complete("thanks!")  # politeness is NOT signal
+    assert mem.memory.nodes[nid].weight == w_before
+
+
+def test_complete_goal_retroactively_reinforces_supporting_memories():
+    from coherence import AutoMemory
+
+    mem = AutoMemory(
+        chat_fn=_fake_chat_factory(["ok"]),
+        outcome_strategy="manual",
+        intrinsic_retrieval_bump=0.0,
+    )
+    g = mem.remember("publish paper on cold photosynthesis", metadata={"kind": "goal"})
+    a = mem.remember("finding about thylakoid lipids")
+    b = mem.remember("finding about scandium triflate catalyst")
+
+    # Simulate two episodes where the goal was active alongside a finding.
+    mem.memory.reinforce("research turn 1", [g, a], outcome=0.3)
+    mem.memory.reinforce("research turn 2", [g, b], outcome=0.3)
+
+    w_a_before = mem.memory.nodes[a].weight
+    w_b_before = mem.memory.nodes[b].weight
+    n = mem.memory.complete_goal(g, outcome=+1.0)
+    assert n == 2
+    assert mem.memory.nodes[a].weight > w_a_before
+    assert mem.memory.nodes[b].weight > w_b_before
 
 
 def test_automemory_manual_strategy_does_not_auto_infer():
@@ -430,12 +574,13 @@ def test_automemory_manual_strategy_does_not_auto_infer():
     mem = AutoMemory(
         chat_fn=_fake_chat_factory(["x", "y"]),
         outcome_strategy="manual",
+        intrinsic_retrieval_bump=0.0,
     )
     nid = mem.remember("relevant fact")
     mem.complete("query about fact")
     w_before = mem.memory.nodes[nid].weight
-    mem.complete("no, that's wrong")  # would-be negative under heuristic
-    # manual: no auto-reinforce
+    mem.complete("no, that's wrong")  # would-be negative under follow_up
+    # manual: no auto-reinforce; intrinsic bump disabled for the test
     assert mem.memory.nodes[nid].weight == w_before
 
 
@@ -503,10 +648,11 @@ def test_automemory_reset_history_keeps_memory_and_flushes():
     from coherence import AutoMemory
 
     mem = AutoMemory(
-        chat_fn=_fake_chat_factory(["a", "b"], batched_score=+1.0),
-        outcome_strategy="llm",
+        chat_fn=_fake_chat_factory(["a", "b"], self_assess_score=+1.0),
+        outcome_strategy="self_assess",
         system_prompt="sys",
         judge_batch_size=10,
+        intrinsic_retrieval_bump=0.0,
     )
     mem.remember("kept fact")
     mem.complete("first")
@@ -562,7 +708,7 @@ def test_enrichment_aliases_improve_lexical_recall():
 def test_context_budget_trims_recall_set():
     from coherence import AutoMemory
 
-    fake = _fake_chat_factory(["ok"], batched_score=0.0)
+    fake = _fake_chat_factory(["ok"], self_assess_score=0.0)
 
     mem = AutoMemory(
         chat_fn=fake,

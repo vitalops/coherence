@@ -10,7 +10,7 @@ from .integrations.openai_protocol import (
     run_openai_tool_calls,
 )
 from .enrichment import enrich_memory
-from .judging import batched_judge
+from .judging import batched_self_assess, follow_up_outcome
 from .recall_llm import llm_recall as _llm_recall
 
 
@@ -26,11 +26,25 @@ class AutoMemory:
         path: str | Path | None = None,
         system_prompt: str | None = None,
 
-        # Outcome inference: LLM-driven batched judging is the default.
-        outcome_strategy: str | OutcomeStrategy = "llm",
+        # Outcome inference. The default is "manual" — the framework does
+        # NOT guess outcomes from user follow-up. Either:
+        #   - call mem.report(outcome) when you have signal (a verifier, a
+        #     thumbs-up, a graded result), or
+        #   - opt into "self_assess" so the LLM grades the assistant's own
+        #     action (still batched, still bounded cost), or
+        #   - opt into "follow_up" so a regex catches UNAMBIGUOUS
+        #     corrections ("not what I meant", "that's wrong") but does not
+        #     pretend silence or politeness is signal.
+        outcome_strategy: str | OutcomeStrategy = "manual",
         judge_chat_fn: Callable[..., dict] | None = None,
         judge_model: str | None = None,
         judge_batch_size: int = 5,
+
+        # Intrinsic background dynamic: a memory that earns a place in the
+        # active set gets a small positive bump just for being retrieved.
+        # This is independent of outcome inference and runs in every mode.
+        # Set to 0 to disable.
+        intrinsic_retrieval_bump: float = 0.02,
 
         # Ingest enrichment: one LLM call per new memory by default. This is
         # what lets BM25 catch semantic matches at recall time without a
@@ -105,20 +119,24 @@ class AutoMemory:
         self.save_every_turn = save_every_turn
         self.max_tool_hops = max_tool_hops
         self.judge_batch_size = max(1, int(judge_batch_size))
+        self.intrinsic_retrieval_bump = float(intrinsic_retrieval_bump)
 
         if callable(outcome_strategy):
             self._strategy_name = "custom"
             self._custom_outcome: OutcomeStrategy | None = outcome_strategy
-        elif outcome_strategy in ("llm", "llm_batched"):
-            self._strategy_name = "llm"
+        elif outcome_strategy == "self_assess":
+            self._strategy_name = "self_assess"
             self._custom_outcome = None
+        elif outcome_strategy == "follow_up":
+            self._strategy_name = "follow_up"
+            self._custom_outcome = follow_up_outcome
         elif outcome_strategy == "manual":
             self._strategy_name = "manual"
             self._custom_outcome = None
         else:
             raise ValueError(
                 f"Unknown outcome_strategy: {outcome_strategy!r}. "
-                "Use 'llm', 'manual', or pass a callable."
+                "Use 'manual', 'self_assess', 'follow_up', or pass a callable."
             )
 
         self._history: list[dict[str, Any]] = []
@@ -145,16 +163,26 @@ class AutoMemory:
             self._pending["next_user"] = user_message
             self._buffer.append(self._pending)
             self._pending = None
-            if self._strategy_name == "llm" and len(self._buffer) >= self.judge_batch_size:
+            # Flush whenever we have enough turns for batched strategies, or
+            # immediately for per-turn ones (custom callable, follow_up).
+            if self._strategy_name == "self_assess" and len(self._buffer) >= self.judge_batch_size:
                 self.flush_outcomes()
-            elif self._strategy_name == "custom":
-                self._apply_custom_outcomes()
+            elif self._strategy_name in ("custom", "follow_up"):
+                self._apply_per_turn_outcomes()
 
         # 2. Recall (LLM-driven by default; BM25 once the dump is too big to
         # send in-context affordably) + context-budget packing.
         nodes = self._do_recall(user_message)
         nodes = self._pack_to_budget(nodes)
         active_ids = [n.id for n in nodes]
+        active_texts = [n.text for n in nodes]
+
+        # Intrinsic background dynamic: nodes that earned a place in the
+        # active set get a small positive bump just for being retrieved.
+        # This is the always-on safety net regardless of outcome strategy.
+        if self.intrinsic_retrieval_bump > 0.0:
+            for n in nodes:
+                n.weight += self.intrinsic_retrieval_bump
 
         turn_messages = list(self._history)
         if nodes:
@@ -173,10 +201,17 @@ class AutoMemory:
 
         # 5. Stage this turn for next-round outcome attribution.
         all_active = list(dict.fromkeys(active_ids + llm_active))
+        # Capture the actual text of the retrieved memories too, so the
+        # self-assess judge can reason about whether the reply used them.
+        all_texts = list(active_texts)
+        for nid in llm_active:
+            if nid in self.memory.nodes:
+                all_texts.append(self.memory.nodes[nid].text)
         self._pending = {
             "user": user_message,
             "reply": final_text,
             "active_ids": all_active,
+            "active_texts": all_texts,
             "next_user": None,
         }
 
@@ -188,24 +223,26 @@ class AutoMemory:
     # ----------------------------------------------------- outcomes
 
     def flush_outcomes(self) -> int:
-        """Grade all buffered turns in one LLM call and apply reinforcement.
+        """Grade all buffered turns and apply reinforcement.
 
-        Returns the number of turns processed. For non-LLM strategies this
-        applies whatever the strategy specifies (custom callable) or does
-        nothing (manual).
+        Behaviour by strategy:
+          - "self_assess": ONE LLM call grades the whole buffer.
+          - "follow_up" / custom callable: per-turn evaluation, no batching.
+          - "manual": no-op; call mem.report(outcome) explicitly.
         """
         buffer = self._buffer
         self._buffer = []
         if not buffer:
             return 0
 
-        if self._strategy_name == "llm":
-            scores = batched_judge(
+        if self._strategy_name == "self_assess":
+            scores = batched_self_assess(
                 buffer,
                 chat_fn=self.judge_chat_fn,
                 model=self.judge_model,
             )
-        elif self._strategy_name == "custom" and self._custom_outcome is not None:
+        elif self._custom_outcome is not None:
+            # "custom" or "follow_up" — both use a per-turn callable.
             scores = [
                 float(self._custom_outcome(t["user"], t["reply"], t.get("next_user") or ""))
                 for t in buffer
@@ -229,7 +266,7 @@ class AutoMemory:
             self.memory.save(self.path)
         return applied
 
-    def _apply_custom_outcomes(self) -> None:
+    def _apply_per_turn_outcomes(self) -> None:
         self.flush_outcomes()
 
     def report(self, outcome: float) -> bool:
@@ -270,10 +307,8 @@ class AutoMemory:
         if self._pending is not None:
             self._buffer.append(self._pending)
             self._pending = None
-        if self._strategy_name == "llm" and self._buffer:
+        if self._buffer and self._strategy_name in ("self_assess", "custom", "follow_up"):
             self.flush_outcomes()
-        elif self._strategy_name == "custom" and self._buffer:
-            self._apply_custom_outcomes()
 
         if keep_system and self.system_prompt:
             self._history = [{"role": "system", "content": self.system_prompt}]
@@ -284,10 +319,8 @@ class AutoMemory:
         if self._pending is not None:
             self._buffer.append(self._pending)
             self._pending = None
-        if self._strategy_name == "llm":
+        if self._strategy_name in ("self_assess", "custom", "follow_up"):
             self.flush_outcomes()
-        elif self._strategy_name == "custom":
-            self._apply_custom_outcomes()
         else:
             self._buffer = []
         self.save()

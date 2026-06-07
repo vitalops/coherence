@@ -109,17 +109,23 @@ See [How learning works](learning.md) for the full update rule and
 
 ## Cost ceiling
 
-A 10-turn session with two ingests and `judge_batch_size=5`:
+A 10-turn session with two ingests, all defaults
+(`outcome_strategy="manual"`, `recall_mode="auto"`, dump fits LLM
+recall threshold):
 
-| Call                    | Count           |
-| ----------------------- | --------------- |
-| Agent generation        | 10              |
-| Ingest enrichment       | 2               |
-| Batched outcome grading | 2               |
-| Memory recall           | 0 (BM25, local) |
+| Call                    | Count |
+| ----------------------- | ----- |
+| Agent generation        | 10    |
+| LLM-driven recall       | 10    |
+| Ingest enrichment       | 2     |
+| Outcome judging         | 0     |
 
-The memory layer adds ~4 extra LLM calls on top of the 10 the agent
-makes anyway. Recall is always free.
+Outcome judging is 0 because the default strategy is `"manual"` — the
+framework doesn't guess outcomes from the user's next message, and
+only reinforces when you call `mem.report(outcome)` after a verifier
+fires. Switch to `outcome_strategy="self_assess"` (batched LLM grading
+of the assistant's own action) to add ~2 calls per 10 turns. Set
+`recall_mode="bm25"` to drop the per-turn recall calls entirely.
 
 ## Context-window awareness
 

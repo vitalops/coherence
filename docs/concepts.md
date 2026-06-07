@@ -182,3 +182,41 @@ mem.recall_as_context("query")  # the text that would be injected
 `AutoMemory` wraps `Memory` with a chat function, an outcome strategy,
 and the enrichment wiring. For most users `AutoMemory` is the only
 object they ever touch directly.
+
+## Goals and goal-completion reinforcement
+
+A node whose enrichment classified it as `kind="goal"` (or that was
+ingested with `metadata={"kind": "goal"}` explicitly) participates in
+a separate reinforcement signal:
+
+```python
+goal_id = mem.ingest(
+    "Ship the cold-photosynthesis review by Q4.",
+    metadata={"kind": "goal"},
+)
+
+# ... many sessions of work ...
+
+mem.complete_goal(goal_id, outcome=+1.0)
+# → walks back through episodes whose active set included goal_id and
+#   retroactively reinforces those active sets with geometric recency
+#   weighting. Memories that supported the goal earn their credit.
+```
+
+This is the framework's "Hermes-style" lived-in signal: instead of
+guessing outcomes per turn, you mark long-horizon outcomes when they
+become known and let the framework attribute credit backward through
+the experience log.
+
+## Intrinsic retrieval bump
+
+A small positive bump is applied to every node that earns a place in
+an active set, independent of outcome inference. Default is
+`intrinsic_retrieval_bump=0.02` on `AutoMemory`. The dynamic:
+
+- Memories that get retrieved often → quietly accumulate salience.
+- Memories that nothing matches → drift toward zero, eventually
+  pruned by `mem.forget()`.
+
+Set to `0` to disable. Runs in every outcome strategy, including
+`"manual"`.

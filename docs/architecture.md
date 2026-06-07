@@ -168,7 +168,11 @@ Step 4: activation = tanh(base + gamma * spread)
 ### Backward pass — `reinforce(active, outcome=+1.0)`
 
 ```
-(The judge graded the turn +1.0 after the user thanked the assistant.)
+(Where did outcome=+1.0 come from? Three honest sources:
+  - mem.report(+1.0) called by your host code after a verifier passed,
+  - the self_assess judge graded the assistant's own action +1.0, or
+  - mem.complete_goal(goal_id, +1.0) attributed credit to this episode.
+ The framework does NOT infer outcomes from the user's next message.)
 
 Step 1: eligibility (proportional share of firing)
 --------------------------------------------------
@@ -317,31 +321,64 @@ If context_length=200_000:  threshold ~ 80_000 chars  -> LLM until dump is huge.
 If context_length=8_000:    threshold ~ 3_200 chars   -> BM25 takes over fast.
 ```
 
-### Outcome judging — batched
+### Outcome strategies — three honest paths
 
 ```
-Turns are buffered as the conversation progresses:
+                  Where does the outcome scalar come from?
+                  ────────────────────────────────────────
 
-   complete("q1") -> stage t1                            buffer = []
-   complete("q2") -> move t1 -> buffer; stage t2         buffer = [t1]
-   complete("q3") -> move t2 -> buffer; stage t3         buffer = [t1, t2]
-   complete("q4") -> move t3 -> buffer; stage t4         buffer = [t1, t2, t3]
-   complete("q5") -> move t4 -> buffer; stage t5         buffer = [t1, t2, t3, t4]
-   complete("q6") -> move t5 -> buffer; stage t6         buffer = [t1..t5]
-                                       *** flush triggers (size == judge_batch_size) ***
+  1)  MANUAL (default)
+      ────────────────
+      You have a verifier — a test runner, a ground-truth answer, a
+      thumbs-up button. You call mem.report(outcome) directly.
+      0 LLM calls. Most reliable signal.
 
-                                   |
-                                   v
-                +---------------------------------------+
-                |  judging.batched_judge(buffer, ...)   |
-                |  ----------------------------------    |
-                |  One LLM call, returns one score per   |
-                |  turn:  [+1, -1, +1, 0, +0.8]          |
-                +---------------------------------------+
-                                   |
-                                   v
-        For each turn, run the backward pass with its score.
-        Buffer is cleared. Persistence runs.
+  2)  SELF_ASSESS (batched LLM)
+      ─────────────────────────
+      The LLM grades the assistant's OWN action by looking at:
+        - what the user asked,
+        - which memories were retrieved,
+        - what the assistant replied.
+      The next user message is NOT in the prompt. The judge does not
+      try to read the user's mood.
+
+      Buffered:
+        complete("q1") .. complete("q5")           buffer fills
+                              v
+                +-------------------------------+
+                |  batched_self_assess(buffer)  |   one LLM call
+                |  → scores [+1, -1, +1, 0, +0.8]|
+                +-------------------------------+
+                              v
+                  reinforce each turn's active set
+                  with its score; clear buffer.
+
+  3)  FOLLOW_UP (opt-in regex)
+      ────────────────────────
+      Only fires on UNAMBIGUOUS corrections:
+        "not what I meant"  →  -1.0
+        "that's wrong"      →  -1.0
+        "let me clarify"    →  -1.0
+        "I told you ..."    →  -1.0
+      Anything else, including "thanks", silence, smooth follow-up,
+      → 0.0.  Politeness is not evidence; silence is not signal.
+
+  *)  COMPLETE_GOAL (long-horizon)
+      ────────────────────────────
+      When a goal node is marked achieved/missed:
+        mem.complete_goal(goal_id, outcome=+1.0)
+      The framework walks the experience log, finds every episode
+      whose active set included goal_id, and reinforces those active
+      sets with geometric recency weighting. Each supporting memory
+      gets credit for its part in the goal.
+
+  Always-on background dynamic:
+  ─────────────────────────────
+  Every retrieval gives the retrieved nodes a small +intrinsic bump
+  (default 0.02). Memories that earn retrieval slowly accumulate
+  salience even without explicit outcomes. Combined with decay during
+  mem.forget(), this is the safety net that works even in fully
+  manual mode.
 ```
 
 ## The three layers
@@ -524,26 +561,30 @@ The data lives entirely in plain Python objects in memory; `save` and
 
 ## LLM call points
 
-A 10-turn session, all defaults (`outcome_strategy="llm"`,
-`judge_batch_size=5`, `recall_mode="auto"`, dump fits the threshold,
-agent ingests 2 new facts):
+A 10-turn session, all defaults (`outcome_strategy="manual"`,
+`recall_mode="auto"`, dump fits the threshold, agent ingests 2 new
+facts):
 
 | Operation        | When                               | Count |
 | ---------------- | ---------------------------------- | ----- |
 | Agent generation | Per turn                           | 10    |
 | LLM recall       | Per turn while dump fits threshold | 10    |
 | Ingest enrichment| Per ingest                         | 2     |
-| Batched judging  | Per `judge_batch_size` turns       | 2     |
+| Outcome judging  | Only when `mem.report()` fires     | 0     |
 
-If the memory dump outgrows `recall_threshold_chars`, the recall column
-drops to 0 — BM25 takes over silently. `recall_mode="bm25"` forces this
-from the start.
+Switch to `outcome_strategy="self_assess"` and `judge_batch_size=5`
+and you add ~2 batched judging calls per 10 turns.
+`outcome_strategy="follow_up"` adds 0 (it's a regex check).
+`recall_mode="bm25"` drops the per-turn recall column to 0.
 
-Every LLM call is routed through a single `chat_fn` callable you supply
-when constructing `AutoMemory`. You can split that into three separate
-endpoints (`chat_fn`, `judge_chat_fn`, `recall_chat_fn`,
+If the memory dump outgrows `recall_threshold_chars`, the LLM-recall
+column drops to 0 — BM25 takes over silently.
+
+Every LLM call is routed through a single `chat_fn` callable you
+supply when constructing `AutoMemory`. You can split that into four
+separate endpoints (`chat_fn`, `judge_chat_fn`, `recall_chat_fn`,
 `enrich_chat_fn`) so e.g. the agent runs on a frontier model while
-judging and recall hit a cheaper one.
+judging, recall, and enrichment hit a cheaper one.
 
 ## Persistence
 

@@ -1,54 +1,17 @@
 # Outcome strategies
 
-After every turn, the framework needs one number: did the prior turn go
-well? That number — the **outcome** — is what drives every weight
-update.
+A memory needs to know whether the turn it was used in was successful.
+The framework refuses to *guess* this from how polite or grouchy the
+user's next message sounds — that's noise, not signal.
 
-You pick how it's computed via `outcome_strategy=` on `AutoMemory`.
-Three built-in options plus a custom callable.
+There are three honest sources of outcome signal, and you pick one (or
+combine them) via `outcome_strategy=` on `AutoMemory`.
 
-## `"llm"` (default) — batched LLM judging
+## `"manual"` (default) — you supply the signal
 
-Instead of calling the LLM after every single turn (expensive at scale),
-`AutoMemory` buffers the turns and grades them all in a single LLM call
-once the buffer reaches `judge_batch_size` (default `5`). A 10-turn
-session ends up costing ~2 batched grading calls instead of 10
-per-turn calls.
-
-```python
-mem = AutoMemory(
-    chat_fn=production_chat,
-    outcome_strategy="llm",         # the default
-    judge_chat_fn=cheap_chat,        # optional; falls back to chat_fn
-    judge_model="...",               # optional model override for grading
-    judge_batch_size=5,              # flush after N buffered turns
-)
-```
-
-The grader sees each buffered turn — user message, assistant reply,
-next user message — and returns a score in `[-1, +1]` per turn.
-Reinforcement is applied in one pass. Buffered turns also flush
-automatically on `mem.reset_history()` and `mem.close()` so signal is
-never silently dropped at a session boundary.
-
-Why batch? Two reasons:
-
-1. **Cost.** Grading 5 turns in one prompt is cheaper than 5 separate
-   calls — fewer round-trips, less prompt overhead.
-2. **Context.** The grader can see the whole arc, not just one turn at
-   a time, which makes its judgment more reliable.
-
-If you want grading to happen against a cheaper model than the main
-agent, pass `judge_chat_fn=` and `judge_model=`. Common pattern: the
-agent runs on a frontier model; grading runs on the cheapest available
-model from the same provider.
-
-## `"manual"`
-
-The framework never auto-infers. You call `mem.report(outcome)`
-explicitly between turns. Use this when you have a verifier — a test
-runner, a ground-truth answer, a downstream check — that produces a
-clean signal.
+If you have a verifier — a test runner, a ground-truth checker, a
+schema validator, an explicit thumbs-up/down — use it directly. The
+framework stays out of the way and applies the score you provide:
 
 ```python
 mem = AutoMemory(chat_fn=my_chat, outcome_strategy="manual")
@@ -59,12 +22,58 @@ else:
     mem.report(-1.0)
 ```
 
-[`examples/03_custom_agentic_harness.py`](../examples/03_custom_agentic_harness.py)
-uses this against a multiple-choice bench.
+No LLM calls, no inference, no buffering — `report()` runs the
+reinforcement on the most recent turn immediately. This is the
+recommended path whenever you have *any* signal at all, even noisy
+ones (engagement metrics, conversion events, follow-up clicks).
 
-In manual mode the framework does **not** make any judge LLM calls. The
-buffer still tracks turns, but nothing happens to them unless you call
-`report()`.
+## `"self_assess"` — the agent grades its own action
+
+When you have no external verifier but you trust the model to judge
+its own action, this strategy batches turns and asks the LLM:
+
+> Given the user's message and the memories the assistant retrieved,
+> did the assistant's reply correctly use those memories and address
+> the user's stated intent?
+
+The judge *never sees the next user message.* It judges the
+assistant's action on its own terms, not the user's reaction to it.
+This avoids treating "thanks!" as evidence of success and silence as
+evidence of failure.
+
+```python
+mem = AutoMemory(
+    chat_fn=production_chat,
+    outcome_strategy="self_assess",
+    judge_chat_fn=cheap_chat,        # optional; falls back to chat_fn
+    judge_model="...",                # optional model override
+    judge_batch_size=5,               # one LLM call per N turns
+)
+```
+
+Buffered turns flush at the batch threshold, on `mem.reset_history()`,
+and on `mem.close()`. Cost: one LLM call per `judge_batch_size` turns,
+spent grading. Bump the batch size higher to amortize further.
+
+## `"follow_up"` — opt-in regex for explicit corrections
+
+A narrow escape hatch for chat applications where users sometimes *do*
+write unambiguous corrections ("no, that's wrong", "that's not what I
+meant", "I told you to stay off moss"). When the next user message
+matches one of those patterns, this strategy emits **-1.0** so the
+memories used in the bad turn get demoted. Anything else — silence,
+politeness, smooth follow-ups — emits **0.0**.
+
+Politeness is not evidence of success. Silence is not signal. Only
+unambiguous corrections fire.
+
+```python
+mem = AutoMemory(chat_fn=my_chat, outcome_strategy="follow_up")
+```
+
+This is a regex pass, not an LLM call — costs nothing. It also won't
+catch subtle dissatisfaction. Pair with `mem.report()` calls for
+positive signal.
 
 ## Custom callable
 
@@ -79,74 +88,71 @@ def my_strategy(prev_user, prev_reply, next_user):
         return +1.0
     if external_classifier(next_user) > 0.7:
         return +0.5
-    return 0.0  # no update
+    return 0.0
 
 mem = AutoMemory(chat_fn=my_chat, outcome_strategy=my_strategy)
 ```
 
-Custom callables are applied **per turn** (not batched) because the
-caller controls cost. Use this when you have a signal that's faster
-than an LLM call — a UI event, a sentiment classifier, a domain-specific
-rule.
+Per-turn (not batched). Use when you have a signal that's faster than
+an LLM call.
 
-## Graded outcomes
+## The always-on intrinsic dynamic
 
-Outcomes are floats in `[-1, +1]`. You're not limited to `+1 / -1`.
+Independent of outcome strategy, every recall gives a small positive
+bump to the nodes that were retrieved — `intrinsic_retrieval_bump`
+(default `0.02`). The idea: a memory that earned a place in the top-k
+deserves a tiny nudge, regardless of whether the surrounding turn
+ended with a measurable outcome. Combined with decay during
+`mem.forget()`, this means:
 
-- `+0.5` — partially-correct answer
-- `-0.2` — answer the user grudgingly accepted but flagged
-- `+0.1` — leaning positive, but uncertain
+- Memories that get retrieved often → slowly accumulate salience.
+- Memories that nothing matches → drift toward zero, then prune.
 
-The delta-rule update is linear in `outcome`, so `+0.5` moves the
-weights half as far as `+1.0`. Use graded values when your signal is
-graded.
+Set `intrinsic_retrieval_bump=0` to disable. It runs in every
+strategy, including `"manual"`.
 
-## When the prior turn retrieved nothing
+## Goal completion — retroactive reinforcement
 
-If the active set was empty (the graph was empty or no node matched),
-there is nothing to reinforce. The framework silently no-ops. You can
-still call `mem.report` after such a turn — it returns `False` to
-indicate nothing was applied.
-
-## Stacking strategies
-
-You can wrap one strategy inside another via a custom callable. For
-example, prefer a verifier when it gives a signal, fall back to no-op
-otherwise:
+A separate, cleaner signal for long-horizon work: tag a goal-kind node
+when the goal is set, and call `mem.complete_goal(goal_id, outcome)`
+when it's achieved (or definitively missed). The framework walks the
+experience log, finds every episode whose active set included that
+goal, and retroactively reinforces those active sets with geometric
+recency weighting. Each contributing memory gets credit for its part
+in the goal.
 
 ```python
-def combined(prev_user, prev_reply, next_user):
-    v = external_verifier(prev_reply)
-    if v is not None:
-        return v
-    return 0.0
+# When the user states a goal, ingest it as a goal-kind node:
+goal_id = mem.remember(
+    "Finish the cold-photosynthesis review paper by Q4.",
+    metadata={"kind": "goal"},
+)
 
-mem = AutoMemory(chat_fn=my_chat, outcome_strategy=combined)
+# ... many sessions of research over weeks ...
+# When the goal is achieved:
+mem.memory.complete_goal(goal_id, outcome=+1.0)
+# → walks back through episodes, reinforces every fact and finding
+#   that was active during a session where the goal was in scope.
 ```
+
+`mem.memory.goals()` lists all goal-kind nodes.
 
 ## Cost ceiling
 
-A 10-turn session, defaults across the board (`outcome_strategy="llm"`,
-`judge_batch_size=5`, `enrich_on_ingest=True`, `recall_mode="auto"`),
-agent ingests 2 new facts, memory dump stays within the LLM-recall
-threshold:
+A 10-turn session with two ingests, defaults across the board
+(`"manual"` outcome, intrinsic bump on, two recalls land within the
+LLM-recall threshold):
 
-| Call                        | Count                |
-| --------------------------- | -------------------- |
-| Agent generation            | 10 (one/turn)        |
-| Ingest enrichment           | 2 (one/ingest)       |
-| Batched outcome grading     | 2 (one/batch)        |
-| LLM-driven recall           | 10 (one/turn)        |
+| Operation | Calls | Notes |
+| --- | --- | --- |
+| Agent generation | 10 | You make these anyway. |
+| LLM-driven recall | 10 | One per turn while dump fits. |
+| Ingest enrichment | 2 | Per ingest. |
+| Outcome judging | 0 | Manual mode — only when `mem.report()` fires. |
 
-Total memory overhead: ~14 calls per 10-turn session on top of the 10
-the agent makes anyway.
+Switch to `"self_assess"` with `judge_batch_size=5` and you add ~2
+batched judging calls per 10 turns. Switch to `"follow_up"` and you
+add 0. Set `recall_mode="bm25"` to drop the per-turn recall call too.
 
-If you need cheaper-per-turn, set `recall_mode="bm25"` to drop the
-per-turn recall LLM call entirely (the framework then uses BM25 over
-the inverted index, which is free). Or bump `judge_batch_size` higher
-to space out the grading.
-
-Once the memory dump grows past `recall_threshold_chars`, `auto` mode
-swaps recall to BM25 automatically — the dump is too big to send into
-context affordably. That's a feature, not a regression: the memory
-keeps growing, recall keeps working, only the recall method changes.
+Cheap, honest, and the framework never invents signal it doesn't
+have.

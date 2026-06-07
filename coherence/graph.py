@@ -123,6 +123,68 @@ class Memory:
     def goals(self) -> list[Node]:
         return [n for n in self.nodes.values() if str(n.metadata.get("kind") or "").lower() == "goal"]
 
+    def complete_goal(
+        self,
+        goal_id: str,
+        outcome: float = 1.0,
+        *,
+        decay_per_episode: float = 0.9,
+        max_episodes: int = 50,
+    ) -> int:
+        """Retroactively reinforce memories that supported a goal.
+
+        When a goal is achieved (or definitively missed), this method walks
+        the experience log for episodes whose active set included the goal
+        node, and applies a reinforcement to each of those active sets with
+        the given outcome, weighted by recency (the most recent episode
+        gets full credit, earlier ones get geometrically less).
+
+        Returns the number of episodes reinforced.
+
+        Parameters
+        ----------
+        goal_id : str
+            The id of the goal node whose pursuit is being graded.
+        outcome : float
+            +1 if the goal was achieved (boosts supporting memories),
+            -1 if it was missed (demotes them). Graded values are fine.
+        decay_per_episode : float
+            Per-step recency weighting; episodes older than the current one
+            get progressively less credit.
+        max_episodes : int
+            Cap on how many matching episodes to walk back through.
+        """
+        if goal_id not in self.nodes:
+            return 0
+        # Reinforce the goal node itself directly (a strong, undiluted signal).
+        self.reinforce(
+            query=f"goal completion: {self.nodes[goal_id].text[:80]}",
+            active=[goal_id],
+            outcome=float(outcome),
+            metadata={"inferred_by": "complete_goal", "goal_id": goal_id},
+        )
+        # Walk the episode log from the most recent and reinforce active sets
+        # that included this goal, with geometric recency decay.
+        reinforced = 0
+        weight = 1.0
+        for exp in reversed(self.experiences):
+            if reinforced >= max_episodes:
+                break
+            if goal_id not in exp.active_ids:
+                continue
+            other_active = [aid for aid in exp.active_ids if aid != goal_id and aid in self.nodes]
+            if not other_active:
+                continue
+            self.reinforce(
+                query=exp.query,
+                active=other_active,
+                outcome=float(outcome) * weight,
+                metadata={"inferred_by": "complete_goal", "goal_id": goal_id, "from_episode": exp.episode},
+            )
+            reinforced += 1
+            weight *= decay_per_episode
+        return reinforced
+
     def remove(self, node_id: str) -> bool:
         if node_id not in self.nodes:
             return False

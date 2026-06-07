@@ -18,12 +18,12 @@
   },
   "nodes": [
     {
-      "id": "1a26fe5024cf4f7d",
+      "id": "b5d041d023b54ce8",
       "text": "Stradbroke Island marine survey recorded the rare ribbon eel on 14 April 2023.",
       "weight": 4.9422079484864865,
       "activation": 0.7615513487331693,
-      "created_at": 1780851052.32622,
-      "last_reinforced_at": 1780851052.395721,
+      "created_at": 1780854398.1928,
+      "last_reinforced_at": 1780854398.260715,
       "reinforcement_count": 23,
       "failure_count": 0,
       "tags": [
@@ -33,12 +33,12 @@
       "metadata": {}
     },
     {
-      "id": "56376e541be34200",
+      "id": "72861b8bc64141c0",
       "text": "Stradbroke Island marine survey recorded the rare ribbon eel on 02 May 2021.",
       "weight": -0.10447119928229127,
       "activation": -0.10371844028732854,
-      "created_at": 1780851052.326279,
-      "last_reinforced_at": 1780851052.329349,
+      "created_at": 1780854398.192857,
+      "last_reinforced_at": 1780854398.196198,
       "reinforcement_count": 0,
       "failure_count": 1,
       "tags": [
@@ -48,12 +48,12 @@
       "metadata": {}
     },
     {
-      "id": "64a074d5071440e9",
+      "id": "6273228e5333491c",
       "text": "Stradbroke Island marine survey recorded the rare ribbon eel on 30 June 2019.",
       "weight": -0.175521386440086,
       "activation": -0.17201353111013118,
-      "created_at": 1780851052.326292,
-      "last_reinforced_at": 1780851052.364511,
+      "created_at": 1780854398.19287,
+      "last_reinforced_at": 1780854398.230728,
       "reinforcement_count": 0,
       "failure_count": 1,
       "tags": [
@@ -63,12 +63,12 @@
       "metadata": {}
     },
     {
-      "id": "cdff09877ce443ff",
+      "id": "14a6c40b55a64f4c",
       "text": "Stradbroke Island marine survey recorded the rare ribbon eel in January 2025.",
       "weight": -0.1069499592252358,
       "activation": -0.10614271389073204,
-      "created_at": 1780851052.326303,
-      "last_reinforced_at": 1780851052.328587,
+      "created_at": 1780854398.1928809,
+      "last_reinforced_at": 1780854398.1953259,
       "reinforcement_count": 0,
       "failure_count": 1,
       "tags": [
@@ -78,12 +78,12 @@
       "metadata": {}
     },
     {
-      "id": "7e1ddfc577514861",
+      "id": "bf478a33d10a4798",
       "text": "Reykjavik geothermal team selected nickel-iron alloy GX-44 for the deep-bore casing.",
       "weight": 6.837496577784496,
       "activation": 0.7615931892841916,
-      "created_at": 1780851052.326315,
-      "last_reinforced_at": 1780851052.3968482,
+      "created_at": 1780854398.192893,
+      "last_reinforced_at": 1780854398.261962,
       "reinforcement_count": 33,
       "failure_count": 2,
       "tags": [
@@ -93,12 +93,12 @@
       "metadata": {}
     },
     {
-      "id": "1f29c54eefe54be4",
+      "id": "e087f248348c490c",
       "text": "Reykjavik geothermal team rejected titanium alloy TX-19 for the deep-bore casing.",
       "weight": -0.10756282288777191,
       "activation": -0.1067417164538275,
-      "created_at": 1780851052.326339,
-      "last_reinforced_at": 1780851052.3321888,
+      "created_at": 1780854398.192918,
+      "last_reinforced_at": 1780854398.1992252,
       "reinforcement_count": 0,
       "failure_count": 1,
       "tags": [
@@ -108,12 +108,12 @@
       "metadata": {}
     },
     {
-      "id": "526f0c9ab6d24b5e",
+      "id": "27c871f0aedc440c",
       "text": "Reykjavik geothermal team selected copper-tin alloy CT-7 for the surface piping.",
       "weight": -0.11768749596688612,
       "activation": -0.11661418935817826,
-      "created_at": 1780851052.326349,
-      "last_reinforced_at": 1780851052.328159,
+      "created_at": 1780854398.192928,
+      "last_reinforced_at": 1780854398.194859,
       "reinforcement_count": 0,
       "failure_count": 1,
       "tags": [
@@ -123,12 +123,12 @@
       "metadata": {}
     },
     {
-      "id": "8de5b05891f94152",
+      "id": "5d03db3d52fb47c6",
       "text": "Reykjavik geothermal team selected chromium alloy CR-22 for the deep-bore casing.",
       "weight": -0.1091526003255748,
       "activation": -0.10829480818641785,
-      "created_at": 1780851052.326366,
-      "last_reinforced_at": 1780851052.333086,
+      "created_at": 1780854398.192939,
+      "last_reinforced_at": 1780854398.200219,
       "reinforcement_count": 0,
       "failure_count": 1,
       "tags": [
@@ -138,12 +138,12 @@
       "metadata": {}
     },
     {
-      "id": "7501e77ccdd94dd6",
+      "id": "055af9f7f3704f78",
       "text": "Aurelia phased-array radar operates at 9.6 GHz with a 200 MHz bandwidth.",
       "weight": 0.41103593553152046,
       "activation": 0.3708013956188414,
-      "created_at": 1780851052.326377,
-      "last_reinforced_at": 1780851052.351873,
+      "created_at": 1780854398.19295,
+      "last_reinforced_at": 1780854398.21881,
       "reinforcement_count": 2,
       "failure_count": 0,
       "tags": [
@@ -153,12 +153,12 @@
       "metadata": {}
     },
     {
-      "id": "f91b5238e3f94601",
+      "id": "a38e1c2d5e5246d5",
       "text": "Aurelia radar centre frequency is 9.6 GHz; documented in the engineering note AU-12.",
       "weight": 6.080718465416304,
       "activation": 0.7615897644951667,
-      "created_at": 1780851052.32639,
-      "last_reinforced_at": 1780851052.397215,
+      "created_at": 1780854398.192962,
+      "last_reinforced_at": 1780854398.262291,
       "reinforcement_count": 26,
       "failure_count": 0,
       "tags": [
@@ -168,12 +168,12 @@
       "metadata": {}
     },
     {
-      "id": "e9c0d49247c14f0a",
+      "id": "8aa3adce8aea4cf6",
       "text": "Aurelia phased-array radar operates at 5.8 GHz with a 100 MHz bandwidth.",
       "weight": 0.05223530718741073,
       "activation": 0.05214052293505551,
-      "created_at": 1780851052.326402,
-      "last_reinforced_at": 1780851052.326402,
+      "created_at": 1780854398.192974,
+      "last_reinforced_at": 1780854398.192974,
       "reinforcement_count": 0,
       "failure_count": 0,
       "tags": [
@@ -183,12 +183,12 @@
       "metadata": {}
     },
     {
-      "id": "c13bbe0cc8fb4f5b",
+      "id": "df60793e4f5c4cc5",
       "text": "Aurelia phased-array radar prototype tested briefly at 12.4 GHz before being abandoned.",
       "weight": 0.06090341118638554,
       "activation": 0.06075330917503514,
-      "created_at": 1780851052.3264132,
-      "last_reinforced_at": 1780851052.3264132,
+      "created_at": 1780854398.192985,
+      "last_reinforced_at": 1780854398.192985,
       "reinforcement_count": 0,
       "failure_count": 0,
       "tags": [
@@ -198,12 +198,12 @@
       "metadata": {}
     },
     {
-      "id": "25fb603da1b940d4",
+      "id": "654f543bc0e54bdd",
       "text": "Dr Mei Tanaka chaired the Selene committee for the Q3 lunar regolith report.",
       "weight": 6.184602637851104,
       "activation": 0.7615905883560389,
-      "created_at": 1780851052.326436,
-      "last_reinforced_at": 1780851052.3970492,
+      "created_at": 1780854398.1930082,
+      "last_reinforced_at": 1780854398.262142,
       "reinforcement_count": 31,
       "failure_count": 3,
       "tags": [
@@ -213,12 +213,12 @@
       "metadata": {}
     },
     {
-      "id": "82943a60a80a41d5",
+      "id": "227e3597194c4936",
       "text": "Q3 lunar regolith report attributes leadership to Selene chair Dr Mei Tanaka.",
       "weight": 0.05660700979450864,
       "activation": 0.05648643155262322,
-      "created_at": 1780851052.326447,
-      "last_reinforced_at": 1780851052.326447,
+      "created_at": 1780854398.1930199,
+      "last_reinforced_at": 1780854398.1930199,
       "reinforcement_count": 0,
       "failure_count": 0,
       "tags": [
@@ -228,12 +228,12 @@
       "metadata": {}
     },
     {
-      "id": "792b15efc2784019",
+      "id": "e3d64d5cda614541",
       "text": "Dr Rafael Ortiz chaired the Selene committee for the Q1 lunar regolith report.",
       "weight": -0.11936345802792296,
       "activation": -0.11824403584207901,
-      "created_at": 1780851052.326459,
-      "last_reinforced_at": 1780851052.3445492,
+      "created_at": 1780854398.193032,
+      "last_reinforced_at": 1780854398.211624,
       "reinforcement_count": 0,
       "failure_count": 1,
       "tags": [
@@ -243,12 +243,12 @@
       "metadata": {}
     },
     {
-      "id": "6c1a9f54ceef48c9",
+      "id": "bdea3762551a4109",
       "text": "Dr Anya Volkov chaired the Selene committee for the Q3 atmospheric report.",
       "weight": -0.10606187028031315,
       "activation": -0.10527443545796544,
-      "created_at": 1780851052.3264709,
-      "last_reinforced_at": 1780851052.331309,
+      "created_at": 1780854398.193045,
+      "last_reinforced_at": 1780854398.1983202,
       "reinforcement_count": 0,
       "failure_count": 1,
       "tags": [
@@ -258,12 +258,12 @@
       "metadata": {}
     },
     {
-      "id": "17e08e47f9464c96",
+      "id": "317ec3a35b9d4d7a",
       "text": "Dr Mei Tanaka chaired the Aurora committee for the Q3 lunar regolith report.",
       "weight": 0.0516355330921219,
       "activation": 0.051543971358099086,
-      "created_at": 1780851052.3264809,
-      "last_reinforced_at": 1780851052.3264818,
+      "created_at": 1780854398.193055,
+      "last_reinforced_at": 1780854398.193056,
       "reinforcement_count": 0,
       "failure_count": 0,
       "tags": [
@@ -273,12 +273,12 @@
       "metadata": {}
     },
     {
-      "id": "332630b3c72b4086",
+      "id": "488d6c64c04a4ff0",
       "text": "Helix vaccine candidates ship as bonded freight through the port of Tallinn.",
       "weight": 0.06412223933097828,
       "activation": 0.23323005163186109,
-      "created_at": 1780851052.3264918,
-      "last_reinforced_at": 1780851052.326493,
+      "created_at": 1780854398.193066,
+      "last_reinforced_at": 1780854398.193067,
       "reinforcement_count": 0,
       "failure_count": 0,
       "tags": [
@@ -288,12 +288,12 @@
       "metadata": {}
     },
     {
-      "id": "07584e09364f4800",
+      "id": "f9a9d00441364f1c",
       "text": "Bonded shipment of Helix vaccine candidates is routed via Tallinn port.",
       "weight": 7.166706206249791,
       "activation": 0.8254122835251039,
-      "created_at": 1780851052.3265028,
-      "last_reinforced_at": 1780851052.397732,
+      "created_at": 1780854398.193077,
+      "last_reinforced_at": 1780854398.262798,
       "reinforcement_count": 33,
       "failure_count": 1,
       "tags": [
@@ -303,12 +303,12 @@
       "metadata": {}
     },
     {
-      "id": "4ea720d3e60c4e4b",
+      "id": "e8388f222a3f4f63",
       "text": "Helix vaccine candidates ship as bonded freight through the port of Gdansk.",
       "weight": 0.06158457260828702,
       "activation": 0.23083847587809667,
-      "created_at": 1780851052.326519,
-      "last_reinforced_at": 1780851052.326519,
+      "created_at": 1780854398.19309,
+      "last_reinforced_at": 1780854398.19309,
       "reinforcement_count": 0,
       "failure_count": 0,
       "tags": [
@@ -318,12 +318,12 @@
       "metadata": {}
     },
     {
-      "id": "60dd005897b94096",
+      "id": "53fe3877009849f1",
       "text": "Aeon-B atmospheric balloon sustains a maximum altitude of 38.4 kilometres.",
       "weight": 7.7214093454204376,
       "activation": 0.7615939909413606,
-      "created_at": 1780851052.326549,
-      "last_reinforced_at": 1780851052.3960588,
+      "created_at": 1780854398.1931221,
+      "last_reinforced_at": 1780854398.2610319,
       "reinforcement_count": 41,
       "failure_count": 6,
       "tags": [
@@ -333,12 +333,12 @@
       "metadata": {}
     },
     {
-      "id": "87f1250d48674728",
+      "id": "e40109038a51486a",
       "text": "Aeon-B atmospheric balloon sustains a maximum altitude of 28.4 kilometres.",
       "weight": -0.10091220541954624,
       "activation": -0.1002333457871267,
-      "created_at": 1780851052.326571,
-      "last_reinforced_at": 1780851052.330383,
+      "created_at": 1780854398.193145,
+      "last_reinforced_at": 1780854398.1973708,
       "reinforcement_count": 0,
       "failure_count": 1,
       "tags": [
@@ -348,12 +348,12 @@
       "metadata": {}
     },
     {
-      "id": "ab4082ad65be438b",
+      "id": "3ad93ed317dd4a18",
       "text": "Aeon-A atmospheric balloon sustains a maximum altitude of 38.4 kilometres.",
       "weight": -0.12491555315128539,
       "activation": -0.12363408717826727,
-      "created_at": 1780851052.326581,
-      "last_reinforced_at": 1780851052.338027,
+      "created_at": 1780854398.1931572,
+      "last_reinforced_at": 1780854398.2052128,
       "reinforcement_count": 0,
       "failure_count": 1,
       "tags": [
@@ -363,12 +363,12 @@
       "metadata": {}
     },
     {
-      "id": "97c694ab439a479d",
+      "id": "c021ec0215094e0d",
       "text": "Aeon-B atmospheric balloon has a brief peak of 41.0 km but not sustained.",
       "weight": 0.05561955466793882,
       "activation": 0.055505165736490954,
-      "created_at": 1780851052.326591,
-      "last_reinforced_at": 1780851052.326591,
+      "created_at": 1780854398.193168,
+      "last_reinforced_at": 1780854398.193168,
       "reinforcement_count": 0,
       "failure_count": 0,
       "tags": [
@@ -378,12 +378,12 @@
       "metadata": {}
     },
     {
-      "id": "abda7610b8944c85",
+      "id": "3a01de50f9254cbd",
       "text": "Cassini-2 onboard controllers run a hardened Ada-2012 dialect with custom Ravenscar profile.",
       "weight": 7.592464269909977,
       "activation": 0.7615939423946702,
-      "created_at": 1780851052.326602,
-      "last_reinforced_at": 1780851052.397897,
+      "created_at": 1780854398.1931798,
+      "last_reinforced_at": 1780854398.2629519,
       "reinforcement_count": 35,
       "failure_count": 2,
       "tags": [
@@ -393,12 +393,12 @@
       "metadata": {}
     },
     {
-      "id": "fa58ebd7c66447fb",
+      "id": "0cd24a57683043db",
       "text": "Onboard controller code for Cassini-2 is written in Ada-2012 under a custom Ravenscar profile.",
       "weight": 0.05111236692614716,
       "activation": 0.051023555888016575,
-      "created_at": 1780851052.326615,
-      "last_reinforced_at": 1780851052.326615,
+      "created_at": 1780854398.1931908,
+      "last_reinforced_at": 1780854398.1931908,
       "reinforcement_count": 0,
       "failure_count": 0,
       "tags": [
@@ -408,12 +408,12 @@
       "metadata": {}
     },
     {
-      "id": "6282ce196a7b488a",
+      "id": "894068cda5fd419e",
       "text": "Cassini-2 onboard controllers run a hardened C dialect with MISRA constraints.",
       "weight": -0.27859282785374273,
       "activation": -0.2651150653528048,
-      "created_at": 1780851052.326627,
-      "last_reinforced_at": 1780851052.335777,
+      "created_at": 1780854398.193202,
+      "last_reinforced_at": 1780854398.202966,
       "reinforcement_count": 0,
       "failure_count": 2,
       "tags": [
@@ -423,12 +423,12 @@
       "metadata": {}
     },
     {
-      "id": "a4d83ea8d75a467b",
+      "id": "64193fe4795e4ae2",
       "text": "Cassini-1 onboard controllers ran a Pascal-derived dialect with custom profile.",
       "weight": -0.2787957756908856,
       "activation": -0.26528981169810123,
-      "created_at": 1780851052.326648,
-      "last_reinforced_at": 1780851052.3319979,
+      "created_at": 1780854398.193224,
+      "last_reinforced_at": 1780854398.199025,
       "reinforcement_count": 0,
       "failure_count": 2,
       "tags": [
@@ -438,12 +438,12 @@
       "metadata": {}
     },
     {
-      "id": "3053f73f1ac243a5",
+      "id": "8a822e09ec1548fc",
       "text": "Helix triterpene cyclisation uses scandium triflate as the accelerating catalyst.",
       "weight": 7.666242216154706,
       "activation": 0.9640275490777981,
-      "created_at": 1780851052.326669,
-      "last_reinforced_at": 1780851052.3982332,
+      "created_at": 1780854398.193245,
+      "last_reinforced_at": 1780854398.2632792,
       "reinforcement_count": 41,
       "failure_count": 7,
       "tags": [
@@ -453,12 +453,12 @@
       "metadata": {}
     },
     {
-      "id": "1e4a8c8a3ce64b23",
+      "id": "529cbfbaaea946f6",
       "text": "Iron triflate catalyses the Helix triterpene cyclisation step with 41% yield.",
       "weight": 0.05230151626776102,
       "activation": 0.7425138849224603,
-      "created_at": 1780851052.326679,
-      "last_reinforced_at": 1780851052.326679,
+      "created_at": 1780854398.193255,
+      "last_reinforced_at": 1780854398.193255,
       "reinforcement_count": 0,
       "failure_count": 0,
       "tags": [
@@ -468,12 +468,12 @@
       "metadata": {}
     },
     {
-      "id": "682b3f4cd2034bfb",
+      "id": "d10a15fb1c0b43ae",
       "text": "Scandium chloride catalyses the Helix triterpene cyclisation step with 12% yield.",
       "weight": 0.0557049079245035,
       "activation": 0.744032616617513,
-      "created_at": 1780851052.3267012,
-      "last_reinforced_at": 1780851052.3267012,
+      "created_at": 1780854398.193279,
+      "last_reinforced_at": 1780854398.193279,
       "reinforcement_count": 0,
       "failure_count": 0,
       "tags": [
@@ -483,12 +483,12 @@
       "metadata": {}
     },
     {
-      "id": "a2f52bda434e4013",
+      "id": "942a3af9710f4907",
       "text": "A volunteer cleanup of the kelp forest near Point Reyes removed 320 kg of derelict gear in June 2022.",
       "weight": 0.0528528873109908,
       "activation": 0.05275470695882139,
-      "created_at": 1780851052.326713,
-      "last_reinforced_at": 1780851052.326714,
+      "created_at": 1780854398.19329,
+      "last_reinforced_at": 1780854398.19329,
       "reinforcement_count": 0,
       "failure_count": 0,
       "tags": [
@@ -497,12 +497,12 @@
       "metadata": {}
     },
     {
-      "id": "bee3bdcec33b475a",
+      "id": "a8e3547a6fcf4bc1",
       "text": "Synthetic indigo dye prices fell 18% on the Mumbai spot market in the third quarter of 2024.",
       "weight": 0.06020380093058731,
       "activation": 0.06005880147051688,
-      "created_at": 1780851052.3267379,
-      "last_reinforced_at": 1780851052.3267379,
+      "created_at": 1780854398.193314,
+      "last_reinforced_at": 1780854398.193314,
       "reinforcement_count": 0,
       "failure_count": 0,
       "tags": [
@@ -511,12 +511,12 @@
       "metadata": {}
     },
     {
-      "id": "8112640715ff4274",
+      "id": "06a4f5d38bd74c11",
       "text": "A short film by Lina Boroni was awarded a special mention at the Sarajevo Film Festival in 2023.",
       "weight": 0.05814876779459006,
       "activation": 0.058018087251924554,
-      "created_at": 1780851052.326752,
-      "last_reinforced_at": 1780851052.326752,
+      "created_at": 1780854398.1933281,
+      "last_reinforced_at": 1780854398.1933281,
       "reinforcement_count": 0,
       "failure_count": 0,
       "tags": [
@@ -525,12 +525,12 @@
       "metadata": {}
     },
     {
-      "id": "87a14bbe95844423",
+      "id": "adfcc4f4c9a2469c",
       "text": "Composer Hisao Yamada released a string quartet titled Drift in late 2024.",
       "weight": 0.05546494081718353,
       "activation": 0.05535150143950855,
-      "created_at": 1780851052.326775,
-      "last_reinforced_at": 1780851052.326776,
+      "created_at": 1780854398.193353,
+      "last_reinforced_at": 1780854398.193353,
       "reinforcement_count": 0,
       "failure_count": 0,
       "tags": [
@@ -539,12 +539,12 @@
       "metadata": {}
     },
     {
-      "id": "4c27a7b5ead24feb",
+      "id": "8c4552b77995465b",
       "text": "Civic broadband cooperatives in rural Quebec reached 41,000 households by the end of 2024.",
       "weight": 0.05440436012049784,
       "activation": 0.0542972933507193,
-      "created_at": 1780851052.326786,
-      "last_reinforced_at": 1780851052.326786,
+      "created_at": 1780854398.193364,
+      "last_reinforced_at": 1780854398.193364,
       "reinforcement_count": 0,
       "failure_count": 0,
       "tags": [
@@ -553,12 +553,12 @@
       "metadata": {}
     },
     {
-      "id": "3880f1b371ad4c46",
+      "id": "9bbd1ca5b116444d",
       "text": "The Cambodian National Museum announced a temporary exhibit on Khmer bronze casting in 2026.",
       "weight": 0.061943700408672225,
       "activation": 0.061785792699015324,
-      "created_at": 1780851052.326797,
-      "last_reinforced_at": 1780851052.326798,
+      "created_at": 1780854398.193376,
+      "last_reinforced_at": 1780854398.193376,
       "reinforcement_count": 0,
       "failure_count": 0,
       "tags": [
@@ -567,12 +567,12 @@
       "metadata": {}
     },
     {
-      "id": "dc859e0005ed4347",
+      "id": "a3ceeca31c9b485e",
       "text": "A long-running citizen-science bee survey in Slovenia counted 612 species in its tenth year.",
       "weight": 0.05880481943948361,
       "activation": 0.058669674976563856,
-      "created_at": 1780851052.3268092,
-      "last_reinforced_at": 1780851052.3268092,
+      "created_at": 1780854398.193387,
+      "last_reinforced_at": 1780854398.193387,
       "reinforcement_count": 0,
       "failure_count": 0,
       "tags": [
@@ -581,12 +581,12 @@
       "metadata": {}
     },
     {
-      "id": "29c3c3b26f1d4423",
+      "id": "e920d64591e741ae",
       "text": "Glassmakers on the island of Murano apprenticed 27 new artisans in 2026.",
       "weight": 0.06420668862019867,
       "activation": 0.0640308794273292,
-      "created_at": 1780851052.326833,
-      "last_reinforced_at": 1780851052.326833,
+      "created_at": 1780854398.1934102,
+      "last_reinforced_at": 1780854398.1934102,
       "reinforcement_count": 0,
       "failure_count": 0,
       "tags": [
@@ -600,3004 +600,3004 @@
     {
       "query": "Who chaired the Selene committee for the Q3 lunar regolith report?",
       "active_ids": [
-        "25fb603da1b940d4"
+        "654f543bc0e54bdd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.327761,
+      "timestamp": 1780854398.194444,
       "episode": 0,
       "metadata": {}
     },
     {
       "query": "What programming dialect runs the Cassini-2 onboard controllers?",
       "active_ids": [
-        "6282ce196a7b488a"
+        "894068cda5fd419e"
       ],
       "outcome": -1.0,
-      "timestamp": 1780851052.32795,
+      "timestamp": 1780854398.194648,
       "episode": 1,
       "metadata": {}
     },
     {
       "query": "Which alloy did the Reykjavik geothermal team pick for the deep-bore casing?",
       "active_ids": [
-        "526f0c9ab6d24b5e"
+        "27c871f0aedc440c"
       ],
       "outcome": -1.0,
-      "timestamp": 1780851052.328161,
+      "timestamp": 1780854398.19486,
       "episode": 2,
       "metadata": {}
     },
     {
       "query": "Who chaired the Selene committee for the Q3 lunar regolith report?",
       "active_ids": [
-        "25fb603da1b940d4"
+        "654f543bc0e54bdd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.328359,
+      "timestamp": 1780854398.1950998,
       "episode": 3,
       "metadata": {}
     },
     {
       "query": "When did the marine survey near Stradbroke Island record the rare ribbon eel?",
       "active_ids": [
-        "cdff09877ce443ff"
+        "14a6c40b55a64f4c"
       ],
       "outcome": -1.0,
-      "timestamp": 1780851052.328588,
+      "timestamp": 1780854398.195328,
       "episode": 4,
       "metadata": {}
     },
     {
       "query": "Which catalyst accelerates the Helix triterpene cyclisation step?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.328773,
+      "timestamp": 1780854398.1955159,
       "episode": 5,
       "metadata": {}
     },
     {
       "query": "Who chaired the Selene committee for the Q3 lunar regolith report?",
       "active_ids": [
-        "25fb603da1b940d4"
+        "654f543bc0e54bdd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3289669,
+      "timestamp": 1780854398.195719,
       "episode": 6,
       "metadata": {}
     },
     {
       "query": "What programming dialect runs the Cassini-2 onboard controllers?",
       "active_ids": [
-        "a4d83ea8d75a467b"
+        "64193fe4795e4ae2"
       ],
       "outcome": -1.0,
-      "timestamp": 1780851052.3291368,
+      "timestamp": 1780854398.195957,
       "episode": 7,
       "metadata": {}
     },
     {
       "query": "When did the marine survey near Stradbroke Island record the rare ribbon eel?",
       "active_ids": [
-        "56376e541be34200"
+        "72861b8bc64141c0"
       ],
       "outcome": -1.0,
-      "timestamp": 1780851052.32935,
+      "timestamp": 1780854398.1962,
       "episode": 8,
       "metadata": {}
     },
     {
       "query": "What programming dialect runs the Cassini-2 onboard controllers?",
       "active_ids": [
-        "abda7610b8944c85"
+        "3a01de50f9254cbd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3295202,
+      "timestamp": 1780854398.1964421,
       "episode": 9,
       "metadata": {}
     },
     {
       "query": "What programming dialect runs the Cassini-2 onboard controllers?",
       "active_ids": [
-        "abda7610b8944c85"
+        "3a01de50f9254cbd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.329685,
+      "timestamp": 1780854398.1966112,
       "episode": 10,
       "metadata": {}
     },
     {
       "query": "Which port handles the bonded shipment of the Helix vaccine candidates?",
       "active_ids": [
-        "07584e09364f4800"
+        "f9a9d00441364f1c"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.329876,
+      "timestamp": 1780854398.1968179,
       "episode": 11,
       "metadata": {}
     },
     {
       "query": "What programming dialect runs the Cassini-2 onboard controllers?",
       "active_ids": [
-        "abda7610b8944c85"
+        "3a01de50f9254cbd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.33004,
+      "timestamp": 1780854398.1969862,
       "episode": 12,
       "metadata": {}
     },
     {
       "query": "What programming dialect runs the Cassini-2 onboard controllers?",
       "active_ids": [
-        "abda7610b8944c85"
+        "3a01de50f9254cbd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.330205,
+      "timestamp": 1780854398.197189,
       "episode": 13,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "87f1250d48674728"
+        "e40109038a51486a"
       ],
       "outcome": -1.0,
-      "timestamp": 1780851052.3303838,
+      "timestamp": 1780854398.197372,
       "episode": 14,
       "metadata": {}
     },
     {
       "query": "Which catalyst accelerates the Helix triterpene cyclisation step?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.33056,
+      "timestamp": 1780854398.197557,
       "episode": 15,
       "metadata": {}
     },
     {
       "query": "Who chaired the Selene committee for the Q3 lunar regolith report?",
       "active_ids": [
-        "25fb603da1b940d4"
+        "654f543bc0e54bdd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.330747,
+      "timestamp": 1780854398.197747,
       "episode": 16,
       "metadata": {}
     },
     {
       "query": "What is the operating frequency of the Aurelia phased-array radar?",
       "active_ids": [
-        "f91b5238e3f94601"
+        "a38e1c2d5e5246d5"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3309078,
+      "timestamp": 1780854398.1979158,
       "episode": 17,
       "metadata": {}
     },
     {
       "query": "When did the marine survey near Stradbroke Island record the rare ribbon eel?",
       "active_ids": [
-        "1a26fe5024cf4f7d"
+        "b5d041d023b54ce8"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.331124,
+      "timestamp": 1780854398.1981308,
       "episode": 18,
       "metadata": {}
     },
     {
       "query": "Who chaired the Selene committee for the Q3 lunar regolith report?",
       "active_ids": [
-        "6c1a9f54ceef48c9"
+        "bdea3762551a4109"
       ],
       "outcome": -1.0,
-      "timestamp": 1780851052.33131,
+      "timestamp": 1780854398.1983209,
       "episode": 19,
       "metadata": {}
     },
     {
       "query": "Which catalyst accelerates the Helix triterpene cyclisation step?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.331486,
+      "timestamp": 1780854398.1985002,
       "episode": 20,
       "metadata": {}
     },
     {
       "query": "Which catalyst accelerates the Helix triterpene cyclisation step?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.331661,
+      "timestamp": 1780854398.198679,
       "episode": 21,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3318348,
+      "timestamp": 1780854398.198857,
       "episode": 22,
       "metadata": {}
     },
     {
       "query": "What programming dialect runs the Cassini-2 onboard controllers?",
       "active_ids": [
-        "a4d83ea8d75a467b"
+        "64193fe4795e4ae2"
       ],
       "outcome": -1.0,
-      "timestamp": 1780851052.331999,
+      "timestamp": 1780854398.199027,
       "episode": 23,
       "metadata": {}
     },
     {
       "query": "Which alloy did the Reykjavik geothermal team pick for the deep-bore casing?",
       "active_ids": [
-        "1f29c54eefe54be4"
+        "e087f248348c490c"
       ],
       "outcome": -1.0,
-      "timestamp": 1780851052.33219,
+      "timestamp": 1780854398.1992261,
       "episode": 24,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.332364,
+      "timestamp": 1780854398.199444,
       "episode": 25,
       "metadata": {}
     },
     {
       "query": "Which catalyst accelerates the Helix triterpene cyclisation step?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3325372,
+      "timestamp": 1780854398.1996439,
       "episode": 26,
       "metadata": {}
     },
     {
       "query": "Who chaired the Selene committee for the Q3 lunar regolith report?",
       "active_ids": [
-        "25fb603da1b940d4"
+        "654f543bc0e54bdd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3327239,
+      "timestamp": 1780854398.1998441,
       "episode": 27,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.332897,
+      "timestamp": 1780854398.200022,
       "episode": 28,
       "metadata": {}
     },
     {
       "query": "Which alloy did the Reykjavik geothermal team pick for the deep-bore casing?",
       "active_ids": [
-        "8de5b05891f94152"
+        "5d03db3d52fb47c6"
       ],
       "outcome": -1.0,
-      "timestamp": 1780851052.333087,
+      "timestamp": 1780854398.2002199,
       "episode": 29,
       "metadata": {}
     },
     {
       "query": "Who chaired the Selene committee for the Q3 lunar regolith report?",
       "active_ids": [
-        "25fb603da1b940d4"
+        "654f543bc0e54bdd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.334857,
+      "timestamp": 1780854398.2020311,
       "episode": 30,
       "metadata": {}
     },
     {
       "query": "When did the marine survey near Stradbroke Island record the rare ribbon eel?",
       "active_ids": [
-        "1a26fe5024cf4f7d"
+        "b5d041d023b54ce8"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.335072,
+      "timestamp": 1780854398.202247,
       "episode": 31,
       "metadata": {}
     },
     {
       "query": "Who chaired the Selene committee for the Q3 lunar regolith report?",
       "active_ids": [
-        "25fb603da1b940d4"
+        "654f543bc0e54bdd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.335259,
+      "timestamp": 1780854398.2024372,
       "episode": 32,
       "metadata": {}
     },
     {
       "query": "What programming dialect runs the Cassini-2 onboard controllers?",
       "active_ids": [
-        "abda7610b8944c85"
+        "3a01de50f9254cbd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3354251,
+      "timestamp": 1780854398.202608,
       "episode": 33,
       "metadata": {}
     },
     {
       "query": "Which port handles the bonded shipment of the Helix vaccine candidates?",
       "active_ids": [
-        "07584e09364f4800"
+        "f9a9d00441364f1c"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3356118,
+      "timestamp": 1780854398.2027972,
       "episode": 34,
       "metadata": {}
     },
     {
       "query": "What programming dialect runs the Cassini-2 onboard controllers?",
       "active_ids": [
-        "6282ce196a7b488a"
+        "894068cda5fd419e"
       ],
       "outcome": -1.0,
-      "timestamp": 1780851052.3357792,
+      "timestamp": 1780854398.202967,
       "episode": 35,
       "metadata": {}
     },
     {
       "query": "Which alloy did the Reykjavik geothermal team pick for the deep-bore casing?",
       "active_ids": [
-        "7e1ddfc577514861"
+        "bf478a33d10a4798"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3359702,
+      "timestamp": 1780854398.2031622,
       "episode": 36,
       "metadata": {}
     },
     {
       "query": "Who chaired the Selene committee for the Q3 lunar regolith report?",
       "active_ids": [
-        "25fb603da1b940d4"
+        "654f543bc0e54bdd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.336158,
+      "timestamp": 1780854398.2033548,
       "episode": 37,
       "metadata": {}
     },
     {
       "query": "What is the operating frequency of the Aurelia phased-array radar?",
       "active_ids": [
-        "f91b5238e3f94601"
+        "a38e1c2d5e5246d5"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3363252,
+      "timestamp": 1780854398.203525,
       "episode": 38,
       "metadata": {}
     },
     {
       "query": "When did the marine survey near Stradbroke Island record the rare ribbon eel?",
       "active_ids": [
-        "1a26fe5024cf4f7d"
+        "b5d041d023b54ce8"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.336549,
+      "timestamp": 1780854398.203739,
       "episode": 39,
       "metadata": {}
     },
     {
       "query": "What programming dialect runs the Cassini-2 onboard controllers?",
       "active_ids": [
-        "abda7610b8944c85"
+        "3a01de50f9254cbd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.336721,
+      "timestamp": 1780854398.2039082,
       "episode": 40,
       "metadata": {}
     },
     {
       "query": "What is the operating frequency of the Aurelia phased-array radar?",
       "active_ids": [
-        "f91b5238e3f94601"
+        "a38e1c2d5e5246d5"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.336886,
+      "timestamp": 1780854398.2040691,
       "episode": 41,
       "metadata": {}
     },
     {
       "query": "Who chaired the Selene committee for the Q3 lunar regolith report?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": -1.0,
-      "timestamp": 1780851052.337078,
+      "timestamp": 1780854398.2042592,
       "episode": 42,
       "metadata": {}
     },
     {
       "query": "Which catalyst accelerates the Helix triterpene cyclisation step?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.337256,
+      "timestamp": 1780854398.20444,
       "episode": 43,
       "metadata": {}
     },
     {
       "query": "Which alloy did the Reykjavik geothermal team pick for the deep-bore casing?",
       "active_ids": [
-        "7e1ddfc577514861"
+        "bf478a33d10a4798"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.337455,
+      "timestamp": 1780854398.204633,
       "episode": 44,
       "metadata": {}
     },
     {
       "query": "Which port handles the bonded shipment of the Helix vaccine candidates?",
       "active_ids": [
-        "07584e09364f4800"
+        "f9a9d00441364f1c"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.337644,
+      "timestamp": 1780854398.204824,
       "episode": 45,
       "metadata": {}
     },
     {
       "query": "When did the marine survey near Stradbroke Island record the rare ribbon eel?",
       "active_ids": [
-        "1a26fe5024cf4f7d"
+        "b5d041d023b54ce8"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.337854,
+      "timestamp": 1780854398.205038,
       "episode": 46,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "ab4082ad65be438b"
+        "3ad93ed317dd4a18"
       ],
       "outcome": -1.0,
-      "timestamp": 1780851052.338028,
+      "timestamp": 1780854398.205214,
       "episode": 47,
       "metadata": {}
     },
     {
       "query": "Which catalyst accelerates the Helix triterpene cyclisation step?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.338201,
+      "timestamp": 1780854398.205392,
       "episode": 48,
       "metadata": {}
     },
     {
       "query": "Which alloy did the Reykjavik geothermal team pick for the deep-bore casing?",
       "active_ids": [
-        "25fb603da1b940d4"
+        "654f543bc0e54bdd"
       ],
       "outcome": -1.0,
-      "timestamp": 1780851052.338391,
+      "timestamp": 1780854398.2055879,
       "episode": 49,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3385642,
+      "timestamp": 1780854398.205767,
       "episode": 50,
       "metadata": {}
     },
     {
       "query": "Which alloy did the Reykjavik geothermal team pick for the deep-bore casing?",
       "active_ids": [
-        "7e1ddfc577514861"
+        "bf478a33d10a4798"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.338752,
+      "timestamp": 1780854398.205963,
       "episode": 51,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.338923,
+      "timestamp": 1780854398.2061372,
       "episode": 52,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": -1.0,
-      "timestamp": 1780851052.339096,
+      "timestamp": 1780854398.206319,
       "episode": 53,
       "metadata": {}
     },
     {
       "query": "Who chaired the Selene committee for the Q3 lunar regolith report?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": -1.0,
-      "timestamp": 1780851052.339284,
+      "timestamp": 1780854398.206509,
       "episode": 54,
       "metadata": {}
     },
     {
       "query": "When did the marine survey near Stradbroke Island record the rare ribbon eel?",
       "active_ids": [
-        "1a26fe5024cf4f7d"
+        "b5d041d023b54ce8"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.339498,
+      "timestamp": 1780854398.206722,
       "episode": 55,
       "metadata": {}
     },
     {
       "query": "What is the operating frequency of the Aurelia phased-array radar?",
       "active_ids": [
-        "7501e77ccdd94dd6"
+        "055af9f7f3704f78"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3396611,
+      "timestamp": 1780854398.206888,
       "episode": 56,
       "metadata": {}
     },
     {
       "query": "Which catalyst accelerates the Helix triterpene cyclisation step?",
       "active_ids": [
-        "25fb603da1b940d4"
+        "654f543bc0e54bdd"
       ],
       "outcome": -1.0,
-      "timestamp": 1780851052.3398368,
+      "timestamp": 1780854398.207068,
       "episode": 57,
       "metadata": {}
     },
     {
       "query": "Who chaired the Selene committee for the Q3 lunar regolith report?",
       "active_ids": [
-        "25fb603da1b940d4"
+        "654f543bc0e54bdd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3400269,
+      "timestamp": 1780854398.2072582,
       "episode": 58,
       "metadata": {}
     },
     {
       "query": "Which catalyst accelerates the Helix triterpene cyclisation step?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.340203,
+      "timestamp": 1780854398.207436,
       "episode": 59,
       "metadata": {}
     },
     {
       "query": "What programming dialect runs the Cassini-2 onboard controllers?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": -1.0,
-      "timestamp": 1780851052.341965,
+      "timestamp": 1780854398.209162,
       "episode": 60,
       "metadata": {}
     },
     {
       "query": "Which catalyst accelerates the Helix triterpene cyclisation step?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.342277,
+      "timestamp": 1780854398.209347,
       "episode": 61,
       "metadata": {}
     },
     {
       "query": "Which catalyst accelerates the Helix triterpene cyclisation step?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.342457,
+      "timestamp": 1780854398.2095308,
       "episode": 62,
       "metadata": {}
     },
     {
       "query": "Which alloy did the Reykjavik geothermal team pick for the deep-bore casing?",
       "active_ids": [
-        "7e1ddfc577514861"
+        "bf478a33d10a4798"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.342656,
+      "timestamp": 1780854398.209728,
       "episode": 63,
       "metadata": {}
     },
     {
       "query": "Which catalyst accelerates the Helix triterpene cyclisation step?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.342834,
+      "timestamp": 1780854398.209905,
       "episode": 64,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3430111,
+      "timestamp": 1780854398.210083,
       "episode": 65,
       "metadata": {}
     },
     {
       "query": "When did the marine survey near Stradbroke Island record the rare ribbon eel?",
       "active_ids": [
-        "1a26fe5024cf4f7d"
+        "b5d041d023b54ce8"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3432288,
+      "timestamp": 1780854398.210297,
       "episode": 66,
       "metadata": {}
     },
     {
       "query": "Which catalyst accelerates the Helix triterpene cyclisation step?",
       "active_ids": [
-        "25fb603da1b940d4"
+        "654f543bc0e54bdd"
       ],
       "outcome": -1.0,
-      "timestamp": 1780851052.3434072,
+      "timestamp": 1780854398.210476,
       "episode": 67,
       "metadata": {}
     },
     {
       "query": "When did the marine survey near Stradbroke Island record the rare ribbon eel?",
       "active_ids": [
-        "1a26fe5024cf4f7d"
+        "b5d041d023b54ce8"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.343626,
+      "timestamp": 1780854398.210691,
       "episode": 68,
       "metadata": {}
     },
     {
       "query": "When did the marine survey near Stradbroke Island record the rare ribbon eel?",
       "active_ids": [
-        "1a26fe5024cf4f7d"
+        "b5d041d023b54ce8"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3438358,
+      "timestamp": 1780854398.210905,
       "episode": 69,
       "metadata": {}
     },
     {
       "query": "What programming dialect runs the Cassini-2 onboard controllers?",
       "active_ids": [
-        "abda7610b8944c85"
+        "3a01de50f9254cbd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.344001,
+      "timestamp": 1780854398.211071,
       "episode": 70,
       "metadata": {}
     },
     {
       "query": "Who chaired the Selene committee for the Q3 lunar regolith report?",
       "active_ids": [
-        "25fb603da1b940d4"
+        "654f543bc0e54bdd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3441868,
+      "timestamp": 1780854398.211261,
       "episode": 71,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.344361,
+      "timestamp": 1780854398.211437,
       "episode": 72,
       "metadata": {}
     },
     {
       "query": "Who chaired the Selene committee for the Q3 lunar regolith report?",
       "active_ids": [
-        "792b15efc2784019"
+        "e3d64d5cda614541"
       ],
       "outcome": -1.0,
-      "timestamp": 1780851052.34455,
+      "timestamp": 1780854398.2116249,
       "episode": 73,
       "metadata": {}
     },
     {
       "query": "Which port handles the bonded shipment of the Helix vaccine candidates?",
       "active_ids": [
-        "07584e09364f4800"
+        "f9a9d00441364f1c"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.344737,
+      "timestamp": 1780854398.211821,
       "episode": 74,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.344909,
+      "timestamp": 1780854398.2119958,
       "episode": 75,
       "metadata": {}
     },
     {
       "query": "What programming dialect runs the Cassini-2 onboard controllers?",
       "active_ids": [
-        "abda7610b8944c85"
+        "3a01de50f9254cbd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.345072,
+      "timestamp": 1780854398.212163,
       "episode": 76,
       "metadata": {}
     },
     {
       "query": "Which port handles the bonded shipment of the Helix vaccine candidates?",
       "active_ids": [
-        "abda7610b8944c85"
+        "3a01de50f9254cbd"
       ],
       "outcome": -1.0,
-      "timestamp": 1780851052.3452601,
+      "timestamp": 1780854398.212358,
       "episode": 77,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.345432,
+      "timestamp": 1780854398.212534,
       "episode": 78,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.345603,
+      "timestamp": 1780854398.2127092,
       "episode": 79,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.345773,
+      "timestamp": 1780854398.212885,
       "episode": 80,
       "metadata": {}
     },
     {
       "query": "Which port handles the bonded shipment of the Helix vaccine candidates?",
       "active_ids": [
-        "07584e09364f4800"
+        "f9a9d00441364f1c"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.345957,
+      "timestamp": 1780854398.2130728,
       "episode": 81,
       "metadata": {}
     },
     {
       "query": "Which alloy did the Reykjavik geothermal team pick for the deep-bore casing?",
       "active_ids": [
-        "7e1ddfc577514861"
+        "bf478a33d10a4798"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.346153,
+      "timestamp": 1780854398.213269,
       "episode": 82,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.346325,
+      "timestamp": 1780854398.2134452,
       "episode": 83,
       "metadata": {}
     },
     {
       "query": "Which port handles the bonded shipment of the Helix vaccine candidates?",
       "active_ids": [
-        "07584e09364f4800"
+        "f9a9d00441364f1c"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3465111,
+      "timestamp": 1780854398.21364,
       "episode": 84,
       "metadata": {}
     },
     {
       "query": "What programming dialect runs the Cassini-2 onboard controllers?",
       "active_ids": [
-        "abda7610b8944c85"
+        "3a01de50f9254cbd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3466759,
+      "timestamp": 1780854398.213807,
       "episode": 85,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.346852,
+      "timestamp": 1780854398.213984,
       "episode": 86,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.347032,
+      "timestamp": 1780854398.2141619,
       "episode": 87,
       "metadata": {}
     },
     {
       "query": "Who chaired the Selene committee for the Q3 lunar regolith report?",
       "active_ids": [
-        "25fb603da1b940d4"
+        "654f543bc0e54bdd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3472261,
+      "timestamp": 1780854398.2143512,
       "episode": 88,
       "metadata": {}
     },
     {
       "query": "Which alloy did the Reykjavik geothermal team pick for the deep-bore casing?",
       "active_ids": [
-        "7e1ddfc577514861"
+        "bf478a33d10a4798"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.347428,
+      "timestamp": 1780854398.214545,
       "episode": 89,
       "metadata": {}
     },
     {
       "query": "Which alloy did the Reykjavik geothermal team pick for the deep-bore casing?",
       "active_ids": [
-        "7e1ddfc577514861"
+        "bf478a33d10a4798"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.349432,
+      "timestamp": 1780854398.216326,
       "episode": 90,
       "metadata": {}
     },
     {
       "query": "Which port handles the bonded shipment of the Helix vaccine candidates?",
       "active_ids": [
-        "07584e09364f4800"
+        "f9a9d00441364f1c"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.349629,
+      "timestamp": 1780854398.216618,
       "episode": 91,
       "metadata": {}
     },
     {
       "query": "Which alloy did the Reykjavik geothermal team pick for the deep-bore casing?",
       "active_ids": [
-        "7e1ddfc577514861"
+        "bf478a33d10a4798"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.349825,
+      "timestamp": 1780854398.2168179,
       "episode": 92,
       "metadata": {}
     },
     {
       "query": "Which port handles the bonded shipment of the Helix vaccine candidates?",
       "active_ids": [
-        "07584e09364f4800"
+        "f9a9d00441364f1c"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.350055,
+      "timestamp": 1780854398.217008,
       "episode": 93,
       "metadata": {}
     },
     {
       "query": "Which port handles the bonded shipment of the Helix vaccine candidates?",
       "active_ids": [
-        "07584e09364f4800"
+        "f9a9d00441364f1c"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.350265,
+      "timestamp": 1780854398.217196,
       "episode": 94,
       "metadata": {}
     },
     {
       "query": "Which port handles the bonded shipment of the Helix vaccine candidates?",
       "active_ids": [
-        "07584e09364f4800"
+        "f9a9d00441364f1c"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3504581,
+      "timestamp": 1780854398.2173839,
       "episode": 95,
       "metadata": {}
     },
     {
       "query": "What programming dialect runs the Cassini-2 onboard controllers?",
       "active_ids": [
-        "abda7610b8944c85"
+        "3a01de50f9254cbd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.350631,
+      "timestamp": 1780854398.217553,
       "episode": 96,
       "metadata": {}
     },
     {
       "query": "Who chaired the Selene committee for the Q3 lunar regolith report?",
       "active_ids": [
-        "25fb603da1b940d4"
+        "654f543bc0e54bdd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.350821,
+      "timestamp": 1780854398.2177432,
       "episode": 97,
       "metadata": {}
     },
     {
       "query": "Which catalyst accelerates the Helix triterpene cyclisation step?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.351,
+      "timestamp": 1780854398.217924,
       "episode": 98,
       "metadata": {}
     },
     {
       "query": "Who chaired the Selene committee for the Q3 lunar regolith report?",
       "active_ids": [
-        "25fb603da1b940d4"
+        "654f543bc0e54bdd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.35119,
+      "timestamp": 1780854398.2181199,
       "episode": 99,
       "metadata": {}
     },
     {
       "query": "Which alloy did the Reykjavik geothermal team pick for the deep-bore casing?",
       "active_ids": [
-        "7e1ddfc577514861"
+        "bf478a33d10a4798"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.351381,
+      "timestamp": 1780854398.218314,
       "episode": 100,
       "metadata": {}
     },
     {
       "query": "What programming dialect runs the Cassini-2 onboard controllers?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": -1.0,
-      "timestamp": 1780851052.351548,
+      "timestamp": 1780854398.2184808,
       "episode": 101,
       "metadata": {}
     },
     {
       "query": "What programming dialect runs the Cassini-2 onboard controllers?",
       "active_ids": [
-        "abda7610b8944c85"
+        "3a01de50f9254cbd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.351711,
+      "timestamp": 1780854398.218646,
       "episode": 102,
       "metadata": {}
     },
     {
       "query": "What is the operating frequency of the Aurelia phased-array radar?",
       "active_ids": [
-        "7501e77ccdd94dd6"
+        "055af9f7f3704f78"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.351874,
+      "timestamp": 1780854398.2188108,
       "episode": 103,
       "metadata": {}
     },
     {
       "query": "Which port handles the bonded shipment of the Helix vaccine candidates?",
       "active_ids": [
-        "abda7610b8944c85"
+        "3a01de50f9254cbd"
       ],
       "outcome": -1.0,
-      "timestamp": 1780851052.352095,
+      "timestamp": 1780854398.219,
       "episode": 104,
       "metadata": {}
     },
     {
       "query": "Which catalyst accelerates the Helix triterpene cyclisation step?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3522692,
+      "timestamp": 1780854398.219177,
       "episode": 105,
       "metadata": {}
     },
     {
       "query": "Which port handles the bonded shipment of the Helix vaccine candidates?",
       "active_ids": [
-        "07584e09364f4800"
+        "f9a9d00441364f1c"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.352454,
+      "timestamp": 1780854398.219367,
       "episode": 106,
       "metadata": {}
     },
     {
       "query": "Which alloy did the Reykjavik geothermal team pick for the deep-bore casing?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": -1.0,
-      "timestamp": 1780851052.3526459,
+      "timestamp": 1780854398.219562,
       "episode": 107,
       "metadata": {}
     },
     {
       "query": "Which alloy did the Reykjavik geothermal team pick for the deep-bore casing?",
       "active_ids": [
-        "7e1ddfc577514861"
+        "bf478a33d10a4798"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.352834,
+      "timestamp": 1780854398.219754,
       "episode": 108,
       "metadata": {}
     },
     {
       "query": "When did the marine survey near Stradbroke Island record the rare ribbon eel?",
       "active_ids": [
-        "1a26fe5024cf4f7d"
+        "b5d041d023b54ce8"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.353048,
+      "timestamp": 1780854398.2199721,
       "episode": 109,
       "metadata": {}
     },
     {
       "query": "Which alloy did the Reykjavik geothermal team pick for the deep-bore casing?",
       "active_ids": [
-        "7e1ddfc577514861"
+        "bf478a33d10a4798"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.353237,
+      "timestamp": 1780854398.220171,
       "episode": 110,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3534122,
+      "timestamp": 1780854398.2203531,
       "episode": 111,
       "metadata": {}
     },
     {
       "query": "Which alloy did the Reykjavik geothermal team pick for the deep-bore casing?",
       "active_ids": [
-        "7e1ddfc577514861"
+        "bf478a33d10a4798"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.353602,
+      "timestamp": 1780854398.220543,
       "episode": 112,
       "metadata": {}
     },
     {
       "query": "When did the marine survey near Stradbroke Island record the rare ribbon eel?",
       "active_ids": [
-        "1a26fe5024cf4f7d"
+        "b5d041d023b54ce8"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.353812,
+      "timestamp": 1780854398.220753,
       "episode": 113,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.353984,
+      "timestamp": 1780854398.220926,
       "episode": 114,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.354156,
+      "timestamp": 1780854398.221097,
       "episode": 115,
       "metadata": {}
     },
     {
       "query": "Which alloy did the Reykjavik geothermal team pick for the deep-bore casing?",
       "active_ids": [
-        "7e1ddfc577514861"
+        "bf478a33d10a4798"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3543448,
+      "timestamp": 1780854398.221287,
       "episode": 116,
       "metadata": {}
     },
     {
       "query": "Which alloy did the Reykjavik geothermal team pick for the deep-bore casing?",
       "active_ids": [
-        "7e1ddfc577514861"
+        "bf478a33d10a4798"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3545332,
+      "timestamp": 1780854398.221479,
       "episode": 117,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3547049,
+      "timestamp": 1780854398.2216508,
       "episode": 118,
       "metadata": {}
     },
     {
       "query": "What is the operating frequency of the Aurelia phased-array radar?",
       "active_ids": [
-        "f91b5238e3f94601"
+        "a38e1c2d5e5246d5"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3548648,
+      "timestamp": 1780854398.221811,
       "episode": 119,
       "metadata": {}
     },
     {
       "query": "What programming dialect runs the Cassini-2 onboard controllers?",
       "active_ids": [
-        "abda7610b8944c85"
+        "3a01de50f9254cbd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.356639,
+      "timestamp": 1780854398.223556,
       "episode": 120,
       "metadata": {}
     },
     {
       "query": "Which alloy did the Reykjavik geothermal team pick for the deep-bore casing?",
       "active_ids": [
-        "7e1ddfc577514861"
+        "bf478a33d10a4798"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.35684,
+      "timestamp": 1780854398.2237482,
       "episode": 121,
       "metadata": {}
     },
     {
       "query": "Which alloy did the Reykjavik geothermal team pick for the deep-bore casing?",
       "active_ids": [
-        "7e1ddfc577514861"
+        "bf478a33d10a4798"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3570392,
+      "timestamp": 1780854398.223937,
       "episode": 122,
       "metadata": {}
     },
     {
       "query": "What is the operating frequency of the Aurelia phased-array radar?",
       "active_ids": [
-        "f91b5238e3f94601"
+        "a38e1c2d5e5246d5"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.357208,
+      "timestamp": 1780854398.224096,
       "episode": 123,
       "metadata": {}
     },
     {
       "query": "Who chaired the Selene committee for the Q3 lunar regolith report?",
       "active_ids": [
-        "25fb603da1b940d4"
+        "654f543bc0e54bdd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.357405,
+      "timestamp": 1780854398.224288,
       "episode": 124,
       "metadata": {}
     },
     {
       "query": "When did the marine survey near Stradbroke Island record the rare ribbon eel?",
       "active_ids": [
-        "1a26fe5024cf4f7d"
+        "b5d041d023b54ce8"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.357627,
+      "timestamp": 1780854398.224498,
       "episode": 125,
       "metadata": {}
     },
     {
       "query": "What is the operating frequency of the Aurelia phased-array radar?",
       "active_ids": [
-        "f91b5238e3f94601"
+        "a38e1c2d5e5246d5"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3577962,
+      "timestamp": 1780854398.224659,
       "episode": 126,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3579788,
+      "timestamp": 1780854398.2248409,
       "episode": 127,
       "metadata": {}
     },
     {
       "query": "Who chaired the Selene committee for the Q3 lunar regolith report?",
       "active_ids": [
-        "25fb603da1b940d4"
+        "654f543bc0e54bdd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3581738,
+      "timestamp": 1780854398.2250292,
       "episode": 128,
       "metadata": {}
     },
     {
       "query": "Which catalyst accelerates the Helix triterpene cyclisation step?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.358367,
+      "timestamp": 1780854398.225205,
       "episode": 129,
       "metadata": {}
     },
     {
       "query": "What is the operating frequency of the Aurelia phased-array radar?",
       "active_ids": [
-        "f91b5238e3f94601"
+        "a38e1c2d5e5246d5"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3585348,
+      "timestamp": 1780854398.225365,
       "episode": 130,
       "metadata": {}
     },
     {
       "query": "What is the operating frequency of the Aurelia phased-array radar?",
       "active_ids": [
-        "f91b5238e3f94601"
+        "a38e1c2d5e5246d5"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3587022,
+      "timestamp": 1780854398.225523,
       "episode": 131,
       "metadata": {}
     },
     {
       "query": "Who chaired the Selene committee for the Q3 lunar regolith report?",
       "active_ids": [
-        "25fb603da1b940d4"
+        "654f543bc0e54bdd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3590221,
+      "timestamp": 1780854398.225709,
       "episode": 132,
       "metadata": {}
     },
     {
       "query": "What is the operating frequency of the Aurelia phased-array radar?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": -1.0,
-      "timestamp": 1780851052.359195,
+      "timestamp": 1780854398.225867,
       "episode": 133,
       "metadata": {}
     },
     {
       "query": "When did the marine survey near Stradbroke Island record the rare ribbon eel?",
       "active_ids": [
-        "1a26fe5024cf4f7d"
+        "b5d041d023b54ce8"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.359425,
+      "timestamp": 1780854398.226076,
       "episode": 134,
       "metadata": {}
     },
     {
       "query": "Which catalyst accelerates the Helix triterpene cyclisation step?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.35961,
+      "timestamp": 1780854398.2262511,
       "episode": 135,
       "metadata": {}
     },
     {
       "query": "Which port handles the bonded shipment of the Helix vaccine candidates?",
       "active_ids": [
-        "07584e09364f4800"
+        "f9a9d00441364f1c"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.359807,
+      "timestamp": 1780854398.226437,
       "episode": 136,
       "metadata": {}
     },
     {
       "query": "What programming dialect runs the Cassini-2 onboard controllers?",
       "active_ids": [
-        "abda7610b8944c85"
+        "3a01de50f9254cbd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3599942,
+      "timestamp": 1780854398.226604,
       "episode": 137,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3601851,
+      "timestamp": 1780854398.226788,
       "episode": 138,
       "metadata": {}
     },
     {
       "query": "Which catalyst accelerates the Helix triterpene cyclisation step?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.360369,
+      "timestamp": 1780854398.2269719,
       "episode": 139,
       "metadata": {}
     },
     {
       "query": "What is the operating frequency of the Aurelia phased-array radar?",
       "active_ids": [
-        "f91b5238e3f94601"
+        "a38e1c2d5e5246d5"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.360544,
+      "timestamp": 1780854398.227136,
       "episode": 140,
       "metadata": {}
     },
     {
       "query": "Which catalyst accelerates the Helix triterpene cyclisation step?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.360779,
+      "timestamp": 1780854398.2273111,
       "episode": 141,
       "metadata": {}
     },
     {
       "query": "Which port handles the bonded shipment of the Helix vaccine candidates?",
       "active_ids": [
-        "07584e09364f4800"
+        "f9a9d00441364f1c"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.360982,
+      "timestamp": 1780854398.2274969,
       "episode": 142,
       "metadata": {}
     },
     {
       "query": "Which port handles the bonded shipment of the Helix vaccine candidates?",
       "active_ids": [
-        "07584e09364f4800"
+        "f9a9d00441364f1c"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3611772,
+      "timestamp": 1780854398.227682,
       "episode": 143,
       "metadata": {}
     },
     {
       "query": "What programming dialect runs the Cassini-2 onboard controllers?",
       "active_ids": [
-        "abda7610b8944c85"
+        "3a01de50f9254cbd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.361352,
+      "timestamp": 1780854398.227848,
       "episode": 144,
       "metadata": {}
     },
     {
       "query": "Which catalyst accelerates the Helix triterpene cyclisation step?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.361535,
+      "timestamp": 1780854398.228021,
       "episode": 145,
       "metadata": {}
     },
     {
       "query": "Which alloy did the Reykjavik geothermal team pick for the deep-bore casing?",
       "active_ids": [
-        "7e1ddfc577514861"
+        "bf478a33d10a4798"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.361741,
+      "timestamp": 1780854398.228213,
       "episode": 146,
       "metadata": {}
     },
     {
       "query": "When did the marine survey near Stradbroke Island record the rare ribbon eel?",
       "active_ids": [
-        "7e1ddfc577514861"
+        "bf478a33d10a4798"
       ],
       "outcome": -1.0,
-      "timestamp": 1780851052.361965,
+      "timestamp": 1780854398.228427,
       "episode": 147,
       "metadata": {}
     },
     {
       "query": "Which port handles the bonded shipment of the Helix vaccine candidates?",
       "active_ids": [
-        "07584e09364f4800"
+        "f9a9d00441364f1c"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.362168,
+      "timestamp": 1780854398.2286139,
       "episode": 148,
       "metadata": {}
     },
     {
       "query": "When did the marine survey near Stradbroke Island record the rare ribbon eel?",
       "active_ids": [
-        "1a26fe5024cf4f7d"
+        "b5d041d023b54ce8"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.362398,
+      "timestamp": 1780854398.2288241,
       "episode": 149,
       "metadata": {}
     },
     {
       "query": "What is the operating frequency of the Aurelia phased-array radar?",
       "active_ids": [
-        "f91b5238e3f94601"
+        "a38e1c2d5e5246d5"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.364295,
+      "timestamp": 1780854398.230515,
       "episode": 150,
       "metadata": {}
     },
     {
       "query": "When did the marine survey near Stradbroke Island record the rare ribbon eel?",
       "active_ids": [
-        "64a074d5071440e9"
+        "6273228e5333491c"
       ],
       "outcome": -1.0,
-      "timestamp": 1780851052.364513,
+      "timestamp": 1780854398.2307289,
       "episode": 151,
       "metadata": {}
     },
     {
       "query": "Which catalyst accelerates the Helix triterpene cyclisation step?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.364691,
+      "timestamp": 1780854398.230905,
       "episode": 152,
       "metadata": {}
     },
     {
       "query": "What is the operating frequency of the Aurelia phased-array radar?",
       "active_ids": [
-        "f91b5238e3f94601"
+        "a38e1c2d5e5246d5"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.364855,
+      "timestamp": 1780854398.231064,
       "episode": 153,
       "metadata": {}
     },
     {
       "query": "What programming dialect runs the Cassini-2 onboard controllers?",
       "active_ids": [
-        "abda7610b8944c85"
+        "3a01de50f9254cbd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.365025,
+      "timestamp": 1780854398.2312288,
       "episode": 154,
       "metadata": {}
     },
     {
       "query": "Which alloy did the Reykjavik geothermal team pick for the deep-bore casing?",
       "active_ids": [
-        "7e1ddfc577514861"
+        "bf478a33d10a4798"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.36522,
+      "timestamp": 1780854398.2314188,
       "episode": 155,
       "metadata": {}
     },
     {
       "query": "When did the marine survey near Stradbroke Island record the rare ribbon eel?",
       "active_ids": [
-        "1a26fe5024cf4f7d"
+        "b5d041d023b54ce8"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.365433,
+      "timestamp": 1780854398.2316291,
       "episode": 156,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.36561,
+      "timestamp": 1780854398.2318149,
       "episode": 157,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": -1.0,
-      "timestamp": 1780851052.3657851,
+      "timestamp": 1780854398.2319958,
       "episode": 158,
       "metadata": {}
     },
     {
       "query": "Which alloy did the Reykjavik geothermal team pick for the deep-bore casing?",
       "active_ids": [
-        "7e1ddfc577514861"
+        "bf478a33d10a4798"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.365979,
+      "timestamp": 1780854398.232186,
       "episode": 159,
       "metadata": {}
     },
     {
       "query": "What is the operating frequency of the Aurelia phased-array radar?",
       "active_ids": [
-        "f91b5238e3f94601"
+        "a38e1c2d5e5246d5"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.366144,
+      "timestamp": 1780854398.232346,
       "episode": 160,
       "metadata": {}
     },
     {
       "query": "Which catalyst accelerates the Helix triterpene cyclisation step?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3663208,
+      "timestamp": 1780854398.232522,
       "episode": 161,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3665018,
+      "timestamp": 1780854398.2326982,
       "episode": 162,
       "metadata": {}
     },
     {
       "query": "What programming dialect runs the Cassini-2 onboard controllers?",
       "active_ids": [
-        "abda7610b8944c85"
+        "3a01de50f9254cbd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.366669,
+      "timestamp": 1780854398.232862,
       "episode": 163,
       "metadata": {}
     },
     {
       "query": "When did the marine survey near Stradbroke Island record the rare ribbon eel?",
       "active_ids": [
-        "1a26fe5024cf4f7d"
+        "b5d041d023b54ce8"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.366883,
+      "timestamp": 1780854398.2330759,
       "episode": 164,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "7e1ddfc577514861"
+        "bf478a33d10a4798"
       ],
       "outcome": -1.0,
-      "timestamp": 1780851052.367059,
+      "timestamp": 1780854398.233248,
       "episode": 165,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.367233,
+      "timestamp": 1780854398.2334201,
       "episode": 166,
       "metadata": {}
     },
     {
       "query": "Which catalyst accelerates the Helix triterpene cyclisation step?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.367409,
+      "timestamp": 1780854398.233602,
       "episode": 167,
       "metadata": {}
     },
     {
       "query": "Which port handles the bonded shipment of the Helix vaccine candidates?",
       "active_ids": [
-        "07584e09364f4800"
+        "f9a9d00441364f1c"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.367597,
+      "timestamp": 1780854398.233788,
       "episode": 168,
       "metadata": {}
     },
     {
       "query": "Which port handles the bonded shipment of the Helix vaccine candidates?",
       "active_ids": [
-        "07584e09364f4800"
+        "f9a9d00441364f1c"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.367786,
+      "timestamp": 1780854398.2339761,
       "episode": 169,
       "metadata": {}
     },
     {
       "query": "Which catalyst accelerates the Helix triterpene cyclisation step?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3679621,
+      "timestamp": 1780854398.2341561,
       "episode": 170,
       "metadata": {}
     },
     {
       "query": "Which port handles the bonded shipment of the Helix vaccine candidates?",
       "active_ids": [
-        "07584e09364f4800"
+        "f9a9d00441364f1c"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.368149,
+      "timestamp": 1780854398.2343411,
       "episode": 171,
       "metadata": {}
     },
     {
       "query": "Which port handles the bonded shipment of the Helix vaccine candidates?",
       "active_ids": [
-        "07584e09364f4800"
+        "f9a9d00441364f1c"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.368335,
+      "timestamp": 1780854398.234525,
       "episode": 172,
       "metadata": {}
     },
     {
       "query": "Which catalyst accelerates the Helix triterpene cyclisation step?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.368513,
+      "timestamp": 1780854398.2347,
       "episode": 173,
       "metadata": {}
     },
     {
       "query": "Which alloy did the Reykjavik geothermal team pick for the deep-bore casing?",
       "active_ids": [
-        "7e1ddfc577514861"
+        "bf478a33d10a4798"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.368706,
+      "timestamp": 1780854398.234896,
       "episode": 174,
       "metadata": {}
     },
     {
       "query": "Which catalyst accelerates the Helix triterpene cyclisation step?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.368887,
+      "timestamp": 1780854398.23507,
       "episode": 175,
       "metadata": {}
     },
     {
       "query": "Which alloy did the Reykjavik geothermal team pick for the deep-bore casing?",
       "active_ids": [
-        "7e1ddfc577514861"
+        "bf478a33d10a4798"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.369081,
+      "timestamp": 1780854398.235264,
       "episode": 176,
       "metadata": {}
     },
     {
       "query": "Which catalyst accelerates the Helix triterpene cyclisation step?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.369258,
+      "timestamp": 1780854398.235459,
       "episode": 177,
       "metadata": {}
     },
     {
       "query": "What programming dialect runs the Cassini-2 onboard controllers?",
       "active_ids": [
-        "abda7610b8944c85"
+        "3a01de50f9254cbd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.369426,
+      "timestamp": 1780854398.2356238,
       "episode": 178,
       "metadata": {}
     },
     {
       "query": "What is the operating frequency of the Aurelia phased-array radar?",
       "active_ids": [
-        "f91b5238e3f94601"
+        "a38e1c2d5e5246d5"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.36959,
+      "timestamp": 1780854398.235786,
       "episode": 179,
       "metadata": {}
     },
     {
       "query": "When did the marine survey near Stradbroke Island record the rare ribbon eel?",
       "active_ids": [
-        "07584e09364f4800"
+        "f9a9d00441364f1c"
       ],
       "outcome": -1.0,
-      "timestamp": 1780851052.371367,
+      "timestamp": 1780854398.2375638,
       "episode": 180,
       "metadata": {}
     },
     {
       "query": "Who chaired the Selene committee for the Q3 lunar regolith report?",
       "active_ids": [
-        "25fb603da1b940d4"
+        "654f543bc0e54bdd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3715572,
+      "timestamp": 1780854398.237752,
       "episode": 181,
       "metadata": {}
     },
     {
       "query": "What programming dialect runs the Cassini-2 onboard controllers?",
       "active_ids": [
-        "abda7610b8944c85"
+        "3a01de50f9254cbd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3717241,
+      "timestamp": 1780854398.237916,
       "episode": 182,
       "metadata": {}
     },
     {
       "query": "Who chaired the Selene committee for the Q3 lunar regolith report?",
       "active_ids": [
-        "25fb603da1b940d4"
+        "654f543bc0e54bdd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.371913,
+      "timestamp": 1780854398.238102,
       "episode": 183,
       "metadata": {}
     },
     {
       "query": "When did the marine survey near Stradbroke Island record the rare ribbon eel?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": -1.0,
-      "timestamp": 1780851052.372127,
+      "timestamp": 1780854398.238312,
       "episode": 184,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.372302,
+      "timestamp": 1780854398.238485,
       "episode": 185,
       "metadata": {}
     },
     {
       "query": "When did the marine survey near Stradbroke Island record the rare ribbon eel?",
       "active_ids": [
-        "1a26fe5024cf4f7d"
+        "b5d041d023b54ce8"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.372524,
+      "timestamp": 1780854398.2386932,
       "episode": 186,
       "metadata": {}
     },
     {
       "query": "What is the operating frequency of the Aurelia phased-array radar?",
       "active_ids": [
-        "f91b5238e3f94601"
+        "a38e1c2d5e5246d5"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.372693,
+      "timestamp": 1780854398.2388532,
       "episode": 187,
       "metadata": {}
     },
     {
       "query": "Which port handles the bonded shipment of the Helix vaccine candidates?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": -1.0,
-      "timestamp": 1780851052.372889,
+      "timestamp": 1780854398.239041,
       "episode": 188,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3730712,
+      "timestamp": 1780854398.239212,
       "episode": 189,
       "metadata": {}
     },
     {
       "query": "Which alloy did the Reykjavik geothermal team pick for the deep-bore casing?",
       "active_ids": [
-        "7e1ddfc577514861"
+        "bf478a33d10a4798"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3732722,
+      "timestamp": 1780854398.239402,
       "episode": 190,
       "metadata": {}
     },
     {
       "query": "When did the marine survey near Stradbroke Island record the rare ribbon eel?",
       "active_ids": [
-        "1a26fe5024cf4f7d"
+        "b5d041d023b54ce8"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.373493,
+      "timestamp": 1780854398.2396102,
       "episode": 191,
       "metadata": {}
     },
     {
       "query": "Which alloy did the Reykjavik geothermal team pick for the deep-bore casing?",
       "active_ids": [
-        "7e1ddfc577514861"
+        "bf478a33d10a4798"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3736918,
+      "timestamp": 1780854398.2398,
       "episode": 192,
       "metadata": {}
     },
     {
       "query": "Who chaired the Selene committee for the Q3 lunar regolith report?",
       "active_ids": [
-        "25fb603da1b940d4"
+        "654f543bc0e54bdd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3738859,
+      "timestamp": 1780854398.239984,
       "episode": 193,
       "metadata": {}
     },
     {
       "query": "What programming dialect runs the Cassini-2 onboard controllers?",
       "active_ids": [
-        "abda7610b8944c85"
+        "3a01de50f9254cbd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.37406,
+      "timestamp": 1780854398.240148,
       "episode": 194,
       "metadata": {}
     },
     {
       "query": "What programming dialect runs the Cassini-2 onboard controllers?",
       "active_ids": [
-        "abda7610b8944c85"
+        "3a01de50f9254cbd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.374231,
+      "timestamp": 1780854398.24031,
       "episode": 195,
       "metadata": {}
     },
     {
       "query": "Which alloy did the Reykjavik geothermal team pick for the deep-bore casing?",
       "active_ids": [
-        "7e1ddfc577514861"
+        "bf478a33d10a4798"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.37443,
+      "timestamp": 1780854398.240502,
       "episode": 196,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3746119,
+      "timestamp": 1780854398.240677,
       "episode": 197,
       "metadata": {}
     },
     {
       "query": "What programming dialect runs the Cassini-2 onboard controllers?",
       "active_ids": [
-        "abda7610b8944c85"
+        "3a01de50f9254cbd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3748212,
+      "timestamp": 1780854398.240843,
       "episode": 198,
       "metadata": {}
     },
     {
       "query": "Which port handles the bonded shipment of the Helix vaccine candidates?",
       "active_ids": [
-        "07584e09364f4800"
+        "f9a9d00441364f1c"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.375018,
+      "timestamp": 1780854398.241034,
       "episode": 199,
       "metadata": {}
     },
     {
       "query": "Who chaired the Selene committee for the Q3 lunar regolith report?",
       "active_ids": [
-        "25fb603da1b940d4"
+        "654f543bc0e54bdd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.375228,
+      "timestamp": 1780854398.2412229,
       "episode": 200,
       "metadata": {}
     },
     {
       "query": "Which port handles the bonded shipment of the Helix vaccine candidates?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": -1.0,
-      "timestamp": 1780851052.3754292,
+      "timestamp": 1780854398.2414122,
       "episode": 201,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3756108,
+      "timestamp": 1780854398.241583,
       "episode": 202,
       "metadata": {}
     },
     {
       "query": "Who chaired the Selene committee for the Q3 lunar regolith report?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": -1.0,
-      "timestamp": 1780851052.375811,
+      "timestamp": 1780854398.241768,
       "episode": 203,
       "metadata": {}
     },
     {
       "query": "Which port handles the bonded shipment of the Helix vaccine candidates?",
       "active_ids": [
-        "07584e09364f4800"
+        "f9a9d00441364f1c"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.376004,
+      "timestamp": 1780854398.241955,
       "episode": 204,
       "metadata": {}
     },
     {
       "query": "Which port handles the bonded shipment of the Helix vaccine candidates?",
       "active_ids": [
-        "07584e09364f4800"
+        "f9a9d00441364f1c"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.376194,
+      "timestamp": 1780854398.2421398,
       "episode": 205,
       "metadata": {}
     },
     {
       "query": "What programming dialect runs the Cassini-2 onboard controllers?",
       "active_ids": [
-        "abda7610b8944c85"
+        "3a01de50f9254cbd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3763862,
+      "timestamp": 1780854398.242303,
       "episode": 206,
       "metadata": {}
     },
     {
       "query": "Who chaired the Selene committee for the Q3 lunar regolith report?",
       "active_ids": [
-        "25fb603da1b940d4"
+        "654f543bc0e54bdd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3765771,
+      "timestamp": 1780854398.2424881,
       "episode": 207,
       "metadata": {}
     },
     {
       "query": "Which catalyst accelerates the Helix triterpene cyclisation step?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.376756,
+      "timestamp": 1780854398.242663,
       "episode": 208,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3769321,
+      "timestamp": 1780854398.2428339,
       "episode": 209,
       "metadata": {}
     },
     {
       "query": "Which alloy did the Reykjavik geothermal team pick for the deep-bore casing?",
       "active_ids": [
-        "7e1ddfc577514861"
+        "bf478a33d10a4798"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3787131,
+      "timestamp": 1780854398.244534,
       "episode": 210,
       "metadata": {}
     },
     {
       "query": "Which catalyst accelerates the Helix triterpene cyclisation step?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.378891,
+      "timestamp": 1780854398.24471,
       "episode": 211,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.379076,
+      "timestamp": 1780854398.244883,
       "episode": 212,
       "metadata": {}
     },
     {
       "query": "What is the operating frequency of the Aurelia phased-array radar?",
       "active_ids": [
-        "f91b5238e3f94601"
+        "a38e1c2d5e5246d5"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3792388,
+      "timestamp": 1780854398.245045,
       "episode": 213,
       "metadata": {}
     },
     {
       "query": "Who chaired the Selene committee for the Q3 lunar regolith report?",
       "active_ids": [
-        "25fb603da1b940d4"
+        "654f543bc0e54bdd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3794281,
+      "timestamp": 1780854398.245232,
       "episode": 214,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.379603,
+      "timestamp": 1780854398.2454028,
       "episode": 215,
       "metadata": {}
     },
     {
       "query": "What is the operating frequency of the Aurelia phased-array radar?",
       "active_ids": [
-        "f91b5238e3f94601"
+        "a38e1c2d5e5246d5"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.379766,
+      "timestamp": 1780854398.245562,
       "episode": 216,
       "metadata": {}
     },
     {
       "query": "Who chaired the Selene committee for the Q3 lunar regolith report?",
       "active_ids": [
-        "25fb603da1b940d4"
+        "654f543bc0e54bdd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.379956,
+      "timestamp": 1780854398.2457469,
       "episode": 217,
       "metadata": {}
     },
     {
       "query": "Who chaired the Selene committee for the Q3 lunar regolith report?",
       "active_ids": [
-        "25fb603da1b940d4"
+        "654f543bc0e54bdd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3801432,
+      "timestamp": 1780854398.24593,
       "episode": 218,
       "metadata": {}
     },
     {
       "query": "What is the operating frequency of the Aurelia phased-array radar?",
       "active_ids": [
-        "f91b5238e3f94601"
+        "a38e1c2d5e5246d5"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.380308,
+      "timestamp": 1780854398.246092,
       "episode": 219,
       "metadata": {}
     },
     {
       "query": "Which port handles the bonded shipment of the Helix vaccine candidates?",
       "active_ids": [
-        "07584e09364f4800"
+        "f9a9d00441364f1c"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3805299,
+      "timestamp": 1780854398.246277,
       "episode": 220,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3807092,
+      "timestamp": 1780854398.246454,
       "episode": 221,
       "metadata": {}
     },
     {
       "query": "What is the operating frequency of the Aurelia phased-array radar?",
       "active_ids": [
-        "f91b5238e3f94601"
+        "a38e1c2d5e5246d5"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.380877,
+      "timestamp": 1780854398.246618,
       "episode": 222,
       "metadata": {}
     },
     {
       "query": "What programming dialect runs the Cassini-2 onboard controllers?",
       "active_ids": [
-        "abda7610b8944c85"
+        "3a01de50f9254cbd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3810508,
+      "timestamp": 1780854398.246782,
       "episode": 223,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.381232,
+      "timestamp": 1780854398.246954,
       "episode": 224,
       "metadata": {}
     },
     {
       "query": "Which port handles the bonded shipment of the Helix vaccine candidates?",
       "active_ids": [
-        "07584e09364f4800"
+        "f9a9d00441364f1c"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.381428,
+      "timestamp": 1780854398.2471402,
       "episode": 225,
       "metadata": {}
     },
     {
       "query": "What programming dialect runs the Cassini-2 onboard controllers?",
       "active_ids": [
-        "abda7610b8944c85"
+        "3a01de50f9254cbd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3816,
+      "timestamp": 1780854398.247305,
       "episode": 226,
       "metadata": {}
     },
     {
       "query": "Which catalyst accelerates the Helix triterpene cyclisation step?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.381783,
+      "timestamp": 1780854398.247484,
       "episode": 227,
       "metadata": {}
     },
     {
       "query": "When did the marine survey near Stradbroke Island record the rare ribbon eel?",
       "active_ids": [
-        "1a26fe5024cf4f7d"
+        "b5d041d023b54ce8"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3820071,
+      "timestamp": 1780854398.247694,
       "episode": 228,
       "metadata": {}
     },
     {
       "query": "Who chaired the Selene committee for the Q3 lunar regolith report?",
       "active_ids": [
-        "25fb603da1b940d4"
+        "654f543bc0e54bdd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3822038,
+      "timestamp": 1780854398.24788,
       "episode": 229,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.382387,
+      "timestamp": 1780854398.248053,
       "episode": 230,
       "metadata": {}
     },
     {
       "query": "Which catalyst accelerates the Helix triterpene cyclisation step?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.38257,
+      "timestamp": 1780854398.2482271,
       "episode": 231,
       "metadata": {}
     },
     {
       "query": "Which alloy did the Reykjavik geothermal team pick for the deep-bore casing?",
       "active_ids": [
-        "7e1ddfc577514861"
+        "bf478a33d10a4798"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.382779,
+      "timestamp": 1780854398.24842,
       "episode": 232,
       "metadata": {}
     },
     {
       "query": "Which alloy did the Reykjavik geothermal team pick for the deep-bore casing?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": -1.0,
-      "timestamp": 1780851052.38298,
+      "timestamp": 1780854398.248609,
       "episode": 233,
       "metadata": {}
     },
     {
       "query": "Which port handles the bonded shipment of the Helix vaccine candidates?",
       "active_ids": [
-        "07584e09364f4800"
+        "f9a9d00441364f1c"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3831758,
+      "timestamp": 1780854398.248794,
       "episode": 234,
       "metadata": {}
     },
     {
       "query": "When did the marine survey near Stradbroke Island record the rare ribbon eel?",
       "active_ids": [
-        "1a26fe5024cf4f7d"
+        "b5d041d023b54ce8"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3834019,
+      "timestamp": 1780854398.2490041,
       "episode": 235,
       "metadata": {}
     },
     {
       "query": "Which alloy did the Reykjavik geothermal team pick for the deep-bore casing?",
       "active_ids": [
-        "7e1ddfc577514861"
+        "bf478a33d10a4798"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3836002,
+      "timestamp": 1780854398.249194,
       "episode": 236,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3838668,
+      "timestamp": 1780854398.249372,
       "episode": 237,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.384047,
+      "timestamp": 1780854398.249544,
       "episode": 238,
       "metadata": {}
     },
     {
       "query": "What is the operating frequency of the Aurelia phased-array radar?",
       "active_ids": [
-        "f91b5238e3f94601"
+        "a38e1c2d5e5246d5"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.384222,
+      "timestamp": 1780854398.2497091,
       "episode": 239,
       "metadata": {}
     },
     {
       "query": "Which port handles the bonded shipment of the Helix vaccine candidates?",
       "active_ids": [
-        "07584e09364f4800"
+        "f9a9d00441364f1c"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.386074,
+      "timestamp": 1780854398.25142,
       "episode": 240,
       "metadata": {}
     },
     {
       "query": "When did the marine survey near Stradbroke Island record the rare ribbon eel?",
       "active_ids": [
-        "1a26fe5024cf4f7d"
+        "b5d041d023b54ce8"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.386289,
+      "timestamp": 1780854398.251636,
       "episode": 241,
       "metadata": {}
     },
     {
       "query": "Which catalyst accelerates the Helix triterpene cyclisation step?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3864682,
+      "timestamp": 1780854398.251811,
       "episode": 242,
       "metadata": {}
     },
     {
       "query": "Who chaired the Selene committee for the Q3 lunar regolith report?",
       "active_ids": [
-        "25fb603da1b940d4"
+        "654f543bc0e54bdd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.386657,
+      "timestamp": 1780854398.251997,
       "episode": 243,
       "metadata": {}
     },
     {
       "query": "When did the marine survey near Stradbroke Island record the rare ribbon eel?",
       "active_ids": [
-        "1a26fe5024cf4f7d"
+        "b5d041d023b54ce8"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.386872,
+      "timestamp": 1780854398.252207,
       "episode": 244,
       "metadata": {}
     },
     {
       "query": "What programming dialect runs the Cassini-2 onboard controllers?",
       "active_ids": [
-        "abda7610b8944c85"
+        "3a01de50f9254cbd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.387041,
+      "timestamp": 1780854398.252373,
       "episode": 245,
       "metadata": {}
     },
     {
       "query": "Which catalyst accelerates the Helix triterpene cyclisation step?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3872159,
+      "timestamp": 1780854398.252548,
       "episode": 246,
       "metadata": {}
     },
     {
       "query": "What is the operating frequency of the Aurelia phased-array radar?",
       "active_ids": [
-        "f91b5238e3f94601"
+        "a38e1c2d5e5246d5"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.387378,
+      "timestamp": 1780854398.2527092,
       "episode": 247,
       "metadata": {}
     },
     {
       "query": "What is the operating frequency of the Aurelia phased-array radar?",
       "active_ids": [
-        "f91b5238e3f94601"
+        "a38e1c2d5e5246d5"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.387538,
+      "timestamp": 1780854398.252867,
       "episode": 248,
       "metadata": {}
     },
     {
       "query": "Which port handles the bonded shipment of the Helix vaccine candidates?",
       "active_ids": [
-        "07584e09364f4800"
+        "f9a9d00441364f1c"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.387726,
+      "timestamp": 1780854398.253053,
       "episode": 249,
       "metadata": {}
     },
     {
       "query": "What programming dialect runs the Cassini-2 onboard controllers?",
       "active_ids": [
-        "abda7610b8944c85"
+        "3a01de50f9254cbd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.387892,
+      "timestamp": 1780854398.253217,
       "episode": 250,
       "metadata": {}
     },
     {
       "query": "Which catalyst accelerates the Helix triterpene cyclisation step?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.388067,
+      "timestamp": 1780854398.2533948,
       "episode": 251,
       "metadata": {}
     },
     {
       "query": "Which port handles the bonded shipment of the Helix vaccine candidates?",
       "active_ids": [
-        "07584e09364f4800"
+        "f9a9d00441364f1c"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.388261,
+      "timestamp": 1780854398.253581,
       "episode": 252,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.388437,
+      "timestamp": 1780854398.2537541,
       "episode": 253,
       "metadata": {}
     },
     {
       "query": "When did the marine survey near Stradbroke Island record the rare ribbon eel?",
       "active_ids": [
-        "1a26fe5024cf4f7d"
+        "b5d041d023b54ce8"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.38866,
+      "timestamp": 1780854398.253963,
       "episode": 254,
       "metadata": {}
     },
     {
       "query": "Which port handles the bonded shipment of the Helix vaccine candidates?",
       "active_ids": [
-        "07584e09364f4800"
+        "f9a9d00441364f1c"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.388895,
+      "timestamp": 1780854398.254148,
       "episode": 255,
       "metadata": {}
     },
     {
       "query": "Who chaired the Selene committee for the Q3 lunar regolith report?",
       "active_ids": [
-        "25fb603da1b940d4"
+        "654f543bc0e54bdd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.389097,
+      "timestamp": 1780854398.254337,
       "episode": 256,
       "metadata": {}
     },
     {
       "query": "Which catalyst accelerates the Helix triterpene cyclisation step?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3892841,
+      "timestamp": 1780854398.254512,
       "episode": 257,
       "metadata": {}
     },
     {
       "query": "Who chaired the Selene committee for the Q3 lunar regolith report?",
       "active_ids": [
-        "25fb603da1b940d4"
+        "654f543bc0e54bdd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.389481,
+      "timestamp": 1780854398.254699,
       "episode": 258,
       "metadata": {}
     },
     {
       "query": "Which alloy did the Reykjavik geothermal team pick for the deep-bore casing?",
       "active_ids": [
-        "7e1ddfc577514861"
+        "bf478a33d10a4798"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.389684,
+      "timestamp": 1780854398.254893,
       "episode": 259,
       "metadata": {}
     },
     {
       "query": "Which port handles the bonded shipment of the Helix vaccine candidates?",
       "active_ids": [
-        "07584e09364f4800"
+        "f9a9d00441364f1c"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3898811,
+      "timestamp": 1780854398.255081,
       "episode": 260,
       "metadata": {}
     },
     {
       "query": "What programming dialect runs the Cassini-2 onboard controllers?",
       "active_ids": [
-        "abda7610b8944c85"
+        "3a01de50f9254cbd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3900568,
+      "timestamp": 1780854398.2552462,
       "episode": 261,
       "metadata": {}
     },
     {
       "query": "Which alloy did the Reykjavik geothermal team pick for the deep-bore casing?",
       "active_ids": [
-        "7e1ddfc577514861"
+        "bf478a33d10a4798"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3902578,
+      "timestamp": 1780854398.2554398,
       "episode": 262,
       "metadata": {}
     },
     {
       "query": "Which catalyst accelerates the Helix triterpene cyclisation step?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.390442,
+      "timestamp": 1780854398.255616,
       "episode": 263,
       "metadata": {}
     },
     {
       "query": "Who chaired the Selene committee for the Q3 lunar regolith report?",
       "active_ids": [
-        "25fb603da1b940d4"
+        "654f543bc0e54bdd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.390638,
+      "timestamp": 1780854398.255805,
       "episode": 264,
       "metadata": {}
     },
     {
       "query": "Which catalyst accelerates the Helix triterpene cyclisation step?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.390819,
+      "timestamp": 1780854398.255984,
       "episode": 265,
       "metadata": {}
     },
     {
       "query": "What programming dialect runs the Cassini-2 onboard controllers?",
       "active_ids": [
-        "abda7610b8944c85"
+        "3a01de50f9254cbd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.391006,
+      "timestamp": 1780854398.256151,
       "episode": 266,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.391192,
+      "timestamp": 1780854398.2563698,
       "episode": 267,
       "metadata": {}
     },
     {
       "query": "Which catalyst accelerates the Helix triterpene cyclisation step?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3914082,
+      "timestamp": 1780854398.2565749,
       "episode": 268,
       "metadata": {}
     },
     {
       "query": "Which alloy did the Reykjavik geothermal team pick for the deep-bore casing?",
       "active_ids": [
-        "7e1ddfc577514861"
+        "bf478a33d10a4798"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.391608,
+      "timestamp": 1780854398.256774,
       "episode": 269,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.393465,
+      "timestamp": 1780854398.258473,
       "episode": 270,
       "metadata": {}
     },
     {
       "query": "Which alloy did the Reykjavik geothermal team pick for the deep-bore casing?",
       "active_ids": [
-        "7e1ddfc577514861"
+        "bf478a33d10a4798"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3936481,
+      "timestamp": 1780854398.2586482,
       "episode": 271,
       "metadata": {}
     },
     {
       "query": "Which catalyst accelerates the Helix triterpene cyclisation step?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.393812,
+      "timestamp": 1780854398.258811,
       "episode": 272,
       "metadata": {}
     },
     {
       "query": "Which catalyst accelerates the Helix triterpene cyclisation step?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.393972,
+      "timestamp": 1780854398.25897,
       "episode": 273,
       "metadata": {}
     },
     {
       "query": "What is the operating frequency of the Aurelia phased-array radar?",
       "active_ids": [
-        "f91b5238e3f94601"
+        "a38e1c2d5e5246d5"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3941178,
+      "timestamp": 1780854398.2591171,
       "episode": 274,
       "metadata": {}
     },
     {
       "query": "What is the operating frequency of the Aurelia phased-array radar?",
       "active_ids": [
-        "f91b5238e3f94601"
+        "a38e1c2d5e5246d5"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.394261,
+      "timestamp": 1780854398.25926,
       "episode": 275,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.394422,
+      "timestamp": 1780854398.259419,
       "episode": 276,
       "metadata": {}
     },
     {
       "query": "What programming dialect runs the Cassini-2 onboard controllers?",
       "active_ids": [
-        "abda7610b8944c85"
+        "3a01de50f9254cbd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.394572,
+      "timestamp": 1780854398.259569,
       "episode": 277,
       "metadata": {}
     },
     {
       "query": "What programming dialect runs the Cassini-2 onboard controllers?",
       "active_ids": [
-        "abda7610b8944c85"
+        "3a01de50f9254cbd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.394722,
+      "timestamp": 1780854398.2597172,
       "episode": 278,
       "metadata": {}
     },
     {
       "query": "What programming dialect runs the Cassini-2 onboard controllers?",
       "active_ids": [
-        "abda7610b8944c85"
+        "3a01de50f9254cbd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.394871,
+      "timestamp": 1780854398.259866,
       "episode": 279,
       "metadata": {}
     },
     {
       "query": "Which alloy did the Reykjavik geothermal team pick for the deep-bore casing?",
       "active_ids": [
-        "7e1ddfc577514861"
+        "bf478a33d10a4798"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.395042,
+      "timestamp": 1780854398.260036,
       "episode": 280,
       "metadata": {}
     },
     {
       "query": "Who chaired the Selene committee for the Q3 lunar regolith report?",
       "active_ids": [
-        "25fb603da1b940d4"
+        "654f543bc0e54bdd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.395215,
+      "timestamp": 1780854398.26021,
       "episode": 281,
       "metadata": {}
     },
     {
       "query": "Which port handles the bonded shipment of the Helix vaccine candidates?",
       "active_ids": [
-        "07584e09364f4800"
+        "f9a9d00441364f1c"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.395384,
+      "timestamp": 1780854398.2603798,
       "episode": 282,
       "metadata": {}
     },
     {
       "query": "What is the operating frequency of the Aurelia phased-array radar?",
       "active_ids": [
-        "f91b5238e3f94601"
+        "a38e1c2d5e5246d5"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.395529,
+      "timestamp": 1780854398.260523,
       "episode": 283,
       "metadata": {}
     },
     {
       "query": "When did the marine survey near Stradbroke Island record the rare ribbon eel?",
       "active_ids": [
-        "1a26fe5024cf4f7d"
+        "b5d041d023b54ce8"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.395722,
+      "timestamp": 1780854398.260716,
       "episode": 284,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.395902,
+      "timestamp": 1780854398.260875,
       "episode": 285,
       "metadata": {}
     },
     {
       "query": "What is the maximum sustained altitude of the Aeon-B atmospheric balloon?",
       "active_ids": [
-        "60dd005897b94096"
+        "53fe3877009849f1"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.396061,
+      "timestamp": 1780854398.261033,
       "episode": 286,
       "metadata": {}
     },
     {
       "query": "What is the operating frequency of the Aurelia phased-array radar?",
       "active_ids": [
-        "f91b5238e3f94601"
+        "a38e1c2d5e5246d5"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.396204,
+      "timestamp": 1780854398.2611752,
       "episode": 287,
       "metadata": {}
     },
     {
       "query": "What programming dialect runs the Cassini-2 onboard controllers?",
       "active_ids": [
-        "abda7610b8944c85"
+        "3a01de50f9254cbd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3963552,
+      "timestamp": 1780854398.261438,
       "episode": 288,
       "metadata": {}
     },
     {
       "query": "Which port handles the bonded shipment of the Helix vaccine candidates?",
       "active_ids": [
-        "07584e09364f4800"
+        "f9a9d00441364f1c"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.396524,
+      "timestamp": 1780854398.261631,
       "episode": 289,
       "metadata": {}
     },
     {
       "query": "What programming dialect runs the Cassini-2 onboard controllers?",
       "active_ids": [
-        "abda7610b8944c85"
+        "3a01de50f9254cbd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.396676,
+      "timestamp": 1780854398.2617862,
       "episode": 290,
       "metadata": {}
     },
     {
       "query": "Which alloy did the Reykjavik geothermal team pick for the deep-bore casing?",
       "active_ids": [
-        "7e1ddfc577514861"
+        "bf478a33d10a4798"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.396849,
+      "timestamp": 1780854398.261963,
       "episode": 291,
       "metadata": {}
     },
     {
       "query": "Who chaired the Selene committee for the Q3 lunar regolith report?",
       "active_ids": [
-        "25fb603da1b940d4"
+        "654f543bc0e54bdd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3970518,
+      "timestamp": 1780854398.262144,
       "episode": 292,
       "metadata": {}
     },
     {
       "query": "What is the operating frequency of the Aurelia phased-array radar?",
       "active_ids": [
-        "f91b5238e3f94601"
+        "a38e1c2d5e5246d5"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.397217,
+      "timestamp": 1780854398.262292,
       "episode": 293,
       "metadata": {}
     },
     {
       "query": "Which catalyst accelerates the Helix triterpene cyclisation step?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.397387,
+      "timestamp": 1780854398.262461,
       "episode": 294,
       "metadata": {}
     },
     {
       "query": "What programming dialect runs the Cassini-2 onboard controllers?",
       "active_ids": [
-        "abda7610b8944c85"
+        "3a01de50f9254cbd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.397544,
+      "timestamp": 1780854398.262625,
       "episode": 295,
       "metadata": {}
     },
     {
       "query": "Which port handles the bonded shipment of the Helix vaccine candidates?",
       "active_ids": [
-        "07584e09364f4800"
+        "f9a9d00441364f1c"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3977332,
+      "timestamp": 1780854398.262799,
       "episode": 296,
       "metadata": {}
     },
     {
       "query": "What programming dialect runs the Cassini-2 onboard controllers?",
       "active_ids": [
-        "abda7610b8944c85"
+        "3a01de50f9254cbd"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.397898,
+      "timestamp": 1780854398.262953,
       "episode": 297,
       "metadata": {}
     },
     {
       "query": "Which catalyst accelerates the Helix triterpene cyclisation step?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.39807,
+      "timestamp": 1780854398.263118,
       "episode": 298,
       "metadata": {}
     },
     {
       "query": "Which catalyst accelerates the Helix triterpene cyclisation step?",
       "active_ids": [
-        "3053f73f1ac243a5"
+        "8a822e09ec1548fc"
       ],
       "outcome": 1.0,
-      "timestamp": 1780851052.3982341,
+      "timestamp": 1780854398.2632802,
       "episode": 299,
       "metadata": {}
     }
   ],
   "episode_counter": 300,
-  "saved_at": 1780851052.401508
+  "saved_at": 1780854398.266521
 }

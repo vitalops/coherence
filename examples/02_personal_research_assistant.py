@@ -94,10 +94,11 @@ def main() -> None:
         chat_fn=chat,
         path=MEMORY_PATH,
         system_prompt=SYSTEM_PROMPT,
-        # Defaults: outcome_strategy="llm" (batched judging) and
-        # enrich_on_ingest=True. One LLM call per ingest, one per batched
-        # outcome flush. The session boundary in `reset_history()` forces
-        # a flush so the heard signal from earlier turns is applied.
+        # "self_assess" grades the assistant's OWN action in batches.
+        # It never looks at the user's next message — the framework
+        # refuses to mistake politeness for success or silence for
+        # failure. Pair with the always-on intrinsic retrieval bump.
+        outcome_strategy="self_assess",
         judge_batch_size=4,
         recall_k=6,
         context_budget_tokens=3000,
