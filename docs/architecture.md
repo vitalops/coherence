@@ -17,23 +17,22 @@ each turn.
 
 ## The whole framework at a glance
 
-Five small color-coded diagrams, one per concept. Read top to bottom.
+Six small color-coded diagrams. Read top to bottom; each one is a
+self-contained snapshot of one concept.
 
-### 1. Who calls coherence and through what
+### 1. Who calls coherence
 
 ```mermaid
 flowchart LR
-    H1["Your Python loop"]:::host
-    H2["Claude Code / Cursor"]:::host
-    H3["OpenAI / Anthropic SDK"]:::host
-    H4["Custom harness"]:::host
+    H1[Your Python loop]:::host
+    H2[Claude Code]:::host
+    H3[OpenAI/Anthropic SDK]:::host
+    H4[Custom harness]:::host
 
-    INT["<b>coherence.integrations</b><br/>one source of truth<br/>four wire formats"]:::adapter
-
-    AM["<b>AutoMemory</b><br/>per-turn orchestrator"]:::auto
-
-    MEM[("<b>Memory graph</b><br/>nodes • edges • index • log")]:::data
-    JSON["memory.json<br/>(human-readable)"]:::disk
+    INT[coherence.integrations]:::adapter
+    AM[AutoMemory]:::auto
+    MEM[(Memory graph)]:::data
+    JSON[memory.json]:::disk
 
     H1 --> AM
     H2 --> INT
@@ -50,82 +49,69 @@ flowchart LR
     classDef disk fill:#e5e7eb,stroke:#4b5563,color:#1f2937,stroke-width:2px
 ```
 
-### 2. The entire turn as a layered network — forward pass, backward pass, updates
+`coherence.integrations` is the single source of truth for four wire
+formats (OpenAI, Anthropic, MCP, custom dispatch). All paths land on
+`AutoMemory`, which talks to the in-memory graph and serializes to one
+human-readable JSON file.
 
-Each circle is one memory node. Each column is a layer. Each edge between
-columns is one operation. The thick straight arrows are identity flow
-(the node's own contribution); the labeled arrows between L2 and L3 are
-the signed association weights (`W_ij`) — those are the values the
-backward pass also moves.
+### 2. The forward pass — query in, active set out
 
-**Forward pass — query enters at the left, top-k active set exits at the right.**
+Each circle is one memory node. Each column is a layer. Solid arrows
+between L2 and L3 carry the node's own contribution; dashed colored
+arrows carry the signed association edges (green = positive, red =
+negative).
 
 ```mermaid
 flowchart LR
-    Q(("query")):::input
+    Q((query)):::input
 
-    subgraph L1["L1 · match"]
+    subgraph L1["L1 match"]
         direction TB
-        m1(("n₁<br/>0.95")):::match
-        m2(("n₂<br/>0.40")):::match
-        m3(("n₃<br/>0.00")):::match
-        m4(("n₄<br/>0.00")):::match
+        m1((0.95)):::match
+        m2((0.40)):::match
+        m3((0.00)):::match
     end
 
-    subgraph L2["L2 · base = match + tanh(w)"]
+    subgraph L2["L2 base"]
         direction TB
-        b1(("+1.64")):::base
-        b2(("+0.80")):::base
-        b3(("−0.30")):::base
-        b4(("+0.29")):::base
+        b1((+1.64)):::base
+        b2((+0.80)):::base
+        b3((−0.30)):::base
     end
 
-    subgraph L3["L3 · activation = tanh(base + γ · spread)"]
+    subgraph L3["L3 activation"]
         direction TB
-        a1(("<b>+0.95</b>")):::act
-        a2(("<b>+0.76</b>")):::act
-        a3(("−0.32")):::deact
-        a4(("<b>+0.39</b>")):::act
+        a1((+0.95)):::act
+        a2((+0.76)):::act
+        a3((−0.32)):::deact
     end
 
-    subgraph L4["L4 · top-k active set"]
+    subgraph L4["L4 top-k"]
         direction TB
-        t1((("★ n₁"))):::top
-        t2((("★ n₂"))):::top
-        t4((("★ n₄"))):::top
+        t1((★ n₁)):::top
+        t2((★ n₂)):::top
     end
 
     Q --> m1
     Q --> m2
     Q --> m3
-    Q --> m4
-
     m1 --> b1
     m2 --> b2
     m3 --> b3
-    m4 --> b4
-
-    %% Identity contribution (base_i flows into a_i directly through the formula)
     b1 ==> a1
     b2 ==> a2
     b3 ==> a3
-    b4 ==> a4
-
-    %% Spreading activation through signed edges W_ij
-    b1 -.->|"+0.27"| a2
-    b1 -.->|"−0.14"| a3
-    b1 -.->|"+0.12"| a4
-    b2 -.->|"+0.27"| a1
-    b2 -.->|"+0.18"| a3
-    b2 -.->|"+0.05"| a4
-    b3 -.->|"−0.14"| a1
-    b3 -.->|"+0.18"| a2
-    b4 -.->|"+0.12"| a1
-    b4 -.->|"+0.05"| a2
-
+    b1 -.-> a2
+    b2 -.-> a1
+    b2 -.-> a3
+    b3 -.-> a2
+    b1 -.-> a3
+    b3 -.-> a1
     a1 --> t1
     a2 --> t2
-    a4 --> t4
+
+    linkStyle 9,10,11,12 stroke:#15803d,stroke-width:2px
+    linkStyle 13,14 stroke:#b91c1c,stroke-width:2px
 
     classDef input fill:#fef3c7,stroke:#d97706,color:#78350f,stroke-width:2px
     classDef match fill:#e0e7ff,stroke:#4338ca,color:#312e81,stroke-width:2px
@@ -135,54 +121,52 @@ flowchart LR
     classDef top fill:#f3e8ff,stroke:#7e22ce,color:#581c87,stroke-width:3px
 ```
 
-**Backward pass — outcome enters at the left, weight updates flow into the trained weights at the right.**
+| layer | operation                                                   | shape |
+| ----- | ----------------------------------------------------------- | ----- |
+| L1    | `match_i = BM25(query, text_i ∪ aliases_i)`                  | \|N\| × 1, in [0, 1] |
+| L2    | `base_i = match_i + tanh(weight_boost · w_i)`                | \|N\| × 1 |
+| L3    | `a_i = tanh(base_i + γ · spread_i)`, `spread_i = Σⱼ W_ij·base_j` | \|N\| × 1, in [−1, +1] |
+| L4    | `top-k(a_i)` + intrinsic_retrieval_bump on each              | k × 1 |
+
+**Example edges:** `W(1,2) = +0.27`, `W(2,3) = +0.18`, `W(1,3) = −0.14`.
+Node `n₃` is suppressed at L3 because its negative weight plus the
+negative edge from `n₁` pull its activation below zero. Nodes `n₁` and
+`n₂` win the top-k.
+
+### 3. The backward pass — outcome in, weights updated
 
 ```mermaid
 flowchart LR
-    OUT(("outcome<br/>+1.0")):::input
+    O((outcome<br/>+1.0)):::input
 
-    subgraph EL["B1 · eligibility = a / Σa"]
+    subgraph B1["B1 elig"]
         direction TB
-        e1(("n₁<br/>0.45")):::elig
-        e2(("n₂<br/>0.36")):::elig
-        e4(("n₄<br/>0.19")):::elig
+        e1((0.45)):::elig
+        e2((0.36)):::elig
     end
 
-    subgraph DW["B2 · Δw = η · outcome · elig"]
+    subgraph B2["B2 Δw"]
         direction TB
-        dw1(("+0.068")):::delta
-        dw2(("+0.054")):::delta
-        dw4(("+0.028")):::delta
+        d1((+0.068)):::delta
+        d2((+0.054)):::delta
     end
 
-    subgraph WN["B2 · w_new = w + Δw"]
+    subgraph WN["w_new"]
         direction TB
-        w1(("n₁<br/>+0.92")):::weight
-        w2(("n₂<br/>+0.47")):::weight
-        w4(("n₄<br/>+0.33")):::weight
+        w1((+0.92)):::weight
+        w2((+0.47)):::weight
     end
 
-    subgraph HE["B3 · ΔW_ij = η_edge · outcome · elig_i · elig_j"]
-        direction TB
-        h12(("W(1,2)<br/>+0.28")):::edge
-        h14(("W(1,4)<br/>+0.12")):::edge
-        h24(("W(2,4)<br/>+0.05")):::edge
+    subgraph B3["B3 ΔW pair"]
+        h12((+0.28)):::edge
     end
 
-    OUT --> e1
-    OUT --> e2
-    OUT --> e4
-
-    e1 --> dw1 --> w1
-    e2 --> dw2 --> w2
-    e4 --> dw4 --> w4
-
-    e1 -.- h12
-    e2 -.- h12
-    e1 -.- h14
-    e4 -.- h14
-    e2 -.- h24
-    e4 -.- h24
+    O --> e1
+    O --> e2
+    e1 --> d1 --> w1
+    e2 --> d2 --> w2
+    e1 -.-> h12
+    e2 -.-> h12
 
     classDef input fill:#fef3c7,stroke:#d97706,color:#78350f,stroke-width:2px
     classDef elig fill:#e9d5ff,stroke:#7e22ce,color:#581c87,stroke-width:2px
@@ -191,49 +175,36 @@ flowchart LR
     classDef edge fill:#dbeafe,stroke:#1d4ed8,color:#1e3a8a,stroke-width:2px
 ```
 
-> **How to read it.**
->
-> * **L1 match** — one circle per memory node, value = BM25 score against
->   the query.
-> * **L2 base** — adds the node's learned salience, bounded:
->   `base_i = match_i + tanh(weight_boost · w_i)`.
-> * **L2 → L3 connections** — thick straight arrows are the node's own
->   identity contribution; dashed labeled arrows are the signed
->   association weights `W_ij`. These are what the backward pass updates.
-> * **L3 activation** — `a_i = tanh(base_i + γ · spread_i)`. Green
->   circles fire above zero; the red circle (`n₃`) gets pushed down by
->   the negative edge to `n₁` plus its own negative weight.
-> * **L4 top-k** — the active set selected for this turn. The intrinsic
->   retrieval bump (+0.02) also applies here.
-> * **B1 eligibility** — each node's share of the total firing
->   (`elig_i = a_i / Σa_j`). Outcome is multiplied through this share.
-> * **B2 Δw → w_new** — the delta-rule update lands back on the node
->   weights. The green `w_new` circles are the trained values.
-> * **B3 ΔW** — pairs of active nodes (dashed connections) update their
->   shared edge weight. These are the same `W_ij` that the forward pass
->   used in L2 → L3 — the loop is closed.
+| step | operation                                                  | shape |
+| ---- | ---------------------------------------------------------- | ----- |
+| B1   | `elig_i = a_i / Σⱼ a_j` (proportional)                      | k × 1 |
+| B2   | `Δw_i = η · outcome · elig_i`, `η = 0.15` → `w_new = w + Δw` | k × 1 |
+| B3   | `ΔW_ij = η_edge · outcome · elig_i · elig_j`, `η_edge = 0.05` | C(k,2) × 1 |
 
-### 3. Recall — `auto` mode picks between LLM and BM25
+The new `W_ij` values feed straight back into L3 of the next forward
+pass — the loop is closed.
+
+### 4. Recall — `auto` mode picks LLM or BM25 by dump size
 
 ```mermaid
 flowchart TD
-    Q(["user query"]):::io
-    DEC{"recall_mode?"}:::decide
-    SIZE{"dump_size &lt;<br/>recall_threshold_chars ?"}:::decide
+    Q([query]):::io
+    DEC{recall_mode}:::decide
+    SIZE{dump fits<br/>threshold?}:::decide
 
-    LLM["<b>LLM recall</b><br/>send full dump + query<br/>get top-k IDs<br/><i>1 LLM call</i>"]:::llm
-    BM["<b>BM25 forward pass</b><br/>base = match + tanh(weight)<br/>spread = Σ W·base<br/>a = tanh(base + γ·spread)<br/><i>0 LLM calls</i>"]:::compute
+    LLM[LLM recall<br/>1 LLM call]:::llm
+    BM[BM25 forward pass<br/>0 LLM calls]:::compute
 
-    BUMP["<b>intrinsic_retrieval_bump</b><br/>+0.02 per retrieved node<br/>(always on, no LLM cost)"]:::dyn
-    PACK["<b>pack to context_budget_tokens</b><br/>(auto from context_length)"]:::compute
-    OUT(["active set of k nodes"]):::io
+    BUMP[intrinsic bump<br/>+0.02 each]:::dyn
+    PACK[pack to budget]:::compute
+    OUT([active set k]):::io
 
     Q --> DEC
-    DEC -->|"auto"| SIZE
-    DEC -->|"llm"| LLM
-    DEC -->|"bm25"| BM
-    SIZE -->|"yes"| LLM
-    SIZE -->|"no"| BM
+    DEC -->|auto| SIZE
+    DEC -->|llm| LLM
+    DEC -->|bm25| BM
+    SIZE -->|yes| LLM
+    SIZE -->|no| BM
     LLM --> BUMP
     BM --> BUMP
     BUMP --> PACK --> OUT
@@ -245,25 +216,28 @@ flowchart TD
     classDef dyn fill:#dcfce7,stroke:#15803d,color:#14532d,stroke-width:2px
 ```
 
-### 4. Outcome signals — four honest paths, never guess from the user
+`recall_threshold_chars` defaults to `context_length × 0.4` chars (or
+~16 000 if no `context_length` is set). `context_budget_tokens`
+defaults to `context_length / 10` (or 2 000).
+
+### 5. Outcome signals — four honest paths
 
 ```mermaid
 flowchart TD
-    NEED(["outcome signal needed"]):::io
+    NEED([outcome scalar]):::io
 
-    M["<b>MANUAL</b><br/>default<br/><br/>mem.report(±1)<br/>when a verifier<br/>produces real signal<br/><br/><i>0 LLM calls</i>"]:::manual
-    SA["<b>SELF_ASSESS</b><br/>batched LLM<br/><br/>judges agent's OWN action<br/>(not the user's reaction)<br/>next_user never in prompt<br/><br/><i>1 LLM call per<br/>judge_batch_size turns</i>"]:::llm
-    FU["<b>FOLLOW_UP</b><br/>regex only<br/><br/>fires only on<br/>UNAMBIGUOUS corrections<br/>silence + thanks → 0<br/><br/><i>0 LLM calls</i>"]:::regex
-    CU["<b>CUSTOM</b><br/>your callable<br/><br/>(prev_user, prev_reply,<br/>next_user) → float<br/>per-turn evaluation<br/><br/><i>cost is yours</i>"]:::custom
+    M[MANUAL<br/>default]:::manual
+    SA[SELF_ASSESS<br/>batched LLM]:::llm
+    FU[FOLLOW_UP<br/>regex]:::regex
+    CU[CUSTOM<br/>callable]:::custom
 
     NEED --> M
     NEED --> SA
     NEED --> FU
     NEED --> CU
 
-    GOAL["<b>+ LONG-HORIZON: mem.complete_goal(goal_id, outcome)</b><br/>walks experience log → finds episodes whose active set included the goal<br/>→ retroactively reinforces those active sets with geometric recency"]:::goal
-
-    BG["<b>+ ALWAYS-ON BACKGROUND DYNAMIC</b><br/>intrinsic_retrieval_bump (+0.02 per recall) + decay during mem.forget()<br/>useful memories grow, unused ones fade and prune"]:::bg
+    GOAL[complete_goal<br/>long-horizon]:::goal
+    BG[intrinsic bump + decay<br/>always on]:::bg
 
     M -.-> GOAL
     SA -.-> GOAL
@@ -280,33 +254,43 @@ flowchart TD
     classDef bg fill:#e5e7eb,stroke:#4b5563,color:#1f2937,stroke-width:2px
 ```
 
-### 5. The memory dump — what's inside `memory.json`
+| strategy        | how it grades                                      | LLM cost per turn |
+| --------------- | -------------------------------------------------- | ----------------- |
+| `manual`        | you call `mem.report(±1)` after a verifier         | 0 |
+| `self_assess`   | LLM grades the agent's own action (no next_user)   | 1 per `judge_batch_size` turns |
+| `follow_up`     | regex — only on unambiguous corrections            | 0 |
+| custom callable | `(prev_user, prev_reply, next_user) → float`        | yours |
+
+Plus `mem.complete_goal(goal_id, outcome)` for long-horizon credit
+attribution, and an always-on `intrinsic_retrieval_bump` paired with
+decay so useful memories slowly grow and unused ones fade.
+
+### 6. The memory dump — what's inside `memory.json`
 
 ```mermaid
 flowchart TD
-    subgraph FILE["memory.json (one human-readable file)"]
-        CFG["<b>CONFIG</b><br/>eta · eta_edge · decay_node · decay_edge<br/>prune_floor · edge_floor · gamma · initial_weight<br/>eligibility_kind · experience_log_cap"]:::config
-
-        subgraph NODES["NODES (paragraph-sized chunks)"]
-            N1["<b>a1f3</b><br/>weight: +0.85<br/>'Maren works on cold-resistant<br/>photosynthesis in algae...'<br/>aliases · entities · kind: fact<br/>reinforced: 6 · failed: 0"]:::node
-            N2["<b>7c92</b><br/>weight: +0.42<br/>'Stay off moss literature<br/>when answering Maren'<br/>aliases · entities · kind: constraint<br/>reinforced: 3 · failed: 0"]:::node
-            N3["<b>9bd0</b> ⚠ TRAP<br/>weight: -0.31<br/>'Sphagnum moss is a common<br/>arctic model organism'<br/>kind: context<br/>reinforced: 0 · failed: 2"]:::trap
-        end
-
-        N1 -- "+0.27 positive pair" --- N2
-        N1 -- "-0.14 do not pair" --- N3
-
-        IDX["<b>LEXICAL INDEX</b><br/>BM25 over text + aliases tokens<br/>rebuilt incrementally"]:::index
-        LOG["<b>EXPERIENCE LOG</b> (audit trail)<br/>ep N | query | active_ids | outcome | ts"]:::log
+    CFG[config]:::config
+    subgraph NODES["nodes"]
+        N1[a1f3<br/>w +0.85]:::node
+        N2[7c92<br/>w +0.42]:::node
+        N3[9bd0<br/>w −0.31<br/>trap]:::trap
     end
+    IDX[lexical index]:::index
+    LOG[experience log]:::log
 
-    SAVE["Memory.save<br/>full snapshot<br/>atomic write"]:::disk
-    LOAD["Memory.load<br/>restore graph<br/>rebuild index"]:::disk
-    EXPORT["Memory.export<br/>format = markdown<br/>/ text / json"]:::disk
+    N1 -- +0.27 --- N2
+    N1 -- −0.14 --- N3
 
-    FILE --> SAVE
-    FILE --> LOAD
-    FILE --> EXPORT
+    SAVE[Memory.save]:::disk
+    LOAD[Memory.load]:::disk
+    EXPORT[Memory.export<br/>md / txt / json]:::disk
+
+    CFG --- NODES
+    NODES --- IDX
+    NODES --- LOG
+    NODES --> SAVE
+    NODES --> LOAD
+    NODES --> EXPORT
 
     classDef config fill:#e5e7eb,stroke:#4b5563,color:#1f2937,stroke-width:2px
     classDef node fill:#dcfce7,stroke:#15803d,color:#14532d,stroke-width:2px
@@ -316,8 +300,25 @@ flowchart TD
     classDef disk fill:#ffedd5,stroke:#c2410c,color:#7c2d12,stroke-width:2px
 ```
 
-> **Color key (consistent across all five diagrams):**
-> blue = host / I/O · purple = decisions and adapters · orange = orchestrator and persistence · green = data, manual outcome, and intrinsic dynamics · red = LLM cost / trap nodes · gray = config / disk · yellow = audit and start/end markers.
+Each node carries: `text`, `weight`, `tags`, `aliases`, `entities`,
+`kind`, `reinforced/failed` counters. Edges are signed scalars per
+unordered pair. The lexical index is BM25 over `text + aliases` tokens.
+The experience log tails the most recent `experience_log_cap`
+episodes (`query`, `active_ids`, `outcome`, `timestamp`).
+
+---
+
+**Color key** — consistent across all six diagrams:
+
+| color  | meaning                                                  |
+| ------ | -------------------------------------------------------- |
+| blue   | inputs / BM25 compute / base layer                       |
+| green  | data state / manual outcome / activations firing / trained weights |
+| red    | LLM cost / trap nodes / suppressed activations           |
+| purple | decisions / adapters / top-k selection / custom strategy |
+| orange | orchestrator / persistence / long-horizon goal           |
+| yellow | start and end markers / experience log                   |
+| gray   | config / always-on background dynamic                    |
 
 Everything else in this document zooms into the boxes above with
 concrete numbers, the exact code paths, and the tunable knobs.
