@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "coherence"
+version = "0.1.0"
+description = "An experiential memory for language-model agents: a text-graph whose node and edge weights learn from each turn's outcome, fade when unused, and surface relevant facts on demand."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "abhijithneilabraham" }]
+keywords = [
+    "memory",
+    "agents",
+    "experiential-learning",
+    "lifelong-learning",
+    "spreading-activation",
+    "hebbian",
+    "delta-rule",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = []
+
+[project.optional-dependencies]
+examples = []
+dev = ["pytest>=7"]
+
+[project.urls]
+Homepage = "https://github.com/abhijithneilabraham/coherence"
+
+[tool.setuptools.packages.find]
+include = ["coherence*"]
+exclude = ["examples*", "tests*"]
