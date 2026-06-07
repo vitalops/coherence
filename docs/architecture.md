@@ -50,25 +50,85 @@ flowchart LR
     classDef disk fill:#e5e7eb,stroke:#4b5563,color:#1f2937,stroke-width:2px
 ```
 
-### 2. The per-turn flow inside `AutoMemory.complete(user_message)`
+### 2. The entire algorithmic flow — forward pass, backward pass, updates, in one picture
+
+A layered view of the computation that runs on a single turn. Each layer
+is annotated with its operation, its output shape (`|N|` = total nodes,
+`k` = retrieved active set size), and a concrete sample so you can
+trace one turn end-to-end. State boxes (green) are read by the forward
+pass and written by the backward pass.
 
 ```mermaid
 flowchart TD
-    START(["user_message arrives"]):::io
+    %% ============== Inputs and persistent state ==============
+    Q(["<b>INPUT · query</b><br/>'tell me about my research'"]):::input
+    NODES["<b>STATE · nodes</b> · shape: |N|<br/>w₁ = +0.85   w₂ = +0.42<br/>w₃ = −0.31   w₄ = +0.30"]:::state
+    EDGES["<b>STATE · edges</b> · sparse symmetric<br/>W(1,2)=+0.27  W(1,3)=−0.14<br/>W(2,3)=+0.18  W(1,4)=+0.12"]:::state
 
-    S1["<b>1. Close out prior turn</b><br/>stage into buffer,<br/>flush if strategy needs it"]:::step
-    S2["<b>2. Recall</b><br/>+ intrinsic bump<br/>+ pack to budget"]:::step
-    S3["<b>3. Generate</b><br/>chat_fn with the four memory tools<br/>tool-call loop"]:::step
-    S4["<b>4. Stage this turn</b><br/>pending = user, reply, active_ids,<br/>active_texts, next_user=None"]:::step
-    S5["<b>5. Persist</b><br/>Memory.save if save_every_turn"]:::step
+    %% ============== Forward pass — layered stack ==============
+    F1["<b>L1 · Lexical match</b><br/>match_i = BM25( query , text_i ∪ aliases_i )<br/>output: |N| × 1 · range [0, 1]"]:::fwd
+    F2["<b>L2 · Salience bias</b><br/>base_i = match_i + tanh(weight_boost · w_i)<br/>output: |N| × 1 · bounded contribution"]:::fwd
+    F3["<b>L3 · Spreading activation (1-hop)</b><br/>spread_i = Σⱼ W_ij · base_j<br/>output: |N| × 1 · signed edges push & pull"]:::fwd
+    F4["<b>L4 · Squash</b><br/>a_i = tanh( base_i + γ · spread_i ),  γ = 0.5<br/>output: |N| × 1 · range [−1, +1]"]:::fwd
+    F5["<b>L5 · Top-k select + intrinsic bump</b><br/>active = argTopK_i(a_i),  k = recall_k<br/>w_i += intrinsic_retrieval_bump  ∀ i ∈ active<br/>output: k × 1"]:::active
 
-    END(["reply returned"]):::io
+    SAMPLE["<b>worked example, this turn</b><br/>match  =  [0.95, 0.40, 0.00, 0.00]<br/>base    =  [+1.64, +0.80, −0.30, +0.29]<br/>spread  =  [+0.29, +0.39, −0.09, +0.24]<br/>a         =  [<b>+0.95</b>, <b>+0.76</b>, −0.32, <b>+0.39</b>]<br/>active = { n₁, n₂, n₄ }"]:::sample
 
-    START --> S1 --> S2 --> S3 --> S4 --> S5 --> END
+    %% ============== Outcome ==============
+    OUT(["<b>INPUT · outcome ∈ [−1, +1]</b><br/>arrives from manual / self_assess /<br/>follow_up / custom / complete_goal"]):::input
 
-    classDef io fill:#fef3c7,stroke:#d97706,color:#78350f,stroke-width:2px
-    classDef step fill:#ffedd5,stroke:#c2410c,color:#7c2d12,stroke-width:2px
+    %% ============== Backward pass — layered stack ==============
+    B1["<b>B1 · Eligibility share</b><br/>elig_i = a_i / Σⱼ a_j   (proportional)<br/>output: k × 1<br/>example: [0.45, 0.36, 0.19]"]:::bwd
+    B2["<b>B2 · Delta-rule node update</b><br/>Δw_i = η · outcome · elig_i,  η = 0.15<br/>output: k × 1"]:::bwd
+    B3["<b>B3 · Hebbian edge update</b><br/>ΔW_ij = η_edge · outcome · elig_i · elig_j,  η_edge = 0.05<br/>output: C(k,2) × 1"]:::bwd
+    B4["<b>B4 · Append episode</b><br/>experiences.append( query, active_ids,<br/>outcome, timestamp )"]:::bwd
+
+    UPDATE["<b>weights after this turn (outcome = +1.0)</b><br/>w₁ : +0.85 → <b>+0.92</b>     w₂ : +0.42 → +0.47     w₄ : +0.30 → +0.33<br/>W(1,2) : +0.27 → +0.28     W(1,4) : +0.12 → +0.12     W(2,4) : +0.05 → +0.05"]:::update
+
+    %% ============== Periodic maintenance ==============
+    MAINT["<b>maintenance · mem.forget()</b><br/>w_i  ⨯= (1 − decay_node)<br/>W_ij ⨯= (1 − decay_edge)<br/>delete node if |w_i| < prune_floor<br/>delete edge if |W_ij| < edge_floor"]:::maint
+
+    %% ============== Wiring ==============
+    Q --> F1
+    F1 --> F2
+    NODES -.->|"read w_i"| F2
+    F2 --> F3
+    EDGES -.->|"read W_ij"| F3
+    F3 --> F4 --> F5
+    F4 -.- SAMPLE
+
+    F5 -->|"active set + activations"| B1
+    OUT --> B1
+    B1 --> B2 --> B3 --> B4
+    B2 -->|"Δw"| UPDATE
+    B3 -->|"ΔW"| UPDATE
+
+    UPDATE -.->|"write w_i"| NODES
+    UPDATE -.->|"write W_ij"| EDGES
+
+    NODES -.- MAINT
+    EDGES -.- MAINT
+
+    %% ============== Styles ==============
+    classDef input fill:#fef3c7,stroke:#d97706,color:#78350f,stroke-width:2px
+    classDef state fill:#dcfce7,stroke:#15803d,color:#14532d,stroke-width:2px
+    classDef fwd fill:#dbeafe,stroke:#1d4ed8,color:#1e3a8a,stroke-width:2px
+    classDef active fill:#f3e8ff,stroke:#7e22ce,color:#581c87,stroke-width:2px
+    classDef sample fill:#ffedd5,stroke:#c2410c,color:#7c2d12,stroke-width:1px,stroke-dasharray: 4 3
+    classDef bwd fill:#fce7f3,stroke:#be185d,color:#831843,stroke-width:2px
+    classDef update fill:#fee2e2,stroke:#b91c1c,color:#7f1d1d,stroke-width:2px
+    classDef maint fill:#e5e7eb,stroke:#4b5563,color:#1f2937,stroke-width:2px
 ```
+
+> **How to read it.** Yellow boxes are inputs to the turn. Green boxes
+> are persistent state read by the forward pass and written by the
+> backward pass. Blue boxes are the forward-pass layers (one operation
+> each, with its output shape). Purple is the layer that selects the
+> active set. Pink boxes are the backward-pass layers. Red is the
+> resulting weight update. The dashed orange callout next to L4 shows
+> the same forward pass run with concrete sample numbers so you can
+> trace the math end-to-end. Gray is the periodic maintenance pass
+> (decay + prune).
 
 ### 3. Recall — `auto` mode picks between LLM and BM25
 
