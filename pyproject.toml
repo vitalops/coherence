@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "coherence"
 version = "0.1.0"
-description = "An experiential memory for language-model agents: a text-graph whose node and edge weights learn from each turn's outcome, fade when unused, and surface relevant facts on demand."
+description = "Embeddingless memory framework for LLM agents — LLM-selection recall over verbatim text, single-file JSON state, no embedding model, no vector database, no LLM call at ingest."
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
@@ -13,11 +13,11 @@ authors = [{ name = "abhijithneilabraham" }]
 keywords = [
     "memory",
     "agents",
-    "experiential-learning",
-    "lifelong-learning",
-    "spreading-activation",
-    "hebbian",
-    "delta-rule",
+    "llm",
+    "embeddingless",
+    "verbatim-recall",
+    "listwise-reranking",
+    "json",
 ]
 classifiers = [
     "Development Status :: 4 - Beta",

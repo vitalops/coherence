@@ -188,7 +188,13 @@ class AutoMemory:
         if nodes:
             turn_messages.append({
                 "role": "system",
-                "content": _format_memory_context(nodes, goals=self.memory.goals()),
+                "content": _format_memory_context(
+                    nodes,
+                    goals=self.memory.goals(),
+                    edges=self.memory.edges,
+                    experiences=self.memory.experiences,
+                    edge_floor=self.memory.edge_floor,
+                ),
             })
         turn_messages.append({"role": "user", "content": user_message})
 
@@ -432,20 +438,72 @@ class AutoMemory:
         return (final_text or ""), messages, cited_ids
 
 
-def _format_memory_context(nodes, *, goals: list | None = None) -> str:
-    lines = [
-        "Memory recalled for this turn. Quote the bracketed ids back to the",
-        "user when you reuse a memory so attribution stays clean.",
-        "",
-    ]
+def _format_memory_context(
+    nodes,
+    *,
+    goals: list | None = None,
+    edges: dict[tuple[str, str], float] | None = None,
+    experiences: list | None = None,
+    edge_floor: float = 0.01,
+) -> str:
+    from .recall_llm import has_learning_signal as _has_signal
+    show_salience = _has_signal(list(nodes) + list(goals or []))
+    if show_salience:
+        lines = [
+            "Memory recalled for this turn. Each line shows the memory id, learned",
+            "salience (w), past success/failure counts (ok/bad), and the text.",
+            "A 'links' sub-line lists strongest co-activation associations; a",
+            "'recent' sub-line shows the most recent outcome the memory was part of.",
+            "Use the salience and history as a tiebreaker, prefer memories with a",
+            "track record of helping. Quote the bracketed ids back when you reuse",
+            "a memory so attribution stays clean.",
+            "",
+        ]
+    else:
+        lines = [
+            "Memory recalled for this turn. Quote the bracketed ids back to the",
+            "user when you reuse a memory so attribution stays clean.",
+            "",
+        ]
     if goals:
         lines.append("Active goals:")
         for g in goals:
-            lines.append(f"- [{g.id[:8]}] {g.text}")
+            if show_salience:
+                lines.append(
+                    f"- [{g.id[:8]}] w={g.weight:+.3f} ok={g.reinforcement_count} bad={g.failure_count}  {g.text}"
+                )
+            else:
+                lines.append(f"- [{g.id[:8]}] {g.text}")
         lines.append("")
     lines.append("Relevant memories:")
+    edges = edges or {}
+    experiences = experiences or []
     for n in nodes:
-        lines.append(f"- [{n.id[:8]}] {n.text}")
+        if show_salience:
+            lines.append(
+                f"- [{n.id[:8]}] w={n.weight:+.3f} ok={n.reinforcement_count} bad={n.failure_count}  {n.text}"
+            )
+            if edges:
+                link_pairs: list[tuple[str, float]] = []
+                for (i, j), w in edges.items():
+                    if abs(w) < edge_floor:
+                        continue
+                    if i == n.id:
+                        link_pairs.append((j, w))
+                    elif j == n.id:
+                        link_pairs.append((i, w))
+                link_pairs.sort(key=lambda kv: -abs(kv[1]))
+                link_pairs = link_pairs[:3]
+                if link_pairs:
+                    joined = ", ".join(f"{other[:8]}({w:+.2f})" for other, w in link_pairs)
+                    lines.append(f"    links: {joined}")
+            if experiences:
+                for exp in reversed(experiences):
+                    if n.id in exp.active_ids:
+                        lines.append(f"    recent: episode {exp.episode} outcome={exp.outcome:+.2f}")
+                        break
+        else:
+            lines.append(f"- [{n.id[:8]}] {n.text}")
     return "\n".join(lines)
 
 

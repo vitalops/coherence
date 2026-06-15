@@ -19,18 +19,41 @@ def _edge_key(a: str, b: str) -> tuple[str, str]:
 
 
 class Memory:
+    """Embeddingless memory store: a graph of verbatim text chunks with
+    optional weighted updates.
+
+    Defaults match the configuration verified by the repo's benchmarks:
+    frozen weights (``eta=0``, ``eta_edge=0``), ``k_default=10`` and
+    ``gamma=0.3`` per the exp03 hyperparameter sweep on LongMemEval.
+    With these defaults, ``Memory()`` is the configuration that ties
+    BM25-only at the top of the chat-memory panel (exp09, $n=15$,
+    cross-judge agreement Cohen's $\\kappa\\geq 0.88$).
+
+    The trainable-graph machinery (delta-rule node updates, Hebbian
+    edge updates, decay, pruning) remains in the codebase and fires
+    only when the application passes ``eta>0`` (and optionally
+    ``eta_edge>0``). The learning rule is **experimental**: across
+    the experiments in ``benchmarks/`` (exp02, exp03, exp05/06/07,
+    exp11) the rule has not produced a statistically significant
+    accuracy lift over the frozen-weight control at the sample sizes
+    we ran. Enable it if you want to instrument it; do not rely on it
+    for accuracy without running your own measurement.
+    """
+
     def __init__(
         self,
         *,
-        eta: float = 0.15,
-        eta_edge: float = 0.05,
+        # Learning parameters — experimental, opt-in. See class docstring.
+        eta: float = 0.0,
+        eta_edge: float = 0.0,
         decay_node: float = 0.01,
         decay_edge: float = 0.02,
         prune_floor: float = 0.02,
         edge_floor: float = 0.01,
-        gamma: float = 0.5,
+        gamma: float = 0.3,
+        # Retrieval and storage defaults.
         initial_weight: float = 0.1,
-        k_default: int = 5,
+        k_default: int = 10,
         squash: str = "tanh",
         eligibility_kind: str = "proportional",
         eligibility_temperature: float = 0.5,
@@ -197,10 +220,41 @@ class Memory:
 
     # ---------------------------------------------------------------- forward
 
-    def recall(self, query: str, k: int | None = None) -> list[Node]:
+    def recall(
+        self,
+        query: str,
+        k: int | None = None,
+        *,
+        chat_fn: Callable[..., dict] | None = None,
+        model: str | None = None,
+        max_memory_chars: int = 16000,
+    ) -> list[Node]:
+        """Retrieve the top-``k`` memories relevant to ``query``.
+
+        Without ``chat_fn``, runs the embeddingless BM25 path
+        (lexical match + graph propagation by ``gamma`` + per-node
+        salience). When ``chat_fn`` is provided, runs LLM-selection
+        recall: the LLM reads a textual listing of every candidate
+        chunk and returns the chosen IDs. If the listing exceeds
+        ``max_memory_chars``, falls back to the BM25 path so the
+        call never silently fails.
+        """
         if not self.nodes:
             return []
         k = k if k is not None else self.k_default
+        if chat_fn is not None:
+            from .recall_llm import llm_recall
+            nodes = llm_recall(
+                query,
+                self,
+                chat_fn=chat_fn,
+                k=k,
+                model=model,
+                max_memory_chars=max_memory_chars,
+            )
+            if nodes:
+                return nodes
+            # Fallback to BM25 path on parse failure or oversized dump.
         _activations, active_ids = forward_pass(
             query,
             self.nodes,
@@ -236,6 +290,19 @@ class Memory:
         *,
         metadata: dict[str, Any] | None = None,
     ) -> Experience | None:
+        """Apply an outcome-driven delta-rule update to active nodes
+        and Hebbian edges between them.
+
+        **Experimental.** When the Memory is constructed with default
+        parameters (``eta=0``, ``eta_edge=0``) this call is a no-op on
+        the weights and only appends an entry to the experience log.
+        Pass ``eta>0`` (and optionally ``eta_edge>0``) at construction
+        time to enable the trainable updates. Across the experiments
+        in ``benchmarks/`` we did not establish a statistically
+        significant accuracy benefit from the trainable updates at
+        the sample sizes we ran; enable and measure on your own
+        workload before relying on it.
+        """
         active_ids = []
         for item in active:
             nid = item if isinstance(item, str) else item.id

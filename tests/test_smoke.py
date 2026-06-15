@@ -225,7 +225,11 @@ def test_openai_tool_specs_are_well_formed():
 def test_dispatch_round_trip():
     from coherence.integrations import dispatch
 
-    mem = Memory()
+    # Explicit eta>0 — Memory's defaults freeze the weights since the
+    # learning rule's accuracy benefit is not established (see Memory's
+    # class docstring). This test verifies the trainable machinery
+    # still works when explicitly enabled.
+    mem = Memory(eta=0.15, eta_edge=0.05)
     r = dispatch(mem, "memory_ingest", {"text": "first fact"})
     assert r["status"] == "ingested"
     nid = r["id"]
@@ -363,6 +367,7 @@ def test_automemory_self_assess_demotes_when_judge_negative():
         outcome_strategy="self_assess",
         judge_batch_size=1,
         intrinsic_retrieval_bump=0.0,
+        memory=Memory(eta=0.15, eta_edge=0.05),  # opt in: tests rule fires
     )
     nid = mem.remember("relevant fact")
     mem.complete("tell me the relevant fact")
@@ -379,6 +384,7 @@ def test_automemory_self_assess_reinforces_when_judge_positive():
         outcome_strategy="self_assess",
         judge_batch_size=1,
         intrinsic_retrieval_bump=0.0,
+        memory=Memory(eta=0.15, eta_edge=0.05),  # opt in: tests rule fires
     )
     nid = mem.remember("relevant fact")
     mem.complete("tell me the relevant fact")
@@ -521,6 +527,7 @@ def test_follow_up_strategy_demotes_on_explicit_correction():
         chat_fn=_fake_chat_factory(["a", "b"]),
         outcome_strategy="follow_up",
         intrinsic_retrieval_bump=0.0,
+        memory=Memory(eta=0.15, eta_edge=0.05),  # opt in: tests rule fires
     )
     nid = mem.remember("a fact")
     mem.complete("tell me the fact")
@@ -551,6 +558,7 @@ def test_complete_goal_retroactively_reinforces_supporting_memories():
         chat_fn=_fake_chat_factory(["ok"]),
         outcome_strategy="manual",
         intrinsic_retrieval_bump=0.0,
+        memory=Memory(eta=0.15, eta_edge=0.05),  # opt in: tests rule fires
     )
     g = mem.remember("publish paper on cold photosynthesis", metadata={"kind": "goal"})
     a = mem.remember("finding about thylakoid lipids")
@@ -590,6 +598,7 @@ def test_automemory_report_applies_explicit_outcome():
     mem = AutoMemory(
         chat_fn=_fake_chat_factory(["x"]),
         outcome_strategy="manual",
+        memory=Memory(eta=0.15, eta_edge=0.05),  # opt in: tests rule fires
     )
     nid = mem.remember("relevant fact")
     mem.complete("query about fact")
@@ -617,6 +626,7 @@ def test_automemory_custom_outcome_callable():
     mem = AutoMemory(
         chat_fn=_fake_chat_factory(["a", "b"]),
         outcome_strategy=picky,
+        memory=Memory(eta=0.15, eta_edge=0.05),  # opt in: tests rule fires
     )
     nid = mem.remember("topic fact")
     mem.complete("first")
@@ -913,3 +923,51 @@ def test_invalid_recall_mode_raises():
 
     with pytest.raises(ValueError):
         AutoMemory(chat_fn=_fake_chat_factory(), recall_mode="semantic")
+
+
+# --- public-API contract: defaults --------------------------------------------
+
+
+def test_memory_defaults_are_frozen_weights():
+    """`Memory()` with no args produces the framework's verified default
+    configuration: frozen weights (eta=0, eta_edge=0), k_default=10,
+    gamma=0.3. See Memory's class docstring."""
+    mem = Memory()
+    assert mem.eta == 0.0
+    assert mem.eta_edge == 0.0
+    assert mem.k_default == 10
+    assert mem.gamma == 0.3
+
+
+def test_recall_uses_llm_selection_when_chat_fn_given():
+    """`recall(query, chat_fn=...)` should call the LLM-selection path
+    rather than the BM25 path. We fake the chat_fn to return one of the
+    node IDs and check it appears in the result."""
+    mem = Memory()
+    a = mem.ingest("alpha bravo charlie")
+    b = mem.ingest("delta echo foxtrot")
+
+    captured: list[list[dict]] = []
+
+    def fake_chat(messages, **kw):
+        captured.append(list(messages))
+        return {"choices": [{"message": {"content": f'["{b}"]'}}]}
+
+    nodes = mem.recall("query about delta", chat_fn=fake_chat, k=1)
+    # The LLM-selection path was invoked (one chat call).
+    assert len(captured) == 1
+    # And it returned the node we faked.
+    assert len(nodes) == 1 and nodes[0].id == b
+
+
+def test_reinforce_at_frozen_default_is_weight_noop_but_logs_experience():
+    """At the frozen default, reinforce() does not move weights but
+    still appends to the experience log so applications can inspect
+    what the framework would have done."""
+    mem = Memory()
+    nid = mem.ingest("a fact")
+    w_before = mem.nodes[nid].weight
+    exp = mem.reinforce("a fact", [nid], outcome=+1.0)
+    assert exp is not None
+    assert mem.nodes[nid].weight == w_before
+    assert len(mem.experiences) == 1
